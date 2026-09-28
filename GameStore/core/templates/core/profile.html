@@ -1,0 +1,123 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{ profile_user.username }} - Profile
+{% endblock %}
+
+{% block content %}
+
+<main class="profile-page">
+
+    <section class="profile-header">
+
+        <div class="profile-name">
+            <h1>{{ profile_user.username }}</h1>
+            <p>GameStore Player</p>
+        </div>
+
+        <div class="profile-stats">
+
+            <div class="profile-stat">
+                <strong>{{ library_entries|length }}</strong>
+                <span>Games</span>
+            </div>
+
+            <div class="profile-stat">
+                <strong>{{ reviews|length }}</strong>
+                <span>Reviews</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="profile-library">
+
+        <h2>Game Library</h2>
+
+        {% if library_entries %}
+
+            <div class="game-grid">
+
+                {% for entry in library_entries %}
+
+                    <div class="game-card">
+
+                        {% if entry.game.cover %}
+                            <img
+                                src="{{ entry.game.cover.url }}"
+                                alt="{{ entry.game.title }}"
+                            >
+                        {% endif %}
+
+                        <div class="game-card-content">
+
+                            <h2>{{ entry.game.title }}</h2>
+
+                            <a href="{% url 'game_detail' entry.game.id %}">
+                                View Game
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>This user has no games in their library.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="profile-reviews">
+
+        <h2>Reviews</h2>
+
+        {% if reviews %}
+
+            {% for review in reviews %}
+
+                <div class="review-card">
+
+                    <div class="review-header">
+
+                        <strong>
+                            {{ review.game.title }}
+                        </strong>
+
+                        <span>
+                            {{ review.rating }}/5 ⭐
+                        </span>
+
+                    </div>
+
+                    <p>
+                        {{ review.comment }}
+                    </p>
+
+                    <small>
+                        {{ review.created_at }}
+                    </small>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>This user has not written any reviews yet.</p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}
