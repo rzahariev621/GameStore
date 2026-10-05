@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Edit {{ tutorial.title }} - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>
+            Edit Tutorial
+        </h1>
+
+        <p>
+            {{ tutorial.title }}
+        </p>
+
+        <p>
+            Publisher:
+            {{ tutorial.publisher.username }}
+        </p>
+
+        <a href="{% url 'manage_tutorials' %}">
+            Back to Manage Tutorials
+        </a>
+
+    </section>
+
+
+    <section class="admin-form">
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">
+                Save Changes
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock %}

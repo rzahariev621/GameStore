@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Manage Games - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>Manage Games</h1>
+
+        <p>
+            Add, edit and remove games from GameStore.
+        </p>
+
+        <a href="{% url 'admin_dashboard' %}">
+            Back to Admin Dashboard
+        </a>
+
+        <a href="{% url 'add_game' %}">
+            Add Game
+        </a>
+
+    </section>
+
+
+    <section class="admin-games">
+
+        {% if games %}
+
+            {% for game in games %}
+
+                <div class="admin-game-card">
+
+                    {% if game.cover %}
+
+                        <img
+                            src="{{ game.cover.url }}"
+                            alt="{{ game.title }}"
+                            width="150"
+                        >
+
+                    {% endif %}
+
+                    <div>
+
+                        <h3>
+                            {{ game.title }}
+                        </h3>
+
+                        <p>
+                            Release date:
+                            {{ game.release_date }}
+                        </p>
+
+                        <a href="{% url 'game_detail' game.id %}">
+                            View Game
+                        </a>
+
+                        <a href="{% url 'edit_game' game.id %}">
+                            Edit Game
+                        </a>
+
+                        <a href="{% url 'delete_game' game.id %}">
+                            Delete Game
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No games are available.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

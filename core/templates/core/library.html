@@ -1,0 +1,107 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+My Library - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="library-page">
+
+    <div class="library-header">
+        <h1>My Library</h1>
+        <p>Your purchased video tutorials.</p>
+    </div>
+
+    {% if purchases %}
+
+        <div class="tutorial-library-grid">
+
+            {% for purchase in purchases %}
+
+                <div class="tutorial-library-card">
+
+                    {% if purchase.tutorial.game.cover %}
+                        <img
+                            class="tutorial-game-cover"
+                            src="{{ purchase.tutorial.game.cover.url }}"
+                            alt="{{ purchase.tutorial.game.title }}"
+                        >
+                    {% endif %}
+
+                    <div class="tutorial-library-content">
+
+                        <span class="tutorial-game-name">
+                            {{ purchase.tutorial.game.title }}
+                        </span>
+
+                        <h2>
+                            {{ purchase.tutorial.title }}
+                        </h2>
+
+                        <p>
+                            {{ purchase.tutorial.description }}
+                        </p>
+
+                        <div class="tutorial-library-info">
+
+                            <span>
+                                Publisher:
+                                <a href="{% url 'profile' purchase.tutorial.publisher.username %}">
+                                    {{ purchase.tutorial.publisher.username }}
+                                </a>
+                            </span>
+
+                            <span>
+                                Purchased for:
+                                {{ purchase.price_paid }} €
+                            </span>
+
+                        </div>
+
+                        {% if purchase.tutorial.video %}
+
+                            <video
+                                class="tutorial-video"
+                                controls
+                                preload="metadata"
+                            >
+                                <source src="{{ purchase.tutorial.video.url }}">
+                                Your browser does not support video playback.
+                            </video>
+
+                        {% endif %}
+
+                        <a
+                            class="tutorial-game-link"
+                            href="{% url 'game_detail' purchase.tutorial.game.id %}"
+                        >
+                            View Game
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-library">
+            <h2>Your library is empty</h2>
+            <p>
+                Tutorials that you purchase will appear here.
+            </p>
+
+            <a href="{% url 'store' %}">
+                Browse Games
+            </a>
+        </div>
+
+    {% endif %}
+
+</main>
+
+{% endblock %}

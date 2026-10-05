@@ -1,0 +1,122 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Publisher Dashboard - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="publisher-page">
+
+    <section class="publisher-header">
+
+        <div>
+            <h1>Publisher Dashboard</h1>
+            <p>
+                Manage your video tutorials and track their approval status.
+            </p>
+        </div>
+
+        <a
+            href="{% url 'upload_tutorial' %}"
+            class="publisher-upload-button"
+        >
+            Upload Tutorial
+        </a>
+
+    </section>
+
+
+    <section class="publisher-tutorials">
+
+        <div class="publisher-section-header">
+
+            <h2>My Tutorials</h2>
+
+            <span>
+                {{ tutorials|length }} tutorials
+            </span>
+
+        </div>
+
+
+        {% if tutorials %}
+
+            <div class="publisher-tutorial-list">
+
+                {% for tutorial in tutorials %}
+
+                    <div class="publisher-tutorial-card">
+
+                        <div class="publisher-tutorial-info">
+
+                            <span class="publisher-game-name">
+                                {{ tutorial.game.title }}
+                            </span>
+
+                            <h3>
+                                {{ tutorial.title }}
+                            </h3>
+
+                            <p>
+                                {{ tutorial.description }}
+                            </p>
+
+                            <div class="publisher-tutorial-meta">
+
+                                {% if tutorial.price == 0 %}
+
+                                    <span>
+                                        Free
+                                    </span>
+
+                                {% else %}
+
+                                    <span>
+                                        {{ tutorial.price }} €
+                                    </span>
+
+                                {% endif %}
+
+                                <span>
+                                    Uploaded: {{ tutorial.created_at }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="publisher-tutorial-status">
+
+                            <span class="tutorial-status status-{{ tutorial.status }}">
+                                {{ tutorial.get_status_display }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="publisher-empty">
+
+                <h3>No tutorials uploaded yet</h3>
+
+                <p>
+                    Your uploaded tutorials will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

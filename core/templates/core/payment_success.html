@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Payment Successful - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <h1>Payment Successful</h1>
+
+    <p>
+        Your tutorial purchase has been completed successfully.
+    </p>
+
+    <a href="{% url 'library' %}">
+        Go to Library
+    </a>
+
+</main>
+
+{% endblock %}

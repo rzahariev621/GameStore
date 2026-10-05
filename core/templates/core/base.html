@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}GameStore{% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'core/style.css' %}"
+    >
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            GAMESTORE
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'store' %}">
+                Store
+            </a>
+
+            <a href="{% url 'library' %}">
+                Library
+            </a>
+
+            <a href="{% url 'community' %}">
+                Community
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'wishlist' %}">
+                    Wishlist
+                </a>
+
+
+                {% for group in user.groups.all %}
+
+                    {% if group.name == 'Publisher' %}
+                        <a href="{% url 'publisher_dashboard' %}">
+                            Publisher Dashboard
+                        </a>
+                    {% endif %}
+
+                    {% if group.name == 'Moderator' %}
+                        <a href="{% url 'moderator_dashboard' %}">
+                            Moderator Dashboard
+                        </a>
+                    {% endif %}
+
+                    {% if group.name == 'Admin' %}
+                        <a href="{% url 'admin_dashboard' %}">
+                            Admin Dashboard
+                        </a>
+                    {% endif %}
+
+                {% endfor %}
+
+
+                {% if user.is_superuser %}
+                    <a href="{% url 'admin_dashboard' %}">
+                        Admin Dashboard
+                    </a>
+                {% endif %}
+
+
+                <a href="{% url 'profile' user.username %}">
+                    Hello, {{ user.username }}
+                </a>
+
+                <a href="{% url 'logout' %}">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+                <a href="{% url 'register' %}">
+                    Register
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>

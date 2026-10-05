@@ -1,0 +1,103 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Add Game - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>Add Game</h1>
+
+        <a href="{% url 'manage_games' %}">
+            Back to Manage Games
+        </a>
+
+    </section>
+
+
+    <section class="admin-form">
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+
+            <h2>Game Information</h2>
+
+            {{ game_form.as_p }}
+
+
+            <h2>Minimum System Requirements</h2>
+
+            <p>
+                {{ requirements_form.minimum_cpu.label_tag }}
+                {{ requirements_form.minimum_cpu }}
+            </p>
+
+            <p>
+                {{ requirements_form.minimum_gpu.label_tag }}
+                {{ requirements_form.minimum_gpu }}
+            </p>
+
+            <p>
+                {{ requirements_form.minimum_ram_gb.label_tag }}
+                {{ requirements_form.minimum_ram_gb }}
+            </p>
+
+            <p>
+                {{ requirements_form.minimum_storage.label_tag }}
+                {{ requirements_form.minimum_storage }}
+            </p>
+
+            <p>
+                {{ requirements_form.minimum_network.label_tag }}
+                {{ requirements_form.minimum_network }}
+            </p>
+
+
+            <h2>Recommended System Requirements</h2>
+
+            <p>
+                {{ requirements_form.recommended_cpu.label_tag }}
+                {{ requirements_form.recommended_cpu }}
+            </p>
+
+            <p>
+                {{ requirements_form.recommended_gpu.label_tag }}
+                {{ requirements_form.recommended_gpu }}
+            </p>
+
+            <p>
+                {{ requirements_form.recommended_ram_gb.label_tag }}
+                {{ requirements_form.recommended_ram_gb }}
+            </p>
+
+            <p>
+                {{ requirements_form.recommended_storage.label_tag }}
+                {{ requirements_form.recommended_storage }}
+            </p>
+
+            <p>
+                {{ requirements_form.recommended_network.label_tag }}
+                {{ requirements_form.recommended_network }}
+            </p>
+
+
+            <button type="submit">
+                Add Game
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Moderator Dashboard - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="moderator-page">
+
+    <section class="moderator-header">
+
+        <h1>Moderator Dashboard</h1>
+
+        <p>
+            Review pending tutorials before they become public.
+        </p>
+
+    </section>
+
+
+    <section class="moderator-section">
+
+        <h2>Pending Reviews</h2>
+
+        {% if pending_reviews %}
+
+            <div class="moderator-review-list">
+
+                {% for review in pending_reviews %}
+
+                    <div class="moderator-review-card">
+
+                        <div class="moderator-review-info">
+
+                            <h3>
+                                {{ review.game.title }}
+                            </h3>
+
+                            <p>
+                                User:
+                                <a href="{% url 'profile' review.user.username %}">
+                                    {{ review.user.username }}
+                                </a>
+                            </p>
+
+                            <p>
+                                Rating:
+                                {{ review.rating }}/5 ⭐
+                            </p>
+
+                            <p>
+                                {{ review.comment }}
+                            </p>
+
+                            <small>
+                                Submitted: {{ review.created_at }}
+                            </small>
+
+                        </div>
+
+
+                        <div class="moderator-actions">
+
+                            <form
+                                method="POST"
+                                action="{% url 'approve_review' review.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Approve
+                                </button>
+
+                            </form>
+
+
+                            <form
+                                method="POST"
+                                action="{% url 'reject_review' review.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Reject
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                There are no reviews waiting for approval.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

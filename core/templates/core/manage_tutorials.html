@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Manage Tutorials - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>Manage Tutorials</h1>
+
+        <p>
+            Manage all video tutorials in GameStore.
+        </p>
+
+        <a href="{% url 'admin_dashboard' %}">
+            Back to Admin Dashboard
+        </a>
+
+    </section>
+
+
+    <section class="admin-tutorials">
+
+        {% if tutorials %}
+
+            {% for tutorial in tutorials %}
+
+                <div class="admin-tutorial-card">
+
+                    <h3>
+                        {{ tutorial.title }}
+                    </h3>
+
+                    <p>
+                        Game:
+                        {{ tutorial.game.title }}
+                    </p>
+
+                    <p>
+                        Publisher:
+                        {{ tutorial.publisher.username }}
+                    </p>
+
+                    <p>
+                        Status:
+                        {{ tutorial.get_status_display }}
+                    </p>
+
+                    <p>
+                        Price:
+
+                        {% if tutorial.price == 0 %}
+                            Free
+                        {% else %}
+                            {{ tutorial.price }} €
+                        {% endif %}
+                    </p>
+
+                    {% if tutorial.status == 'approved' %}
+
+                        <a href="{% url 'tutorial_detail' tutorial.id %}">
+                            View Tutorial
+                        </a>
+
+                    {% endif %}
+
+                    <a href="{% url 'edit_tutorial' tutorial.id %}">
+                        Edit Tutorial
+                    </a>
+
+                    <a href="{% url 'delete_tutorial' tutorial.id %}">
+                        Delete Tutorial
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No tutorials are available.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

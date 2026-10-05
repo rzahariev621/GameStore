@@ -1,0 +1,222 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{ profile_user.username }} - Profile
+{% endblock %}
+
+{% block content %}
+
+<main class="profile-page">
+
+    <section class="profile-header">
+
+        <div class="profile-name">
+
+            <h1>{{ profile_user.username }}</h1>
+
+            <p>{{ role }}</p>
+
+            {% if user.is_authenticated and user != profile_user %}
+
+                {% if is_friend %}
+
+                    <p class="friend-status">
+                        ✓ Friends
+                    </p>
+
+                {% elif request_sent %}
+
+                    <p class="friend-status">
+                        Request Sent
+                    </p>
+
+                {% elif incoming_request %}
+
+                    <form
+                        method="POST"
+                        action="{% url 'accept_friend_request' profile_user.username %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="add-friend-button"
+                        >
+                            Accept Friend Request
+                        </button>
+
+                    </form>
+
+                {% else %}
+
+                    <form
+                        method="POST"
+                        action="{% url 'send_friend_request' profile_user.username %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="add-friend-button"
+                        >
+                            Add Friend
+                        </button>
+
+                    </form>
+
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="profile-stats">
+
+            <div class="profile-stat">
+                <strong>{{ published_tutorials|length }}</strong>
+                <span>Tutorials</span>
+            </div>
+
+            <div class="profile-stat">
+                <strong>{{ reviews|length }}</strong>
+                <span>Reviews</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="profile-tutorials">
+
+        <h2>Published Tutorials</h2>
+
+        {% if published_tutorials %}
+
+            <div class="tutorials-grid">
+
+                {% for tutorial in published_tutorials %}
+
+                    <div class="tutorial-card">
+
+                        {% if tutorial.game.cover %}
+
+                            <img
+                                src="{{ tutorial.game.cover.url }}"
+                                alt="{{ tutorial.game.title }}"
+                            >
+
+                        {% endif %}
+
+                        <div class="tutorial-card-content">
+
+                            <span class="tutorial-game-name">
+                                {{ tutorial.game.title }}
+                            </span>
+
+                            <h3>
+                                {{ tutorial.title }}
+                            </h3>
+
+                            <p>
+                                {{ tutorial.description }}
+                            </p>
+
+                            {% if tutorial.price == 0 %}
+
+                                <span class="tutorial-price">
+                                    Free
+                                </span>
+
+                            {% else %}
+
+                                <span class="tutorial-price">
+                                    {{ tutorial.price }} €
+                                </span>
+
+                            {% endif %}
+
+
+                            <div class="tutorial-actions">
+
+                                <a href="{% url 'game_detail' tutorial.game.id %}">
+                                    View Game
+                                </a>
+
+                                <a href="{% url 'tutorial_detail' tutorial.id %}">
+                                    View Tutorial
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                This user has no published tutorials yet.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="profile-reviews">
+
+        <h2>Reviews</h2>
+
+        {% if reviews %}
+
+            {% for review in reviews %}
+
+                <div class="review-card">
+
+                    <div class="review-header">
+
+                        <a href="{% url 'game_detail' review.game.id %}">
+                            <strong>
+                                {{ review.game.title }}
+                            </strong>
+                        </a>
+
+                        <span>
+                            {{ review.rating }}/5 ⭐
+                        </span>
+
+                    </div>
+
+                    <p>
+                        {{ review.comment }}
+                    </p>
+
+                    <small>
+                        {{ review.created_at }}
+                    </small>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                This user has not written any reviews yet.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

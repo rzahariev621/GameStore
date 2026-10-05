@@ -1,0 +1,183 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Manage Users - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>Manage Users</h1>
+
+        <p>
+            Manage user roles and account status in GameStore.
+        </p>
+
+        <a href="{% url 'admin_dashboard' %}">
+            Back to Admin Dashboard
+        </a>
+
+    </section>
+
+
+    <section class="admin-users">
+
+        {% for account in users %}
+
+            <div class="admin-user-card">
+
+                <div>
+
+                    <h3>
+                        {{ account.username }}
+                    </h3>
+
+                    <p>
+                        {{ account.email }}
+                    </p>
+
+
+                    <p>
+                        Status:
+
+                        {% if account.is_active %}
+
+                            <strong>
+                                Active
+                            </strong>
+
+                        {% else %}
+
+                            <strong>
+                                Inactive
+                            </strong>
+
+                        {% endif %}
+                    </p>
+
+
+                    {% if account.is_superuser %}
+
+                        <strong>
+                            Superuser
+                        </strong>
+
+                    {% else %}
+
+                        <p>
+                            Role:
+                            {{ account.current_role }}
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+
+                {% if not account.is_superuser %}
+
+                    {% if account != user %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'update_user_role' account.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <label>
+                                Role
+                            </label>
+
+                            <select name="role">
+
+                                <option
+                                    value="User"
+                                    {% if account.current_role == 'User' %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    User
+                                </option>
+
+                                <option
+                                    value="Publisher"
+                                    {% if account.current_role == 'Publisher' %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Publisher
+                                </option>
+
+                                <option
+                                    value="Moderator"
+                                    {% if account.current_role == 'Moderator' %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Moderator
+                                </option>
+
+                                <option
+                                    value="Admin"
+                                    {% if account.current_role == 'Admin' %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Admin
+                                </option>
+
+                            </select>
+
+                            <button type="submit">
+                                Update Role
+                            </button>
+
+                        </form>
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'toggle_user_active' account.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            {% if account.is_active %}
+
+                                <button type="submit">
+                                    Deactivate User
+                                </button>
+
+                            {% else %}
+
+                                <button type="submit">
+                                    Activate User
+                                </button>
+
+                            {% endif %}
+
+                        </form>
+
+                    {% else %}
+
+                        <p>
+                            Current administrator
+                        </p>
+
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+</main>
+
+{% endblock %}

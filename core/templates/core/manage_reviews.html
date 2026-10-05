@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Manage Reviews - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>Manage Reviews</h1>
+
+        <p>
+            Manage all user reviews in GameStore.
+        </p>
+
+        <a href="{% url 'admin_dashboard' %}">
+            Back to Admin Dashboard
+        </a>
+
+    </section>
+
+
+    <section class="admin-reviews">
+
+        {% if reviews %}
+
+            {% for review in reviews %}
+
+                <div class="admin-review-card">
+
+                    <h3>
+                        {{ review.game.title }}
+                    </h3>
+
+                    <p>
+                        User:
+                        {{ review.user.username }}
+                    </p>
+
+                    <p>
+                        Rating:
+                        {{ review.rating }}/5
+                    </p>
+
+                    <p>
+                        {{ review.comment }}
+                    </p>
+
+                    <p>
+                        Status:
+                        {{ review.get_status_display }}
+                    </p>
+
+                    <p>
+                        Created:
+                        {{ review.created_at }}
+                    </p>
+
+
+                    <form
+                        method="POST"
+                        action="{% url 'update_review_status' review.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <label>
+                            Status
+                        </label>
+
+                        <select name="status">
+
+                            <option
+                                value="pending"
+                                {% if review.status == 'pending' %}
+                                    selected
+                                {% endif %}
+                            >
+                                Pending
+                            </option>
+
+                            <option
+                                value="approved"
+                                {% if review.status == 'approved' %}
+                                    selected
+                                {% endif %}
+                            >
+                                Approved
+                            </option>
+
+                            <option
+                                value="rejected"
+                                {% if review.status == 'rejected' %}
+                                    selected
+                                {% endif %}
+                            >
+                                Rejected
+                            </option>
+
+                        </select>
+
+                        <button type="submit">
+                            Update Status
+                        </button>
+
+                    </form>
+
+                    <a href="{% url 'delete_review' review.id %}">
+                        Delete Review
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No reviews are available.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Delete {{ game.title }} - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>
+            Delete Game
+        </h1>
+
+    </section>
+
+
+    <section class="admin-form">
+
+        <h2>
+            Are you sure you want to delete "{{ game.title }}"?
+        </h2>
+
+        <p>
+            This action cannot be undone.
+        </p>
+
+        <p>
+            Related tutorials, reviews and system requirements
+            may also be deleted.
+        </p>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <button type="submit">
+                Yes, Delete Game
+            </button>
+
+        </form>
+
+
+        <a href="{% url 'manage_games' %}">
+            Cancel
+        </a>
+
+    </section>
+
+</main>
+
+{% endblock %}

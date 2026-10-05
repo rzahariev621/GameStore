@@ -1,0 +1,759 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #111827;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+
+.navbar {
+    height: 70px;
+    background-color: #1f2937;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 50px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #9ca3af;
+    margin-bottom: 30px;
+}
+
+.hero button {
+    padding: 14px 28px;
+    font-size: 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+/* STORE */
+
+.store-page {
+    padding: 50px;
+}
+
+.store-page h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.game-card {
+    background-color: #1f2937;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+}
+
+.game-card img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    display: block;
+}
+
+.game-card-content {
+    padding: 20px;
+}
+
+.game-card-content h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.game-card-content p {
+    color: #9ca3af;
+    line-height: 1.5;
+    height: 70px;
+    overflow: hidden;
+}
+
+.game-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.game-card-bottom span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.game-card-bottom button {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.game-card-bottom a {
+    display: inline-block;
+
+    padding: 9px 14px;
+
+    background-color: white;
+    color: #111827;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.game-card-bottom a:hover {
+    background-color: #d1d5db;
+}
+
+/* GAME DETAILS */
+
+.game-detail {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 50px;
+
+    max-width: 1200px;
+    margin: 70px auto;
+    padding: 0 30px;
+}
+
+.game-detail-cover img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+}
+
+.game-detail-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.game-detail-info h1 {
+    font-size: 42px;
+    margin-bottom: 25px;
+}
+
+.game-detail-info p {
+    color: #9ca3af;
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.game-detail-price {
+    color: white !important;
+    font-size: 28px !important;
+    font-weight: bold;
+}
+
+.game-detail-info button {
+    width: 180px;
+    padding: 13px 20px;
+
+    margin-top: 10px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* LOGIN */
+
+.login-page {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 400px;
+
+    background-color: #1f2937;
+
+    padding: 40px;
+
+    border-radius: 12px;
+}
+
+.login-box h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box label {
+    margin-bottom: 8px;
+    color: #d1d5db;
+}
+
+.login-box input {
+    padding: 12px;
+
+    margin-bottom: 20px;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+.login-box button {
+    padding: 12px;
+
+    margin-top: 10px;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #d1d5db;
+}
+
+.login-error {
+    color: #f87171 !important;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* REVIEWS */
+
+.reviews-section {
+    max-width: 1200px;
+    margin: 40px auto 80px auto;
+    padding: 0 30px;
+}
+
+.reviews-section h2 {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.review-form {
+    background-color: #1f2937;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 35px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.review-form label {
+    color: #d1d5db;
+    font-weight: bold;
+}
+
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.review-form textarea {
+    resize: vertical;
+}
+
+.review-form button {
+    width: 170px;
+    padding: 11px 16px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.review-form button:hover {
+    background-color: #d1d5db;
+}
+
+.review-card {
+    background-color: #1f2937;
+
+    padding: 20px 25px;
+    margin-bottom: 18px;
+
+    border-radius: 12px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.review-header strong {
+    font-size: 17px;
+}
+
+.review-header span {
+    font-weight: bold;
+}
+
+.review-card p {
+    color: #d1d5db;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.review-card small {
+    color: #9ca3af;
+}
+
+/* WISHLIST */
+
+.wishlist-card-bottom {
+    margin-top: 20px;
+}
+
+.wishlist-price {
+    display: block;
+    margin-bottom: 12px;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.wishlist-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.wishlist-actions form {
+    flex: 1;
+    margin: 0;
+}
+
+.wishlist-view-button,
+.remove-wishlist-button {
+    width: 100%;
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.wishlist-view-button {
+    flex: 1;
+
+    background-color: white;
+    color: #111827;
+
+    text-decoration: none;
+}
+
+.wishlist-view-button:hover {
+    background-color: #d1d5db;
+}
+
+.remove-wishlist-button {
+    background-color: #dc2626;
+    color: white;
+}
+
+.remove-wishlist-button:hover {
+    background-color: #b91c1c;
+}
+
+/* PROFILE */
+
+.profile-page {
+    max-width: 1200px;
+    margin: 50px auto 80px auto;
+    padding: 0 30px;
+}
+
+
+/* PROFILE HEADER */
+
+.profile-header {
+    background-color: #1f2937;
+
+    padding: 30px 35px;
+    margin-bottom: 50px;
+
+    border-radius: 14px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-name h1 {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.profile-name p {
+    color: #9ca3af;
+    font-size: 15px;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 15px;
+}
+
+.profile-stat {
+    min-width: 100px;
+
+    background-color: #111827;
+
+    padding: 15px 20px;
+
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.profile-stat strong {
+    display: block;
+
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.profile-stat span {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+
+/* PROFILE LIBRARY */
+
+.profile-library {
+    margin-bottom: 60px;
+}
+
+.profile-library > h2 {
+    font-size: 26px;
+
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #374151;
+}
+
+.profile-library .game-card-content a {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 9px 14px;
+
+    background-color: white;
+    color: #111827;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.profile-library .game-card-content a:hover {
+    background-color: #d1d5db;
+}
+
+
+/* PROFILE REVIEWS */
+
+.profile-reviews {
+    margin-top: 20px;
+}
+
+.profile-reviews > h2 {
+    font-size: 26px;
+
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #374151;
+}
+
+.profile-reviews .review-card {
+    border-left: 4px solid #6b7280;
+}
+
+/* COMMUNITY */
+
+.community-page {
+    max-width: 1200px;
+    margin: 50px auto 80px auto;
+    padding: 0 30px;
+}
+
+
+/* COMMUNITY HEADER */
+
+.community-header {
+    margin-bottom: 50px;
+}
+
+.community-header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.community-header p {
+    color: #9ca3af;
+    font-size: 17px;
+}
+
+
+/* COMMUNITY SECTIONS */
+
+.community-section {
+    margin-bottom: 60px;
+}
+
+.community-section > h2 {
+    font-size: 26px;
+
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #374151;
+}
+
+
+/* PLAYERS */
+
+.community-users {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(280px, 1fr));
+
+    gap: 18px;
+}
+
+.community-user-card {
+    background-color: #1f2937;
+
+    padding: 22px;
+
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.community-user-card h3 {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.community-user-card p {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.community-user-card a {
+    padding: 9px 13px;
+
+    background-color: white;
+    color: #111827;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.community-user-card a:hover {
+    background-color: #d1d5db;
+}
+
+
+/* COMMUNITY REVIEWS */
+
+.community-reviews {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.community-review-card {
+    background-color: #1f2937;
+
+    padding: 22px 25px;
+
+    border-radius: 12px;
+}
+
+.community-review-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 15px;
+}
+
+.community-review-top a {
+    color: white;
+
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.community-review-top a:hover {
+    text-decoration: underline;
+}
+
+.community-review-top span {
+    color: #9ca3af;
+
+    margin: 0 5px;
+}
+
+.community-review-card p {
+    color: #d1d5db;
+
+    line-height: 1.6;
+
+    margin-bottom: 12px;
+}
+
+.community-review-card small {
+    color: #9ca3af;
+}
+
+.add-friend-button {
+    margin-top: 15px;
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: white;
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.add-friend-button:hover {
+    background-color: #d1d5db;
+}
+
+.friend-status {
+    display: inline-block;
+
+    margin-top: 15px;
+    padding: 10px 16px;
+
+    background-color: #111827;
+    color: #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: bold;
+}

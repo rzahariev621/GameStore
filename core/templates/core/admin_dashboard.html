@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Admin Dashboard - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="admin-page">
+
+    <section class="admin-header">
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Manage users and application content.
+        </p>
+
+    </section>
+
+
+    <section class="admin-stats">
+
+        <div class="admin-stat-card">
+
+            <h2>
+                {{ users_count }}
+            </h2>
+
+            <p>
+                Users
+            </p>
+
+            <a href="{% url 'manage_users' %}">
+                Manage Users
+            </a>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+            <h2>
+                {{ games_count }}
+            </h2>
+
+            <p>
+                Games
+            </p>
+
+            <a href="{% url 'manage_games' %}">
+                Manage Games
+            </a>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+            <h2>
+                {{ tutorials_count }}
+            </h2>
+
+            <p>
+                Tutorials
+            </p>
+
+            <a href="{% url 'manage_tutorials' %}">
+                Manage Tutorials
+            </a>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+            <h2>
+                {{ reviews_count }}
+            </h2>
+
+            <p>
+                Reviews
+            </p>
+
+            <a href="{% url 'manage_reviews' %}">
+                Manage Reviews
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}

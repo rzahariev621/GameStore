@@ -1,0 +1,314 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{ game.title }} - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="game-detail">
+
+    <div class="game-detail-cover">
+
+        {% if game.cover %}
+            <img src="{{ game.cover.url }}" alt="{{ game.title }}">
+        {% endif %}
+
+    </div>
+
+
+    <div class="game-detail-info">
+
+        <h1>{{ game.title }}</h1>
+
+        <p>{{ game.description }}</p>
+
+        <p>
+            Release date: {{ game.release_date }}
+        </p>
+
+        {% if user.is_authenticated %}
+
+            <form method="POST" action="{% url 'add_to_wishlist' game.id %}">
+                {% csrf_token %}
+
+                <button type="submit">
+                    Add to Wishlist
+                </button>
+            </form>
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+
+{% if requirements %}
+
+<section class="requirements-section">
+
+    <h2>System Requirements</h2>
+
+    <div class="requirements-grid">
+
+        <div class="requirements-card">
+
+            <h3>Minimum</h3>
+
+            {% if requirements.minimum_cpu %}
+                <p>
+                    <strong>CPU:</strong>
+                    {{ requirements.minimum_cpu }}
+                </p>
+            {% endif %}
+
+            {% if requirements.minimum_gpu %}
+                <p>
+                    <strong>GPU:</strong>
+                    {{ requirements.minimum_gpu }}
+                </p>
+            {% endif %}
+
+            <p>
+                <strong>RAM:</strong>
+                {{ requirements.minimum_ram_gb }} GB
+            </p>
+
+            {% if requirements.minimum_storage %}
+                <p>
+                    <strong>Storage:</strong>
+                    {{ requirements.minimum_storage }}
+                </p>
+            {% endif %}
+
+            {% if requirements.minimum_network %}
+                <p>
+                    <strong>Network:</strong>
+                    {{ requirements.minimum_network }}
+                </p>
+            {% endif %}
+
+        </div>
+
+
+        <div class="requirements-card">
+
+            <h3>Recommended</h3>
+
+            {% if requirements.recommended_cpu %}
+                <p>
+                    <strong>CPU:</strong>
+                    {{ requirements.recommended_cpu }}
+                </p>
+            {% endif %}
+
+            {% if requirements.recommended_gpu %}
+                <p>
+                    <strong>GPU:</strong>
+                    {{ requirements.recommended_gpu }}
+                </p>
+            {% endif %}
+
+            <p>
+                <strong>RAM:</strong>
+                {{ requirements.recommended_ram_gb }} GB
+            </p>
+
+            {% if requirements.recommended_storage %}
+                <p>
+                    <strong>Storage:</strong>
+                    {{ requirements.recommended_storage }}
+                </p>
+            {% endif %}
+
+            {% if requirements.recommended_network %}
+                <p>
+                    <strong>Network:</strong>
+                    {{ requirements.recommended_network }}
+                </p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<section class="tutorials-section">
+
+    <h2>Video Tutorials</h2>
+
+    {% if tutorials %}
+
+        <div class="tutorials-grid">
+
+            {% for tutorial in tutorials %}
+
+                <div class="tutorial-card">
+
+                    <h3>
+                        {{ tutorial.title }}
+                    </h3>
+
+                    <p>
+                        {{ tutorial.description }}
+                    </p>
+
+                    <p>
+                        Publisher:
+                        <a href="{% url 'profile' tutorial.publisher.username %}">
+                            {{ tutorial.publisher.username }}
+                        </a>
+                    </p>
+
+                    {% if tutorial.price == 0 %}
+
+                        <p>
+                            <strong>Free</strong>
+                        </p>
+
+                    {% else %}
+
+                        <p>
+                            <strong>
+                                {{ tutorial.price }} €
+                            </strong>
+                        </p>
+
+                    {% endif %}
+
+
+                    <a href="{% url 'tutorial_detail' tutorial.id %}">
+                        View Tutorial
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p>
+            No video tutorials are available for this game yet.
+        </p>
+
+    {% endif %}
+
+</section>
+
+
+<section class="reviews-section">
+
+    <h2>Reviews</h2>
+
+    {% if user.is_authenticated %}
+
+        <form
+            method="POST"
+            action="{% url 'add_review' game.id %}"
+            class="review-form"
+        >
+
+            {% csrf_token %}
+
+            <label for="rating">
+                Rating
+            </label>
+
+            <select
+                name="rating"
+                id="rating"
+                required
+            >
+
+                <option value="">
+                    Choose rating
+                </option>
+
+                <option value="1">1 ⭐</option>
+                <option value="2">2 ⭐</option>
+                <option value="3">3 ⭐</option>
+                <option value="4">4 ⭐</option>
+                <option value="5">5 ⭐</option>
+
+            </select>
+
+
+            <label for="comment">
+                Your Review
+            </label>
+
+            <textarea
+                name="comment"
+                id="comment"
+                rows="5"
+                placeholder="Write your review..."
+                required
+            ></textarea>
+
+            <button type="submit">
+                Submit Review
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <p>
+            You need to log in to write a review.
+        </p>
+
+    {% endif %}
+
+
+    {% if reviews %}
+
+        {% for review in reviews %}
+
+            <div class="review-card">
+
+                <div class="review-header">
+
+                    <a href="{% url 'profile' review.user.username %}">
+
+                        <strong>
+                            {{ review.user.username }}
+                        </strong>
+
+                    </a>
+
+                    <span>
+                        {{ review.rating }}/5 ⭐
+                    </span>
+
+                </div>
+
+                <p>
+                    {{ review.comment }}
+                </p>
+
+                <small>
+                    {{ review.created_at }}
+                </small>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>
+            No reviews yet.
+        </p>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}
