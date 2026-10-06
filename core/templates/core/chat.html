@@ -1,0 +1,81 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Chat with {{ other_user.username }} - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="chat-page">
+
+    <section class="chat-header">
+
+        <h1>
+            Chat with {{ other_user.username }}
+        </h1>
+
+        <a href="{% url 'profile' other_user.username %}">
+            View Profile
+        </a>
+
+    </section>
+
+
+    <section class="chat-messages">
+
+        {% if conversation %}
+
+            {% for message in conversation %}
+
+                <div class="chat-message">
+
+                    <strong>
+                        {{ message.sender.username }}
+                    </strong>
+
+                    <p>
+                        {{ message.text }}
+                    </p>
+
+                    <small>
+                        {{ message.created_at }}
+                    </small>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No messages yet.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="chat-form">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <textarea
+                name="text"
+                placeholder="Write a message..."
+                required
+            ></textarea>
+
+            <button type="submit">
+                Send
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock %}

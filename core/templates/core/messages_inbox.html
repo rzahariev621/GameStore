@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Messages - GameStore
+{% endblock %}
+
+{% block content %}
+
+<main class="messages-page">
+
+    <section class="messages-header">
+
+        <h1>
+            Messages
+        </h1>
+
+        <p>
+            Your conversations with other GameStore users.
+        </p>
+
+    </section>
+
+
+    <section class="conversation-list">
+
+        {% if conversations %}
+
+            {% for conversation in conversations %}
+
+                <div class="conversation-card">
+
+                    <h3>
+                        {{ conversation.user.username }}
+                    </h3>
+
+                    <p>
+
+                        {% if conversation.last_message.sender == user %}
+                            You:
+                        {% else %}
+                            {{ conversation.last_message.sender.username }}:
+                        {% endif %}
+
+                        {{ conversation.last_message.text }}
+
+                    </p>
+
+                    <small>
+                        {{ conversation.last_message.created_at }}
+                    </small>
+
+                    <br>
+
+                    <a href="{% url 'chat' conversation.user.username %}">
+                        Open Chat
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                You do not have any conversations yet.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

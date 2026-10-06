@@ -68,6 +68,14 @@
 
                 {% endif %}
 
+
+                <a
+                    href="{% url 'chat' profile_user.username %}"
+                    class="message-button"
+                >
+                    Message
+                </a>
+
             {% endif %}
 
         </div>

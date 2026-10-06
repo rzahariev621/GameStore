@@ -5,8 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.db.models import Q
 
-from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement
+from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message
 
 from .forms import VideoTutorialForm, GameForm, GameRequirementForm, AdminTutorialForm
 import stripe
@@ -1209,5 +1210,103 @@ def delete_review(request, review_id):
         'core/delete_review.html',
         {
             'review': review
+        }
+    )
+
+
+#CHAT
+
+@login_required
+def chat_view(request, username):
+    other_user = get_object_or_404(
+        User,
+        username=username
+    )
+
+    # Потребителят не може да пише сам на себе си
+    if other_user == request.user:
+        return redirect(
+            'profile',
+            username=request.user.username
+        )
+
+    if request.method == 'POST':
+        text = request.POST.get('text', '').strip()
+
+        if text:
+            Message.objects.create(
+                sender=request.user,
+                receiver=other_user,
+                text=text
+            )
+
+        return redirect(
+            'chat',
+            username=other_user.username
+        )
+
+    conversation = Message.objects.filter(
+        Q(
+            sender=request.user,
+            receiver=other_user
+        )
+        |
+        Q(
+            sender=other_user,
+            receiver=request.user
+        )
+    ).select_related(
+        'sender',
+        'receiver'
+    ).order_by('created_at')
+
+    return render(
+        request,
+        'core/chat.html',
+        {
+            'other_user': other_user,
+            'conversation': conversation,
+        }
+    )
+
+
+
+@login_required
+def messages_inbox(request):
+    messages = Message.objects.filter(
+        Q(sender=request.user)
+        |
+        Q(receiver=request.user)
+    ).select_related(
+        'sender',
+        'receiver'
+    ).order_by('-created_at')
+
+    conversations = []
+    seen_users = set()
+
+    for message in messages:
+
+        if message.sender == request.user:
+            other_user = message.receiver
+        else:
+            other_user = message.sender
+
+        if other_user.id not in seen_users:
+
+            conversations.append(
+                {
+                    'user': other_user,
+                    'last_message': message,
+                }
+            )
+
+            seen_users.add(other_user.id)
+
+    return render(
+        request,
+        'core/messages_inbox.html',
+        {
+            'conversations': conversations
         }
     )

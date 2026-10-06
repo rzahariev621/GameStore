@@ -61,6 +61,8 @@ from core.views import (
     manage_reviews,
     update_review_status,
     delete_review,
+    chat_view,
+    messages_inbox,
 
 )
 
@@ -119,6 +121,9 @@ urlpatterns = [
     path('admin-panel/reviews/', manage_reviews, name='manage_reviews'),
     path('admin-panel/reviews/<int:review_id>/status/', update_review_status, name='update_review_status'),
     path('admin-panel/reviews/<int:review_id>/delete/', delete_review, name='delete_review'),
+
+    path('messages/<str:username>/', chat_view, name='chat'),
+    path('messages/',messages_inbox,name='messages_inbox'),
     
 ]
 
