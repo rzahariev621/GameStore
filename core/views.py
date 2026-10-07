@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.db.models import Q
 
-from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message
+from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message, UserBlock
 
 from .forms import VideoTutorialForm, GameForm, GameRequirementForm, AdminTutorialForm
 import stripe
@@ -257,7 +257,20 @@ def profile(request, username):
     incoming_request = False
     is_friend = False
 
+    is_blocked_by_me = False
+    has_blocked_me = False
+
     if request.user.is_authenticated and request.user != profile_user:
+
+        is_blocked_by_me = UserBlock.objects.filter(
+            blocker=request.user,
+            blocked=profile_user
+        ).exists()
+
+        has_blocked_me = UserBlock.objects.filter(
+            blocker=profile_user,
+            blocked=request.user
+        ).exists()
 
         sent_request = FriendRequest.objects.filter(
             sender=request.user,
@@ -293,7 +306,9 @@ def profile(request, username):
             'role': role,
             'request_sent': request_sent,
             'incoming_request': incoming_request,
-            'is_friend': is_friend
+            'is_friend': is_friend,
+            'is_blocked_by_me': is_blocked_by_me,
+            'has_blocked_me': has_blocked_me,
         }
     )
 
@@ -1310,3 +1325,38 @@ def messages_inbox(request):
             'conversations': conversations
         }
     )
+
+#USER BLOCK
+
+@login_required
+def block_user(request, username):
+    user_to_block = get_object_or_404(User, username=username)
+
+    if user_to_block == request.user:
+        return redirect('profile', username=username)
+
+    if request.method == 'POST':
+        UserBlock.objects.get_or_create(
+            blocker=request.user,
+            blocked=user_to_block
+        )
+
+        FriendRequest.objects.filter(
+            Q(sender=request.user, receiver=user_to_block) |
+            Q(sender=user_to_block, receiver=request.user)
+        ).delete()
+
+    return redirect('profile', username=username)
+
+
+@login_required
+def unblock_user(request, username):
+    user_to_unblock = get_object_or_404(User, username=username)
+
+    if request.method == 'POST':
+        UserBlock.objects.filter(
+            blocker=request.user,
+            blocked=user_to_unblock
+        ).delete()
+
+    return redirect('profile', username=username)

@@ -63,6 +63,8 @@ from core.views import (
     delete_review,
     chat_view,
     messages_inbox,
+    block_user,
+    unblock_user,
 
 )
 
@@ -106,6 +108,8 @@ urlpatterns = [
     path('profile/<str:username>/', profile, name='profile'),
     path('profile/<str:username>/add-friend/', send_friend_request, name='send_friend_request'),
     path('profile/<str:username>/accept-friend/', accept_friend_request, name='accept_friend_request'),
+    path('profile/<str:username>/block/', block_user, name='block_user'),
+    path('profile/<str:username>/unblock/', unblock_user, name='unblock_user'),
 
     path('admin-panel/', admin_dashboard, name='admin_dashboard'),
     path('admin-panel/users/',manage_users,name='manage_users'),
@@ -124,6 +128,8 @@ urlpatterns = [
 
     path('messages/<str:username>/', chat_view, name='chat'),
     path('messages/',messages_inbox,name='messages_inbox'),
+
+
     
 ]
 

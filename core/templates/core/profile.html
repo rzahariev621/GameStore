@@ -18,63 +18,107 @@
 
             {% if user.is_authenticated and user != profile_user %}
 
-                {% if is_friend %}
+                {% if is_blocked_by_me %}
 
                     <p class="friend-status">
-                        ✓ Friends
+                        User Blocked
                     </p>
-
-                {% elif request_sent %}
-
-                    <p class="friend-status">
-                        Request Sent
-                    </p>
-
-                {% elif incoming_request %}
 
                     <form
                         method="POST"
-                        action="{% url 'accept_friend_request' profile_user.username %}"
+                        action="{% url 'unblock_user' profile_user.username %}"
                     >
-
                         {% csrf_token %}
 
                         <button
                             type="submit"
                             class="add-friend-button"
                         >
-                            Accept Friend Request
+                            Unblock
                         </button>
-
                     </form>
 
                 {% else %}
 
+                    {% if has_blocked_me %}
+
+                        <p class="friend-status">
+                            Interaction unavailable
+                        </p>
+
+                    {% else %}
+
+                        {% if is_friend %}
+
+                            <p class="friend-status">
+                                ✓ Friends
+                            </p>
+
+                            <a
+                                href="{% url 'chat' profile_user.username %}"
+                                class="message-button"
+                            >
+                                Message
+                            </a>
+
+                        {% elif request_sent %}
+
+                            <p class="friend-status">
+                                Request Sent
+                            </p>
+
+                        {% elif incoming_request %}
+
+                            <form
+                                method="POST"
+                                action="{% url 'accept_friend_request' profile_user.username %}"
+                            >
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="add-friend-button"
+                                >
+                                    Accept Friend Request
+                                </button>
+                            </form>
+
+                        {% else %}
+
+                            <form
+                                method="POST"
+                                action="{% url 'send_friend_request' profile_user.username %}"
+                            >
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="add-friend-button"
+                                >
+                                    Add Friend
+                                </button>
+                            </form>
+
+                        {% endif %}
+
+                    {% endif %}
+
+
                     <form
                         method="POST"
-                        action="{% url 'send_friend_request' profile_user.username %}"
+                        action="{% url 'block_user' profile_user.username %}"
                     >
-
                         {% csrf_token %}
 
                         <button
                             type="submit"
                             class="add-friend-button"
                         >
-                            Add Friend
+                            Block User
                         </button>
-
                     </form>
 
                 {% endif %}
-
-
-                <a
-                    href="{% url 'chat' profile_user.username %}"
-                    class="message-button"
-                >
-                    Message
-                </a>
 
             {% endif %}
 
