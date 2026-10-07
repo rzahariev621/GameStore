@@ -8,37 +8,86 @@ Store - GameStore
 
 <main class="store-page">
 
-    <h1>Game Store 🎮</h1>
+    <div class="container-fluid">
 
-    <div class="game-grid">
+        <div class="store-header">
 
-        {% for game in games %}
+            <h1>
+                Game Store 🎮
+            </h1>
 
-            <div class="game-card">
+            <p>
+                Discover games and explore available tutorials.
+            </p>
 
-                {% if game.cover %}
-                    <img src="{{ game.cover.url }}" alt="{{ game.title }}">
-                {% endif %}
+        </div>
 
-                <div class="game-card-content">
 
-                    <h2>{{ game.title }}</h2>
+        {% if games %}
 
-                    <p>{{ game.description }}</p>
+            <div class="row g-4">
 
-                    <div class="game-card-bottom">
+                {% for game in games %}
 
-                    <a href="{% url 'game_detail' game.id %}">
-                        View Game
-                    </a>
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+
+                        <div class="game-card h-100">
+
+                            {% if game.cover %}
+
+                                <img
+                                    src="{{ game.cover.url }}"
+                                    alt="{{ game.title }}"
+                                    class="game-cover"
+                                >
+
+                            {% endif %}
+
+
+                            <div class="game-card-content">
+
+                                <h2>
+                                    {{ game.title }}
+                                </h2>
+
+                                <p>
+                                    {{ game.description }}
+                                </p>
+
+
+                                <div class="game-card-bottom">
+
+                                    <a href="{% url 'game_detail' game.id %}">
+                                        View Game
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-                </div>
+                {% endfor %}
 
             </div>
 
-        {% endfor %}
+        {% else %}
+
+            <div class="store-empty">
+
+                <h2>
+                    No games available.
+                </h2>
+
+                <p>
+                    Games will appear here when they are added.
+                </p>
+
+            </div>
+
+        {% endif %}
 
     </div>
 

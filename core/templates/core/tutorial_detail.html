@@ -8,142 +8,164 @@
 
 <main class="tutorial-detail-page">
 
-    <section class="tutorial-detail-header">
+    <div class="container">
 
-        <div class="tutorial-detail-info">
+        <section class="tutorial-detail-header">
 
-            <span class="tutorial-game-name">
-                {{ tutorial.game.title }}
-            </span>
+            <div class="tutorial-detail-info">
 
-            <h1>
-                {{ tutorial.title }}
-            </h1>
+                <span class="tutorial-game-name">
+                    {{ tutorial.game.title }}
+                </span>
 
-            <p>
-                {{ tutorial.description }}
-            </p>
-
-            <p>
-                Publisher:
-                <a href="{% url 'profile' tutorial.publisher.username %}">
-                    {{ tutorial.publisher.username }}
-                </a>
-            </p>
-
-            {% if tutorial.price == 0 %}
-
-                <p class="tutorial-price">
-                    Free
-                </p>
-
-            {% else %}
-
-                <p class="tutorial-price">
-                    {{ tutorial.price }} €
-                </p>
-
-            {% endif %}
-
-        </div>
-
-    </section>
-
-
-    <section class="tutorial-video-section">
-
-        {% if can_watch %}
-
-            <h2>Video Tutorial</h2>
-
-            {% if tutorial.video %}
-
-                <video
-                    class="tutorial-video"
-                    controls
-                    preload="metadata"
-                >
-                    <source src="{{ tutorial.video.url }}">
-                    Your browser does not support video playback.
-                </video>
-
-            {% else %}
+                <h1>
+                    {{ tutorial.title }}
+                </h1>
 
                 <p>
-                    Video file is not available.
+                    {{ tutorial.description }}
                 </p>
-
-            {% endif %}
-
-
-            {% if is_owner %}
 
                 <p>
-                    You are the publisher of this tutorial.
+                    Publisher:
+
+                    <a href="{% url 'profile' tutorial.publisher.username %}">
+                        {{ tutorial.publisher.username }}
+                    </a>
                 </p>
 
-            {% elif is_purchased %}
 
-                <p>
-                    You own this tutorial.
-                </p>
+                {% if tutorial.price == 0 %}
 
-            {% endif %}
-
-
-        {% else %}
-
-            <div class="tutorial-locked">
-
-                <h2>Paid Tutorial</h2>
-
-                <p>
-                    Purchase this tutorial to watch the full video.
-                </p>
-
-                <p class="tutorial-price">
-                    {{ tutorial.price }} €
-                </p>
-
-                {% if user.is_authenticated %}
-
-                    <form
-                        method="POST"
-                        action="{% url 'create_checkout_session' tutorial.id %}"
-                    >
-                        {% csrf_token %}
-
-                        <button type="submit">
-                            Buy Tutorial
-                        </button>
-                    </form>
+                    <p class="tutorial-price">
+                        Free
+                    </p>
 
                 {% else %}
 
-                    <p>
-                        You need to log in before purchasing this tutorial.
+                    <p class="tutorial-price">
+                        {{ tutorial.price }} €
                     </p>
-
-                    <a href="{% url 'login' %}">
-                        Login
-                    </a>
 
                 {% endif %}
 
             </div>
 
-        {% endif %}
-
-    </section>
+        </section>
 
 
-    <section class="tutorial-game-section">
+        <section class="tutorial-video-section">
 
-        <a href="{% url 'game_detail' tutorial.game.id %}">
-            Back to {{ tutorial.game.title }}
-        </a>
+            {% if can_watch %}
 
-    </section>
+                <h2>
+                    Video Tutorial
+                </h2>
+
+
+                {% if tutorial.video %}
+
+                    <div class="tutorial-video-wrapper">
+
+                        <video
+                            class="tutorial-video"
+                            controls
+                            preload="metadata"
+                        >
+                            <source src="{{ tutorial.video.url }}">
+
+                            Your browser does not support video playback.
+                        </video>
+
+                    </div>
+
+                {% else %}
+
+                    <p>
+                        Video file is not available.
+                    </p>
+
+                {% endif %}
+
+
+                {% if is_owner %}
+
+                    <p class="tutorial-access-message">
+                        You are the publisher of this tutorial.
+                    </p>
+
+                {% elif is_purchased %}
+
+                    <p class="tutorial-access-message">
+                        You own this tutorial.
+                    </p>
+
+                {% endif %}
+
+
+            {% else %}
+
+                <div class="tutorial-locked">
+
+                    <h2>
+                        Paid Tutorial
+                    </h2>
+
+                    <p>
+                        Purchase this tutorial to watch the full video.
+                    </p>
+
+                    <p class="tutorial-price">
+                        {{ tutorial.price }} €
+                    </p>
+
+
+                    {% if user.is_authenticated %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'create_checkout_session' tutorial.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button type="submit">
+                                Buy Tutorial
+                            </button>
+
+                        </form>
+
+                    {% else %}
+
+                        <p>
+                            You need to log in before purchasing this tutorial.
+                        </p>
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="tutorial-login-button"
+                        >
+                            Login
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <section class="tutorial-game-section">
+
+            <a href="{% url 'game_detail' tutorial.game.id %}">
+                ← Back to {{ tutorial.game.title }}
+            </a>
+
+        </section>
+
+    </div>
 
 </main>
 

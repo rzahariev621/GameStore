@@ -13,56 +13,60 @@ body {
 /* NAVBAR */
 
 .navbar {
-    height: 70px;
-    background-color: #1f2937;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 50px;
+    background-color: #1f2937 !important;
+    padding: 12px 50px;
 }
 
-.logo {
+.navbar-brand {
+    color: white !important;
     font-size: 24px;
     font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links a {
-    color: #d1d5db;
-    text-decoration: none;
+.navbar .nav-link {
+    color: #d1d5db !important;
     font-size: 16px;
+    transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
-    color: white;
+.navbar .nav-link:hover {
+    color: white !important;
+}
+
+.navbar-toggler {
+    border: 1px solid #6b7280;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
 }
 
 /* HERO */
 
 .hero {
     text-align: center;
-    margin-top: 150px;
+    padding: 140px 20px 80px;
 }
 
 .hero h1 {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+
     font-size: 48px;
-    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
 .hero p {
     font-size: 20px;
     color: #9ca3af;
+
     margin-bottom: 30px;
 }
 
 .hero button {
     padding: 14px 28px;
+
     font-size: 16px;
 
     border: none;
@@ -74,149 +78,533 @@ body {
 /* STORE */
 
 .store-page {
+    max-width: 1500px;
+    margin: 0 auto;
     padding: 50px;
 }
 
-.store-page h1 {
-    font-size: 36px;
+.store-header {
     margin-bottom: 40px;
 }
 
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 30px;
+.store-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
 }
 
+.store-header p {
+    color: #9ca3af;
+    font-size: 17px;
+}
+
+
 .game-card {
+    height: 100%;
+
     background-color: #1f2937;
+
     border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.2s ease;
+
+    display: flex;
+    flex-direction: column;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .game-card:hover {
     transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.25);
 }
+
 
 .game-card img {
     width: 100%;
     height: 340px;
+
     object-fit: cover;
+
     display: block;
 }
 
+
 .game-card-content {
+    flex: 1;
+
     padding: 20px;
+
+    display: flex;
+    flex-direction: column;
 }
+
 
 .game-card-content h2 {
     font-size: 22px;
     margin-bottom: 10px;
 }
 
+
 .game-card-content p {
     color: #9ca3af;
+
     line-height: 1.5;
-    height: 70px;
+
+    margin-bottom: 20px;
+
+    display: -webkit-box;
+
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
     overflow: hidden;
 }
 
+
 .game-card-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
-.game-card-bottom span {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.game-card-bottom button {
-    padding: 9px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
 
 .game-card-bottom a {
     display: inline-block;
 
-    padding: 9px 14px;
+    padding: 10px 16px;
 
     background-color: white;
     color: #111827;
 
     text-decoration: none;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     font-size: 14px;
     font-weight: bold;
 
-    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
+
 
 .game-card-bottom a:hover {
     background-color: #d1d5db;
 }
 
+
+.store-empty {
+    background-color: #1f2937;
+
+    padding: 40px;
+
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.store-empty h2 {
+    margin-bottom: 10px;
+}
+
+.store-empty p {
+    color: #9ca3af;
+}
+
 /* GAME DETAILS */
 
-.game-detail {
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 50px;
-
-    max-width: 1200px;
-    margin: 70px auto;
-    padding: 0 30px;
+.game-detail-page {
+    padding: 60px 0;
 }
+
+.game-detail {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 
 .game-detail-cover img {
     width: 100%;
-    border-radius: 12px;
+    max-height: 600px;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+
     display: block;
 }
 
-.game-detail-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
 .game-detail-info h1 {
     font-size: 42px;
     margin-bottom: 25px;
 }
 
+
 .game-detail-info p {
     color: #9ca3af;
+
     font-size: 17px;
     line-height: 1.7;
+
     margin-bottom: 20px;
 }
 
-.game-detail-price {
-    color: white !important;
-    font-size: 28px !important;
-    font-weight: bold;
+
+.game-detail-info .release-date {
+    color: #d1d5db;
 }
 
-.game-detail-info button {
-    width: 180px;
-    padding: 13px 20px;
 
-    margin-top: 10px;
+.game-detail-info button {
+    padding: 12px 20px;
 
     border: none;
     border-radius: 8px;
 
-    font-size: 16px;
+    background-color: white;
+    color: #111827;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+
+.game-detail-info button:hover {
+    background-color: #d1d5db;
+}
+
+
+/* SYSTEM REQUIREMENTS */
+
+.requirements-section {
+    padding: 20px 0 60px;
+}
+
+
+.requirements-section .container,
+.tutorials-section .container {
+    max-width: 1200px;
+}
+
+
+.requirements-section h2,
+.tutorials-section h2 {
+    font-size: 30px;
+
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #374151;
+}
+
+
+.requirements-card {
+    background-color: #1f2937;
+
+    padding: 25px;
+
+    border-radius: 12px;
+}
+
+
+.requirements-card h3 {
+    font-size: 22px;
+
+    margin-bottom: 20px;
+}
+
+
+.requirements-card p {
+    color: #d1d5db;
+
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+
+.requirements-card strong {
+    color: white;
+}
+
+
+/* VIDEO TUTORIALS */
+
+.tutorials-section {
+    padding: 20px 0 60px;
+}
+
+
+.tutorial-card {
+    background-color: #1f2937;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.tutorial-card h3 {
+    font-size: 21px;
+
+    margin-bottom: 15px;
+}
+
+
+.tutorial-card p {
+    color: #d1d5db;
+
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+}
+
+
+.tutorial-card a {
+    color: white;
+}
+
+
+.tutorial-card .tutorial-price {
+    color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.tutorial-button {
+    display: inline-block;
+
+    align-self: flex-start;
+
+    margin-top: auto;
+    padding: 10px 15px;
+
+    background-color: white;
+    color: #111827 !important;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.tutorial-button:hover {
+    background-color: #d1d5db;
+}
+
+
+.section-empty {
+    color: #9ca3af;
+}
+
+
+/* TUTORIAL DETAILS */
+
+.tutorial-detail-page {
+    padding: 60px 0 80px;
+}
+
+.tutorial-detail-page .container {
+    max-width: 1100px;
+}
+
+
+.tutorial-detail-header {
+    margin-bottom: 45px;
+}
+
+
+.tutorial-detail-info {
+    background-color: #1f2937;
+
+    padding: 30px;
+
+    border-radius: 14px;
+}
+
+
+.tutorial-game-name {
+    display: inline-block;
+
+    color: #9ca3af;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+
+.tutorial-detail-info h1 {
+    font-size: 38px;
+
+    margin-bottom: 20px;
+}
+
+
+.tutorial-detail-info p {
+    color: #d1d5db;
+
+    font-size: 17px;
+    line-height: 1.6;
+
+    margin-bottom: 15px;
+}
+
+
+.tutorial-detail-info a {
+    color: white;
+}
+
+
+.tutorial-detail-info .tutorial-price {
+    color: white;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    margin-bottom: 0;
+}
+
+
+/* VIDEO */
+
+.tutorial-video-section {
+    margin-bottom: 45px;
+}
+
+
+.tutorial-video-section > h2 {
+    font-size: 30px;
+
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #374151;
+}
+
+
+.tutorial-video-wrapper {
+    width: 100%;
+
+    background-color: black;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+
+.tutorial-video {
+    width: 100%;
+    max-height: 650px;
+
+    display: block;
+}
+
+
+.tutorial-access-message {
+    margin-top: 18px;
+
+    color: #9ca3af;
+}
+
+
+/* LOCKED TUTORIAL */
+
+.tutorial-locked {
+    background-color: #1f2937;
+
+    padding: 35px;
+
+    border-radius: 14px;
+}
+
+
+.tutorial-locked h2 {
+    font-size: 28px;
+
+    margin-bottom: 15px;
+}
+
+
+.tutorial-locked p {
+    color: #d1d5db;
+
+    margin-bottom: 18px;
+}
+
+
+.tutorial-locked .tutorial-price {
+    color: white;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.tutorial-locked button,
+.tutorial-login-button {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: white;
+    color: #111827;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: bold;
+
     cursor: pointer;
 }
+
+
+.tutorial-locked button:hover,
+.tutorial-login-button:hover {
+    background-color: #d1d5db;
+}
+
+
+/* BACK TO GAME */
+
+.tutorial-game-section {
+    padding-top: 10px;
+}
+
+
+.tutorial-game-section a {
+    color: #d1d5db;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+.tutorial-game-section a:hover {
+    color: white;
+}
+
+
 
 /* LOGIN */
 
@@ -756,4 +1144,145 @@ body {
 
     font-size: 14px;
     font-weight: bold;
+}
+
+
+
+/* RESPONSIVE */
+
+@media (max-width: 991px) {
+
+    .navbar {
+        padding: 12px 30px;
+    }
+
+    .navbar-collapse {
+        padding-top: 15px;
+        padding-bottom: 10px;
+    }
+
+    .navbar .nav-link {
+        padding: 10px 0;
+    }
+
+    .hero {
+        padding: 100px 20px 70px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .navbar {
+        padding: 12px 20px;
+    }
+
+    .navbar-brand {
+        font-size: 21px;
+    }
+
+    .hero {
+        padding: 80px 15px 60px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .hero button {
+        padding: 12px 22px;
+        font-size: 15px;
+    }
+
+    .store-page {
+    padding: 30px 15px;
+    }
+
+    .store-header h1 {
+        font-size: 30px;
+    }
+
+    .game-card img {
+        height: 300px;
+    }
+
+    
+    .game-detail-page {
+    padding: 35px 5px;
+    }
+
+    .game-detail-info h1 {
+        font-size: 32px;
+    }
+
+    .game-detail-info p {
+        font-size: 16px;
+    }
+
+    .game-detail-cover img {
+        max-height: 420px;
+        object-fit: contain;
+    }
+
+    .requirements-section,
+    .tutorials-section {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .requirements-section h2,
+    .tutorials-section h2,
+    .reviews-section h2 {
+        font-size: 26px;
+    }
+
+    .requirements-card,
+    .tutorial-card {
+        padding: 20px;
+    }
+
+    .reviews-section {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+
+    .tutorial-detail-page {
+    padding: 35px 5px 60px;
+    }
+
+    .tutorial-detail-info {
+        padding: 22px;
+    }
+
+    .tutorial-detail-info h1 {
+        font-size: 30px;
+    }
+
+    .tutorial-detail-info p {
+        font-size: 16px;
+    }
+
+    .tutorial-video-section > h2 {
+        font-size: 26px;
+    }
+
+    .tutorial-video {
+        max-height: 420px;
+    }
+
+    .tutorial-locked {
+        padding: 22px;
+    }
+
 }

@@ -6,128 +6,207 @@
 
 {% block content %}
 
-<main class="game-detail">
 
-    <div class="game-detail-cover">
+<main class="game-detail-page">
 
-        {% if game.cover %}
-            <img src="{{ game.cover.url }}" alt="{{ game.title }}">
-        {% endif %}
+    <div class="container">
 
-    </div>
+        <div class="row g-5 align-items-center game-detail">
+
+            <div class="col-12 col-lg-5">
+
+                <div class="game-detail-cover">
+
+                    {% if game.cover %}
+
+                        <img
+                            src="{{ game.cover.url }}"
+                            alt="{{ game.title }}"
+                        >
+
+                    {% endif %}
+
+                </div>
+
+            </div>
 
 
-    <div class="game-detail-info">
+            <div class="col-12 col-lg-7">
 
-        <h1>{{ game.title }}</h1>
+                <div class="game-detail-info">
 
-        <p>{{ game.description }}</p>
+                    <h1>
+                        {{ game.title }}
+                    </h1>
 
-        <p>
-            Release date: {{ game.release_date }}
-        </p>
+                    <p>
+                        {{ game.description }}
+                    </p>
 
-        {% if user.is_authenticated %}
+                    <p class="release-date">
+                        <strong>Release date:</strong>
+                        {{ game.release_date }}
+                    </p>
 
-            <form method="POST" action="{% url 'add_to_wishlist' game.id %}">
-                {% csrf_token %}
 
-                <button type="submit">
-                    Add to Wishlist
-                </button>
-            </form>
+                    {% if user.is_authenticated %}
 
-        {% endif %}
+                        <form
+                            method="POST"
+                            action="{% url 'add_to_wishlist' game.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button type="submit">
+                                Add to Wishlist
+                            </button>
+
+                        </form>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </main>
 
 
+
 {% if requirements %}
 
 <section class="requirements-section">
 
-    <h2>System Requirements</h2>
+    <div class="container">
 
-    <div class="requirements-grid">
-
-        <div class="requirements-card">
-
-            <h3>Minimum</h3>
-
-            {% if requirements.minimum_cpu %}
-                <p>
-                    <strong>CPU:</strong>
-                    {{ requirements.minimum_cpu }}
-                </p>
-            {% endif %}
-
-            {% if requirements.minimum_gpu %}
-                <p>
-                    <strong>GPU:</strong>
-                    {{ requirements.minimum_gpu }}
-                </p>
-            {% endif %}
-
-            <p>
-                <strong>RAM:</strong>
-                {{ requirements.minimum_ram_gb }} GB
-            </p>
-
-            {% if requirements.minimum_storage %}
-                <p>
-                    <strong>Storage:</strong>
-                    {{ requirements.minimum_storage }}
-                </p>
-            {% endif %}
-
-            {% if requirements.minimum_network %}
-                <p>
-                    <strong>Network:</strong>
-                    {{ requirements.minimum_network }}
-                </p>
-            {% endif %}
-
-        </div>
+        <h2>
+            System Requirements
+        </h2>
 
 
-        <div class="requirements-card">
+        <div class="row g-4">
 
-            <h3>Recommended</h3>
+            <div class="col-12 col-lg-6">
 
-            {% if requirements.recommended_cpu %}
-                <p>
-                    <strong>CPU:</strong>
-                    {{ requirements.recommended_cpu }}
-                </p>
-            {% endif %}
+                <div class="requirements-card h-100">
 
-            {% if requirements.recommended_gpu %}
-                <p>
-                    <strong>GPU:</strong>
-                    {{ requirements.recommended_gpu }}
-                </p>
-            {% endif %}
+                    <h3>
+                        Minimum
+                    </h3>
 
-            <p>
-                <strong>RAM:</strong>
-                {{ requirements.recommended_ram_gb }} GB
-            </p>
 
-            {% if requirements.recommended_storage %}
-                <p>
-                    <strong>Storage:</strong>
-                    {{ requirements.recommended_storage }}
-                </p>
-            {% endif %}
+                    {% if requirements.minimum_cpu %}
 
-            {% if requirements.recommended_network %}
-                <p>
-                    <strong>Network:</strong>
-                    {{ requirements.recommended_network }}
-                </p>
-            {% endif %}
+                        <p>
+                            <strong>CPU:</strong>
+                            {{ requirements.minimum_cpu }}
+                        </p>
+
+                    {% endif %}
+
+
+                    {% if requirements.minimum_gpu %}
+
+                        <p>
+                            <strong>GPU:</strong>
+                            {{ requirements.minimum_gpu }}
+                        </p>
+
+                    {% endif %}
+
+
+                    <p>
+                        <strong>RAM:</strong>
+                        {{ requirements.minimum_ram_gb }} GB
+                    </p>
+
+
+                    {% if requirements.minimum_storage %}
+
+                        <p>
+                            <strong>Storage:</strong>
+                            {{ requirements.minimum_storage }}
+                        </p>
+
+                    {% endif %}
+
+
+                    {% if requirements.minimum_network %}
+
+                        <p>
+                            <strong>Network:</strong>
+                            {{ requirements.minimum_network }}
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12 col-lg-6">
+
+                <div class="requirements-card h-100">
+
+                    <h3>
+                        Recommended
+                    </h3>
+
+
+                    {% if requirements.recommended_cpu %}
+
+                        <p>
+                            <strong>CPU:</strong>
+                            {{ requirements.recommended_cpu }}
+                        </p>
+
+                    {% endif %}
+
+
+                    {% if requirements.recommended_gpu %}
+
+                        <p>
+                            <strong>GPU:</strong>
+                            {{ requirements.recommended_gpu }}
+                        </p>
+
+                    {% endif %}
+
+
+                    <p>
+                        <strong>RAM:</strong>
+                        {{ requirements.recommended_ram_gb }} GB
+                    </p>
+
+
+                    {% if requirements.recommended_storage %}
+
+                        <p>
+                            <strong>Storage:</strong>
+                            {{ requirements.recommended_storage }}
+                        </p>
+
+                    {% endif %}
+
+
+                    {% if requirements.recommended_network %}
+
+                        <p>
+                            <strong>Network:</strong>
+                            {{ requirements.recommended_network }}
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -138,74 +217,93 @@
 {% endif %}
 
 
+
 <section class="tutorials-section">
 
-    <h2>Video Tutorials</h2>
+    <div class="container">
 
-    {% if tutorials %}
-
-        <div class="tutorials-grid">
-
-            {% for tutorial in tutorials %}
-
-                <div class="tutorial-card">
-
-                    <h3>
-                        {{ tutorial.title }}
-                    </h3>
-
-                    <p>
-                        {{ tutorial.description }}
-                    </p>
-
-                    <p>
-                        Publisher:
-                        <a href="{% url 'profile' tutorial.publisher.username %}">
-                            {{ tutorial.publisher.username }}
-                        </a>
-                    </p>
-
-                    {% if tutorial.price == 0 %}
-
-                        <p>
-                            <strong>Free</strong>
-                        </p>
-
-                    {% else %}
-
-                        <p>
-                            <strong>
-                                {{ tutorial.price }} €
-                            </strong>
-                        </p>
-
-                    {% endif %}
+        <h2>
+            Video Tutorials
+        </h2>
 
 
-                    <a href="{% url 'tutorial_detail' tutorial.id %}">
-                        View Tutorial
-                    </a>
+        {% if tutorials %}
 
-                </div>
+            <div class="row g-4">
 
-            {% endfor %}
+                {% for tutorial in tutorials %}
 
-        </div>
+                    <div class="col-12 col-md-6 col-xl-4">
 
-    {% else %}
+                        <div class="tutorial-card h-100">
 
-        <p>
-            No video tutorials are available for this game yet.
-        </p>
+                            <h3>
+                                {{ tutorial.title }}
+                            </h3>
 
-    {% endif %}
+                            <p>
+                                {{ tutorial.description }}
+                            </p>
+
+                            <p>
+                                Publisher:
+
+                                <a href="{% url 'profile' tutorial.publisher.username %}">
+                                    {{ tutorial.publisher.username }}
+                                </a>
+                            </p>
+
+
+                            {% if tutorial.price == 0 %}
+
+                                <p class="tutorial-price">
+                                    Free
+                                </p>
+
+                            {% else %}
+
+                                <p class="tutorial-price">
+                                    {{ tutorial.price }} €
+                                </p>
+
+                            {% endif %}
+
+
+                            <a
+                                href="{% url 'tutorial_detail' tutorial.id %}"
+                                class="tutorial-button"
+                            >
+                                View Tutorial
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="section-empty">
+                No video tutorials are available for this game yet.
+            </p>
+
+        {% endif %}
+
+    </div>
 
 </section>
 
 
+
 <section class="reviews-section">
 
-    <h2>Reviews</h2>
+    <h2>
+        Reviews
+    </h2>
+
 
     {% if user.is_authenticated %}
 
@@ -216,6 +314,7 @@
         >
 
             {% csrf_token %}
+
 
             <label for="rating">
                 Rating
@@ -252,6 +351,7 @@
                 required
             ></textarea>
 
+
             <button type="submit">
                 Submit Review
             </button>
@@ -265,6 +365,7 @@
         </p>
 
     {% endif %}
+
 
 
     {% if reviews %}
@@ -289,6 +390,7 @@
 
                 </div>
 
+
                 <p>
                     {{ review.comment }}
                 </p>
@@ -310,5 +412,6 @@
     {% endif %}
 
 </section>
+
 
 {% endblock %}
