@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Publisher Dashboard - GameStore
+{% trans "Publisher Dashboard" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -12,11 +13,12 @@ Publisher Dashboard - GameStore
 
         <div>
 
-            <h1>Publisher Dashboard</h1>
+            <h1>
+                {% trans "Publisher Dashboard" %}
+            </h1>
 
             <p>
-                Manage your video tutorials, Creator Points
-                and track their approval status.
+                {% trans "Manage your video tutorials, Creator Points and track their approval status." %}
             </p>
 
         </div>
@@ -26,7 +28,7 @@ Publisher Dashboard - GameStore
             href="{% url 'upload_tutorial' %}"
             class="publisher-upload-button"
         >
-            Upload Tutorial
+            {% trans "Upload Tutorial" %}
         </a>
 
     </section>
@@ -49,7 +51,7 @@ Publisher Dashboard - GameStore
                         </h2>
 
                         <p class="text-secondary">
-                            Your current available balance.
+                            {% trans "Your current available balance." %}
                         </p>
 
                         <div class="display-5 fw-bold mt-4">
@@ -74,7 +76,7 @@ Publisher Dashboard - GameStore
                     <div class="card-body">
 
                         <h2 class="h4 mb-4">
-                            Transaction History
+                            {% trans "Transaction History" %}
                         </h2>
 
 
@@ -89,19 +91,19 @@ Publisher Dashboard - GameStore
                                         <tr>
 
                                             <th>
-                                                Type
+                                                {% trans "Type" %}
                                             </th>
 
                                             <th>
-                                                Tutorial
+                                                {% trans "Tutorial" %}
                                             </th>
 
                                             <th>
-                                                Amount
+                                                {% trans "Amount" %}
                                             </th>
 
                                             <th>
-                                                Date
+                                                {% trans "Date" %}
                                             </th>
 
                                         </tr>
@@ -116,7 +118,17 @@ Publisher Dashboard - GameStore
                                             <tr>
 
                                                 <td>
-                                                    {{ transaction.get_transaction_type_display }}
+
+                                                    {% if transaction.transaction_type == 'purchase' %}
+
+                                                        {% trans "Tutorial Purchase" %}
+
+                                                    {% elif transaction.transaction_type == 'sale' %}
+
+                                                        {% trans "Tutorial Sale" %}
+
+                                                    {% endif %}
+
                                                 </td>
 
 
@@ -128,7 +140,7 @@ Publisher Dashboard - GameStore
 
                                                     {% else %}
 
-                                                        Tutorial unavailable
+                                                        {% trans "Tutorial unavailable" %}
 
                                                     {% endif %}
 
@@ -171,7 +183,7 @@ Publisher Dashboard - GameStore
                         {% else %}
 
                             <p class="text-secondary mb-0">
-                                No Creator Point transactions yet.
+                                {% trans "No Creator Point transactions yet." %}
                             </p>
 
                         {% endif %}
@@ -194,11 +206,15 @@ Publisher Dashboard - GameStore
         <div class="publisher-section-header">
 
             <h2>
-                My Tutorials
+                {% trans "My Tutorials" %}
             </h2>
 
             <span>
-                {{ tutorials|length }} tutorials
+                {% blocktrans count tutorial_count=tutorials|length %}
+                    {{ tutorial_count }} tutorial
+                {% plural %}
+                    {{ tutorial_count }} tutorials
+                {% endblocktrans %}
             </span>
 
         </div>
@@ -234,7 +250,7 @@ Publisher Dashboard - GameStore
                                 {% if tutorial.price == 0 %}
 
                                     <span>
-                                        Free
+                                        {% trans "Free" %}
                                     </span>
 
                                 {% else %}
@@ -247,7 +263,8 @@ Publisher Dashboard - GameStore
 
 
                                 <span>
-                                    Uploaded: {{ tutorial.created_at }}
+                                    {% trans "Uploaded:" %}
+                                    {{ tutorial.created_at }}
                                 </span>
 
                             </div>
@@ -258,7 +275,21 @@ Publisher Dashboard - GameStore
                         <div class="publisher-tutorial-status">
 
                             <span class="tutorial-status status-{{ tutorial.status }}">
-                                {{ tutorial.get_status_display }}
+
+                                {% if tutorial.status == 'pending' %}
+
+                                    {% trans "Pending" %}
+
+                                {% elif tutorial.status == 'approved' %}
+
+                                    {% trans "Approved" %}
+
+                                {% elif tutorial.status == 'rejected' %}
+
+                                    {% trans "Rejected" %}
+
+                                {% endif %}
+
                             </span>
 
                         </div>
@@ -274,11 +305,11 @@ Publisher Dashboard - GameStore
             <div class="publisher-empty">
 
                 <h3>
-                    No tutorials uploaded yet
+                    {% trans "No tutorials uploaded yet" %}
                 </h3>
 
                 <p>
-                    Your uploaded tutorials will appear here.
+                    {% trans "Your uploaded tutorials will appear here." %}
                 </p>
 
             </div>

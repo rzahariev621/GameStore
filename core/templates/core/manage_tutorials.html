@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Manage Tutorials - GameStore
+{% trans "Manage Tutorials" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,14 +11,16 @@ Manage Tutorials - GameStore
 
     <section class="admin-header">
 
-        <h1>Manage Tutorials</h1>
+        <h1>
+            {% trans "Manage Tutorials" %}
+        </h1>
 
         <p>
-            Manage all video tutorials in GameStore.
+            {% trans "Manage all video tutorials in PlayGuide." %}
         </p>
 
         <a href="{% url 'admin_dashboard' %}">
-            Back to Admin Dashboard
+            {% trans "Back to Admin Dashboard" %}
         </a>
 
     </section>
@@ -36,44 +39,63 @@ Manage Tutorials - GameStore
                     </h3>
 
                     <p>
-                        Game:
+                        {% trans "Game:" %}
                         {{ tutorial.game.title }}
                     </p>
 
                     <p>
-                        Publisher:
+                        {% trans "Publisher:" %}
                         {{ tutorial.publisher.username }}
                     </p>
 
                     <p>
-                        Status:
-                        {{ tutorial.get_status_display }}
+                        {% trans "Status:" %}
+
+                        {% if tutorial.status == 'pending' %}
+
+                            {% trans "Pending" %}
+
+                        {% elif tutorial.status == 'approved' %}
+
+                            {% trans "Approved" %}
+
+                        {% elif tutorial.status == 'rejected' %}
+
+                            {% trans "Rejected" %}
+
+                        {% endif %}
                     </p>
 
                     <p>
-                        Price:
+                        {% trans "Price:" %}
 
                         {% if tutorial.price == 0 %}
-                            Free
+
+                            {% trans "Free" %}
+
                         {% else %}
+
                             {{ tutorial.price }} €
+
                         {% endif %}
                     </p>
+
 
                     {% if tutorial.status == 'approved' %}
 
                         <a href="{% url 'tutorial_detail' tutorial.id %}">
-                            View Tutorial
+                            {% trans "View Tutorial" %}
                         </a>
 
                     {% endif %}
 
+
                     <a href="{% url 'edit_tutorial' tutorial.id %}">
-                        Edit Tutorial
+                        {% trans "Edit Tutorial" %}
                     </a>
 
                     <a href="{% url 'delete_tutorial' tutorial.id %}">
-                        Delete Tutorial
+                        {% trans "Delete Tutorial" %}
                     </a>
 
                 </div>
@@ -83,7 +105,7 @@ Manage Tutorials - GameStore
         {% else %}
 
             <p>
-                No tutorials are available.
+                {% trans "No tutorials are available." %}
             </p>
 
         {% endif %}

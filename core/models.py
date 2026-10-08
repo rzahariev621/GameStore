@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
+from django.utils.translation import gettext_lazy as _
 
 
 class Game(models.Model):
@@ -12,8 +11,6 @@ class Game(models.Model):
 
     def __str__(self):
         return self.title
-
-
 
 
 class GameRequirement(models.Model):
@@ -41,17 +38,18 @@ class GameRequirement(models.Model):
         return f"{self.game.title} - Requirements"
 
 
-
 class WishlistEntry(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='wishlist_entries'
     )
+
     game = models.ForeignKey(
         Game,
         on_delete=models.CASCADE
     )
+
     added_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -64,7 +62,6 @@ class WishlistEntry(models.Model):
 
     def __str__(self):
         return f"{self.user.username} wants {self.game.title}."
-
 
 
 class FriendRequest(models.Model):
@@ -83,8 +80,8 @@ class FriendRequest(models.Model):
     status = models.CharField(
         max_length=10,
         choices=[
-            ('pending', 'Pending'),
-            ('accepted', 'Accepted')
+            ('pending', _('Pending')),
+            ('accepted', _('Accepted')),
         ],
         default='pending'
     )
@@ -103,13 +100,13 @@ class FriendRequest(models.Model):
         return f"{self.sender.username} -> {self.receiver.username}"
 
 
+# VIDEO TUTORIAL
 
-#VIDEO TUTORIAL
 class VideoTutorial(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('rejected', 'Rejected'),
+        ('pending', _('Pending')),
+        ('approved', _('Approved')),
+        ('rejected', _('Rejected')),
     ]
 
     game = models.ForeignKey(
@@ -185,11 +182,10 @@ class TutorialPurchase(models.Model):
         return f"{self.user.username} bought {self.tutorial.title}"
 
 
-
 class TutorialReport(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('resolved', 'Resolved'),
+        ('pending', _('Pending')),
+        ('resolved', _('Resolved')),
     ]
 
     reporter = models.ForeignKey(
@@ -228,13 +224,11 @@ class TutorialReport(models.Model):
         return f"{self.reporter.username} reported {self.tutorial.title}"
 
 
-
 class Review(models.Model):
-
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('rejected', 'Rejected'),
+        ('pending', _('Pending')),
+        ('approved', _('Approved')),
+        ('rejected', _('Rejected')),
     ]
 
     user = models.ForeignKey(
@@ -273,7 +267,7 @@ class Review(models.Model):
         return f"{self.user.username} - {self.game.title}"
 
 
-#CHAT
+# CHAT
 
 class Message(models.Model):
     sender = models.ForeignKey(
@@ -298,7 +292,7 @@ class Message(models.Model):
         return f"{self.sender.username} -> {self.receiver.username}"
 
 
-#USER BLOCK
+# USER BLOCK
 
 class UserBlock(models.Model):
     blocker = models.ForeignKey(
@@ -329,7 +323,7 @@ class UserBlock(models.Model):
         return f"{self.blocker.username} blocked {self.blocked.username}"
 
 
-#CREATOR POINTS
+# CREATOR POINTS
 
 class CreatorPointAccount(models.Model):
     user = models.OneToOneField(
@@ -350,8 +344,8 @@ class CreatorPointAccount(models.Model):
 
 class CreatorPointTransaction(models.Model):
     TRANSACTION_CHOICES = [
-        ('sale', 'Tutorial Sale'),
-        ('purchase', 'Tutorial Purchase'),
+        ('sale', _('Tutorial Sale')),
+        ('purchase', _('Tutorial Purchase')),
     ]
 
     user = models.ForeignKey(

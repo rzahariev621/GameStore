@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Login - GameStore
+{% trans "Login" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,7 +11,9 @@ Login - GameStore
 
     <div class="login-box">
 
-        <h1>Login</h1>
+        <h1>
+            {% trans "Login" %}
+        </h1>
 
         {% if error %}
             <p class="login-error">
@@ -23,7 +26,7 @@ Login - GameStore
             {% csrf_token %}
 
             <label for="username">
-                Username
+                {% trans "Username" %}
             </label>
 
             <input
@@ -35,7 +38,7 @@ Login - GameStore
 
 
             <label for="password">
-                Password
+                {% trans "Password" %}
             </label>
 
             <input
@@ -47,14 +50,14 @@ Login - GameStore
 
 
             <button type="submit">
-                Login
+                {% trans "Login" %}
             </button>
 
         </form>
 
 
         <a href="{% url 'password_reset' %}">
-            Forgot Password?
+            {% trans "Forgot Password?" %}
         </a>
 
     </div>

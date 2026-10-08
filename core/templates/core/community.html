@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Community - GameStore
+{% trans "Community" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -9,14 +10,23 @@ Community - GameStore
 <main class="community-page">
 
     <section class="community-header">
-        <h1>Community</h1>
-        <p>Discover players, libraries and recent reviews.</p>
+
+        <h1>
+            {% trans "Community" %}
+        </h1>
+
+        <p>
+            {% trans "Discover players, libraries and recent reviews." %}
+        </p>
+
     </section>
 
 
     <section class="community-section">
 
-        <h2>Players</h2>
+        <h2>
+            {% trans "Players" %}
+        </h2>
 
         {% if users %}
 
@@ -27,12 +37,19 @@ Community - GameStore
                     <div class="community-user-card">
 
                         <div>
-                            <h3>{{ community_user.username }}</h3>
-                            <p>GameStore Player</p>
+
+                            <h3>
+                                {{ community_user.username }}
+                            </h3>
+
+                            <p>
+                                PlayGuide {% trans "Player" %}
+                            </p>
+
                         </div>
 
                         <a href="{% url 'profile' community_user.username %}">
-                            View Profile
+                            {% trans "View Profile" %}
                         </a>
 
                     </div>
@@ -43,7 +60,9 @@ Community - GameStore
 
         {% else %}
 
-            <p>No players found.</p>
+            <p>
+                {% trans "No players found." %}
+            </p>
 
         {% endif %}
 
@@ -52,7 +71,9 @@ Community - GameStore
 
     <section class="community-section">
 
-        <h2>Latest Reviews</h2>
+        <h2>
+            {% trans "Latest Reviews" %}
+        </h2>
 
         {% if recent_reviews %}
 
@@ -65,15 +86,19 @@ Community - GameStore
                         <div class="community-review-top">
 
                             <div>
+
                                 <a href="{% url 'profile' review.user.username %}">
                                     {{ review.user.username }}
                                 </a>
 
-                                <span>reviewed</span>
+                                <span>
+                                    {% trans "reviewed" %}
+                                </span>
 
                                 <a href="{% url 'game_detail' review.game.id %}">
                                     {{ review.game.title }}
                                 </a>
+
                             </div>
 
                             <strong>
@@ -82,9 +107,13 @@ Community - GameStore
 
                         </div>
 
-                        <p>{{ review.comment }}</p>
+                        <p>
+                            {{ review.comment }}
+                        </p>
 
-                        <small>{{ review.created_at }}</small>
+                        <small>
+                            {{ review.created_at }}
+                        </small>
 
                     </div>
 
@@ -94,7 +123,9 @@ Community - GameStore
 
         {% else %}
 
-            <p>No reviews yet.</p>
+            <p>
+                {% trans "No reviews yet." %}
+            </p>
 
         {% endif %}
 

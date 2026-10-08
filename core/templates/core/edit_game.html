@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Edit {{ game.title }} - GameStore
+{% blocktrans with game_title=game.title %}Edit {{ game_title }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -11,11 +12,11 @@ Edit {{ game.title }} - GameStore
     <section class="admin-header">
 
         <h1>
-            Edit {{ game.title }}
+            {% blocktrans with game_title=game.title %}Edit {{ game_title }}{% endblocktrans %}
         </h1>
 
         <a href="{% url 'manage_games' %}">
-            Back to Manage Games
+            {% trans "Back to Manage Games" %}
         </a>
 
     </section>
@@ -31,12 +32,16 @@ Edit {{ game.title }} - GameStore
             {% csrf_token %}
 
 
-            <h2>Game Information</h2>
+            <h2>
+                {% trans "Game Information" %}
+            </h2>
 
             {{ game_form.as_p }}
 
 
-            <h2>Minimum System Requirements</h2>
+            <h2>
+                {% trans "Minimum System Requirements" %}
+            </h2>
 
             <p>
                 {{ requirements_form.minimum_cpu.label_tag }}
@@ -64,7 +69,9 @@ Edit {{ game.title }} - GameStore
             </p>
 
 
-            <h2>Recommended System Requirements</h2>
+            <h2>
+                {% trans "Recommended System Requirements" %}
+            </h2>
 
             <p>
                 {{ requirements_form.recommended_cpu.label_tag }}
@@ -93,7 +100,7 @@ Edit {{ game.title }} - GameStore
 
 
             <button type="submit">
-                Save Changes
+                {% trans "Save Changes" %}
             </button>
 
         </form>

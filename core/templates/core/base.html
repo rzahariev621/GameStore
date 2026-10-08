@@ -1,7 +1,8 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
 
@@ -13,7 +14,7 @@
     >
 
     <title>
-        {% block title %}GameStore{% endblock %}
+        {% block title %}PlayGuide{% endblock %}
     </title>
 
 
@@ -24,7 +25,7 @@
     >
 
 
-    <!-- GameStore CSS -->
+    <!-- PlayGuide CSS -->
     <link
         rel="stylesheet"
         href="{% static 'core/style.css' %}"
@@ -36,9 +37,7 @@
 <body>
 
 
-    <nav
-        class="navbar navbar-expand-lg navbar-dark bg-dark"
-    >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
         <div class="container-fluid">
 
@@ -47,7 +46,7 @@
                 class="navbar-brand fw-bold"
                 href="{% url 'home' %}"
             >
-                GAMESTORE
+                PLAYGUIDE
             </a>
 
 
@@ -76,50 +75,42 @@
 
 
                     <li class="nav-item">
-
                         <a
                             class="nav-link"
                             href="{% url 'home' %}"
                         >
-                            Home
+                            {% trans "Home" %}
                         </a>
-
                     </li>
 
 
                     <li class="nav-item">
-
                         <a
                             class="nav-link"
                             href="{% url 'store' %}"
                         >
-                            Store
+                            {% trans "Store" %}
                         </a>
-
                     </li>
 
 
                     <li class="nav-item">
-
                         <a
                             class="nav-link"
                             href="{% url 'library' %}"
                         >
-                            Library
+                            {% trans "Library" %}
                         </a>
-
                     </li>
 
 
                     <li class="nav-item">
-
                         <a
                             class="nav-link"
                             href="{% url 'community' %}"
                         >
-                            Community
+                            {% trans "Community" %}
                         </a>
-
                     </li>
 
 
@@ -127,26 +118,22 @@
 
 
                         <li class="nav-item">
-
                             <a
                                 class="nav-link"
                                 href="{% url 'wishlist' %}"
                             >
-                                Wishlist
+                                {% trans "Wishlist" %}
                             </a>
-
                         </li>
 
 
                         <li class="nav-item">
-
                             <a
                                 class="nav-link"
                                 href="{% url 'messages_inbox' %}"
                             >
-                                Messages
+                                {% trans "Messages" %}
                             </a>
-
                         </li>
 
 
@@ -156,14 +143,12 @@
                             {% if group.name == 'Publisher' %}
 
                                 <li class="nav-item">
-
                                     <a
                                         class="nav-link"
                                         href="{% url 'publisher_dashboard' %}"
                                     >
-                                        Publisher Dashboard
+                                        {% trans "Publisher Dashboard" %}
                                     </a>
-
                                 </li>
 
                             {% endif %}
@@ -172,14 +157,12 @@
                             {% if group.name == 'Moderator' %}
 
                                 <li class="nav-item">
-
                                     <a
                                         class="nav-link"
                                         href="{% url 'moderator_dashboard' %}"
                                     >
-                                        Moderator Dashboard
+                                        {% trans "Moderator Dashboard" %}
                                     </a>
-
                                 </li>
 
                             {% endif %}
@@ -188,14 +171,12 @@
                             {% if group.name == 'Admin' %}
 
                                 <li class="nav-item">
-
                                     <a
                                         class="nav-link"
                                         href="{% url 'admin_dashboard' %}"
                                     >
-                                        Admin Dashboard
+                                        {% trans "Admin Dashboard" %}
                                     </a>
-
                                 </li>
 
                             {% endif %}
@@ -207,14 +188,12 @@
                         {% if user.is_superuser %}
 
                             <li class="nav-item">
-
                                 <a
                                     class="nav-link"
                                     href="{% url 'admin_dashboard' %}"
                                 >
-                                    Admin Dashboard
+                                    {% trans "Admin Dashboard" %}
                                 </a>
-
                             </li>
 
                         {% endif %}
@@ -226,7 +205,100 @@
                 </ul>
 
 
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                    <!-- LANGUAGE SWITCH -->
+
+                    {% get_current_language as CURRENT_LANGUAGE %}
+
+                    <li class="nav-item dropdown me-lg-2">
+
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            {% if CURRENT_LANGUAGE == 'bg' %}
+                                BG
+                            {% else %}
+                                EN
+                            {% endif %}
+                        </a>
+
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+
+                                <form
+                                    action="{% url 'set_language' %}"
+                                    method="POST"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <input
+                                        type="hidden"
+                                        name="next"
+                                        value="{{ request.get_full_path }}"
+                                    >
+
+                                    <input
+                                        type="hidden"
+                                        name="language"
+                                        value="en"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="dropdown-item"
+                                    >
+                                        English
+                                    </button>
+
+                                </form>
+
+                            </li>
+
+
+                            <li>
+
+                                <form
+                                    action="{% url 'set_language' %}"
+                                    method="POST"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <input
+                                        type="hidden"
+                                        name="next"
+                                        value="{{ request.get_full_path }}"
+                                    >
+
+                                    <input
+                                        type="hidden"
+                                        name="language"
+                                        value="bg"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="dropdown-item"
+                                    >
+                                        Български
+                                    </button>
+
+                                </form>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
 
 
                     {% if user.is_authenticated %}
@@ -241,33 +313,29 @@
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                Hello, {{ user.username }}
+                                {% trans "Hello" %}, {{ user.username }}
                             </a>
 
 
                             <ul class="dropdown-menu dropdown-menu-end">
 
                                 <li>
-
                                     <a
                                         class="dropdown-item"
                                         href="{% url 'profile' user.username %}"
                                     >
-                                        Profile
+                                        {% trans "Profile" %}
                                     </a>
-
                                 </li>
 
 
                                 <li>
-
                                     <a
                                         class="dropdown-item"
                                         href="{% url 'blocked_users' %}"
                                     >
-                                        Blocked Users
+                                        {% trans "Blocked Users" %}
                                     </a>
-
                                 </li>
 
 
@@ -277,14 +345,12 @@
 
 
                                 <li>
-
                                     <a
                                         class="dropdown-item"
                                         href="{% url 'logout' %}"
                                     >
-                                        Logout
+                                        {% trans "Logout" %}
                                     </a>
-
                                 </li>
 
                             </ul>
@@ -296,26 +362,22 @@
 
 
                         <li class="nav-item">
-
                             <a
                                 class="nav-link"
                                 href="{% url 'login' %}"
                             >
-                                Login
+                                {% trans "Login" %}
                             </a>
-
                         </li>
 
 
                         <li class="nav-item">
-
                             <a
                                 class="nav-link"
                                 href="{% url 'register' %}"
                             >
-                                Register
+                                {% trans "Register" %}
                             </a>
-
                         </li>
 
 
@@ -332,10 +394,8 @@
     </nav>
 
 
-
     {% block content %}
     {% endblock %}
-
 
 
     <!-- Bootstrap JavaScript -->

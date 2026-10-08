@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-My Library - GameStore
+{% trans "My Library" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -9,8 +10,13 @@ My Library - GameStore
 <main class="library-page">
 
     <div class="library-header">
-        <h1>My Library</h1>
-        <p>Your purchased video tutorials.</p>
+        <h1>
+            {% trans "My Library" %}
+        </h1>
+
+        <p>
+            {% trans "Your purchased video tutorials." %}
+        </p>
     </div>
 
     {% if purchases %}
@@ -22,11 +28,13 @@ My Library - GameStore
                 <div class="tutorial-library-card">
 
                     {% if purchase.tutorial.game.cover %}
+
                         <img
                             class="tutorial-game-cover"
                             src="{{ purchase.tutorial.game.cover.url }}"
                             alt="{{ purchase.tutorial.game.title }}"
                         >
+
                     {% endif %}
 
                     <div class="tutorial-library-content">
@@ -46,14 +54,15 @@ My Library - GameStore
                         <div class="tutorial-library-info">
 
                             <span>
-                                Publisher:
+                                {% trans "Publisher:" %}
+
                                 <a href="{% url 'profile' purchase.tutorial.publisher.username %}">
                                     {{ purchase.tutorial.publisher.username }}
                                 </a>
                             </span>
 
                             <span>
-                                Purchased for:
+                                {% trans "Purchased for:" %}
                                 {{ purchase.price_paid }} €
                             </span>
 
@@ -67,7 +76,8 @@ My Library - GameStore
                                 preload="metadata"
                             >
                                 <source src="{{ purchase.tutorial.video.url }}">
-                                Your browser does not support video playback.
+
+                                {% trans "Your browser does not support video playback." %}
                             </video>
 
                         {% endif %}
@@ -76,7 +86,7 @@ My Library - GameStore
                             class="tutorial-game-link"
                             href="{% url 'game_detail' purchase.tutorial.game.id %}"
                         >
-                            View Game
+                            {% trans "View Game" %}
                         </a>
 
                     </div>
@@ -90,14 +100,19 @@ My Library - GameStore
     {% else %}
 
         <div class="empty-library">
-            <h2>Your library is empty</h2>
+
+            <h2>
+                {% trans "Your library is empty" %}
+            </h2>
+
             <p>
-                Tutorials that you purchase will appear here.
+                {% trans "Tutorials that you purchase will appear here." %}
             </p>
 
             <a href="{% url 'store' %}">
-                Browse Games
+                {% trans "Browse Games" %}
             </a>
+
         </div>
 
     {% endif %}

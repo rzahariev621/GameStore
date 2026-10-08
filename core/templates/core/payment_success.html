@@ -1,21 +1,24 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Payment Successful - GameStore
+{% trans "Payment Successful" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
 <main>
 
-    <h1>Payment Successful</h1>
+    <h1>
+        {% trans "Payment Successful" %}
+    </h1>
 
     <p>
-        Your tutorial purchase has been completed successfully.
+        {% trans "Your tutorial purchase has been completed successfully." %}
     </p>
 
     <a href="{% url 'library' %}">
-        Go to Library
+        {% trans "Go to Library" %}
     </a>
 
 </main>

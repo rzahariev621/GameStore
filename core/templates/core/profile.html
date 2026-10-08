@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-{{ profile_user.username }} - Profile
+{{ profile_user.username }} - {% trans "Profile" %}
 {% endblock %}
 
 {% block content %}
@@ -12,16 +13,36 @@
 
         <div class="profile-name">
 
-            <h1>{{ profile_user.username }}</h1>
+            <h1>
+                {{ profile_user.username }}
+            </h1>
 
-            <p>{{ role }}</p>
+
+            <p>
+
+                {% if role == 'Admin' %}
+                    {% trans "Admin" %}
+
+                {% elif role == 'Moderator' %}
+                    {% trans "Moderator" %}
+
+                {% elif role == 'Publisher' %}
+                    {% trans "Publisher" %}
+
+                {% else %}
+                    {% trans "User" %}
+
+                {% endif %}
+
+            </p>
+
 
             {% if user.is_authenticated and user != profile_user %}
 
                 {% if is_blocked_by_me %}
 
                     <p class="friend-status">
-                        User Blocked
+                        {% trans "User Blocked" %}
                     </p>
 
                     <form
@@ -34,8 +55,9 @@
                             type="submit"
                             class="add-friend-button"
                         >
-                            Unblock
+                            {% trans "Unblock" %}
                         </button>
+
                     </form>
 
                 {% else %}
@@ -43,7 +65,7 @@
                     {% if has_blocked_me %}
 
                         <p class="friend-status">
-                            Interaction unavailable
+                            {% trans "Interaction unavailable" %}
                         </p>
 
                     {% else %}
@@ -51,20 +73,20 @@
                         {% if is_friend %}
 
                             <p class="friend-status">
-                                ✓ Friends
+                                ✓ {% trans "Friends" %}
                             </p>
 
                             <a
                                 href="{% url 'chat' profile_user.username %}"
                                 class="message-button"
                             >
-                                Message
+                                {% trans "Message" %}
                             </a>
 
                         {% elif request_sent %}
 
                             <p class="friend-status">
-                                Request Sent
+                                {% trans "Request Sent" %}
                             </p>
 
                         {% elif incoming_request %}
@@ -79,8 +101,9 @@
                                     type="submit"
                                     class="add-friend-button"
                                 >
-                                    Accept Friend Request
+                                    {% trans "Accept Friend Request" %}
                                 </button>
+
                             </form>
 
                         {% else %}
@@ -95,8 +118,9 @@
                                     type="submit"
                                     class="add-friend-button"
                                 >
-                                    Add Friend
+                                    {% trans "Add Friend" %}
                                 </button>
+
                             </form>
 
                         {% endif %}
@@ -114,8 +138,9 @@
                             type="submit"
                             class="add-friend-button"
                         >
-                            Block User
+                            {% trans "Block User" %}
                         </button>
+
                     </form>
 
                 {% endif %}
@@ -128,13 +153,28 @@
         <div class="profile-stats">
 
             <div class="profile-stat">
-                <strong>{{ published_tutorials|length }}</strong>
-                <span>Tutorials</span>
+
+                <strong>
+                    {{ published_tutorials|length }}
+                </strong>
+
+                <span>
+                    {% trans "Tutorials" %}
+                </span>
+
             </div>
 
+
             <div class="profile-stat">
-                <strong>{{ reviews|length }}</strong>
-                <span>Reviews</span>
+
+                <strong>
+                    {{ reviews|length }}
+                </strong>
+
+                <span>
+                    {% trans "Reviews" %}
+                </span>
+
             </div>
 
         </div>
@@ -144,7 +184,10 @@
 
     <section class="profile-tutorials">
 
-        <h2>Published Tutorials</h2>
+        <h2>
+            {% trans "Published Tutorials" %}
+        </h2>
+
 
         {% if published_tutorials %}
 
@@ -163,24 +206,28 @@
 
                         {% endif %}
 
+
                         <div class="tutorial-card-content">
 
                             <span class="tutorial-game-name">
                                 {{ tutorial.game.title }}
                             </span>
 
+
                             <h3>
                                 {{ tutorial.title }}
                             </h3>
+
 
                             <p>
                                 {{ tutorial.description }}
                             </p>
 
+
                             {% if tutorial.price == 0 %}
 
                                 <span class="tutorial-price">
-                                    Free
+                                    {% trans "Free" %}
                                 </span>
 
                             {% else %}
@@ -195,11 +242,11 @@
                             <div class="tutorial-actions">
 
                                 <a href="{% url 'game_detail' tutorial.game.id %}">
-                                    View Game
+                                    {% trans "View Game" %}
                                 </a>
 
                                 <a href="{% url 'tutorial_detail' tutorial.id %}">
-                                    View Tutorial
+                                    {% trans "View Tutorial" %}
                                 </a>
 
                             </div>
@@ -215,7 +262,7 @@
         {% else %}
 
             <p>
-                This user has no published tutorials yet.
+                {% trans "This user has no published tutorials yet." %}
             </p>
 
         {% endif %}
@@ -225,7 +272,10 @@
 
     <section class="profile-reviews">
 
-        <h2>Reviews</h2>
+        <h2>
+            {% trans "Reviews" %}
+        </h2>
+
 
         {% if reviews %}
 
@@ -236,9 +286,11 @@
                     <div class="review-header">
 
                         <a href="{% url 'game_detail' review.game.id %}">
+
                             <strong>
                                 {{ review.game.title }}
                             </strong>
+
                         </a>
 
                         <span>
@@ -247,9 +299,11 @@
 
                     </div>
 
+
                     <p>
                         {{ review.comment }}
                     </p>
+
 
                     <small>
                         {{ review.created_at }}
@@ -262,7 +316,7 @@
         {% else %}
 
             <p>
-                This user has not written any reviews yet.
+                {% trans "This user has not written any reviews yet." %}
             </p>
 
         {% endif %}

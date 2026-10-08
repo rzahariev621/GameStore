@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.db.models import Q
 from django.db import transaction
+from django.utils.translation import gettext as _
 
 from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message, UserBlock, TutorialReport, CreatorPointTransaction, CreatorPointAccount
 
@@ -68,7 +69,11 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(request, username = username, password = password)
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
 
         if user is not None:
             auth_login(request, user)
@@ -76,12 +81,19 @@ def login(request):
             return redirect('home')
 
         else:
-            return render(request, 'core/login.html', {'error': 'Wrong username or password.'})
-
+            return render(
+                request,
+                'core/login.html',
+                {
+                    'error': _('Wrong username or password.')
+                }
+            )
 
     return render(request, 'core/login.html')
 
+
 def register(request):
+
     if request.method == 'POST':
 
         username = request.POST['username']
@@ -94,7 +106,7 @@ def register(request):
                 request,
                 'core/register.html',
                 {
-                    'error': 'Passwords are not matching.'
+                    'error': _('Passwords are not matching.')
                 }
             )
 
@@ -103,7 +115,7 @@ def register(request):
                 request,
                 'core/register.html',
                 {
-                    'error': 'Username already exists.'
+                    'error': _('Username already exists.')
                 }
             )
 
@@ -112,7 +124,7 @@ def register(request):
                 request,
                 'core/register.html',
                 {
-                    'error': 'Email is already in use.'
+                    'error': _('Email is already in use.')
                 }
             )
 

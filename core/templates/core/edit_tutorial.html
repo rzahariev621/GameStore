@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Edit {{ tutorial.title }} - GameStore
+{% blocktrans with tutorial_title=tutorial.title %}Edit {{ tutorial_title }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@ Edit {{ tutorial.title }} - GameStore
     <section class="admin-header">
 
         <h1>
-            Edit Tutorial
+            {% trans "Edit Tutorial" %}
         </h1>
 
         <p>
@@ -19,12 +20,12 @@ Edit {{ tutorial.title }} - GameStore
         </p>
 
         <p>
-            Publisher:
+            {% trans "Publisher:" %}
             {{ tutorial.publisher.username }}
         </p>
 
         <a href="{% url 'manage_tutorials' %}">
-            Back to Manage Tutorials
+            {% trans "Back to Manage Tutorials" %}
         </a>
 
     </section>
@@ -42,7 +43,7 @@ Edit {{ tutorial.title }} - GameStore
             {{ form.as_p }}
 
             <button type="submit">
-                Save Changes
+                {% trans "Save Changes" %}
             </button>
 
         </form>

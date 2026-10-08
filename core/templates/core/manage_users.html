@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Manage Users - GameStore
+{% trans "Manage Users" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,14 +11,16 @@ Manage Users - GameStore
 
     <section class="admin-header">
 
-        <h1>Manage Users</h1>
+        <h1>
+            {% trans "Manage Users" %}
+        </h1>
 
         <p>
-            Manage user roles and account status in GameStore.
+            {% trans "Manage user roles and account status in PlayGuide." %}
         </p>
 
         <a href="{% url 'admin_dashboard' %}">
-            Back to Admin Dashboard
+            {% trans "Back to Admin Dashboard" %}
         </a>
 
     </section>
@@ -41,18 +44,18 @@ Manage Users - GameStore
 
 
                     <p>
-                        Status:
+                        {% trans "Status:" %}
 
                         {% if account.is_active %}
 
                             <strong>
-                                Active
+                                {% trans "Active" %}
                             </strong>
 
                         {% else %}
 
                             <strong>
-                                Inactive
+                                {% trans "Inactive" %}
                             </strong>
 
                         {% endif %}
@@ -62,14 +65,31 @@ Manage Users - GameStore
                     {% if account.is_superuser %}
 
                         <strong>
-                            Superuser
+                            {% trans "Superuser" %}
                         </strong>
 
                     {% else %}
 
                         <p>
-                            Role:
-                            {{ account.current_role }}
+                            {% trans "Role:" %}
+
+                            {% if account.current_role == 'User' %}
+
+                                {% trans "User" %}
+
+                            {% elif account.current_role == 'Publisher' %}
+
+                                {% trans "Publisher" %}
+
+                            {% elif account.current_role == 'Moderator' %}
+
+                                {% trans "Moderator" %}
+
+                            {% elif account.current_role == 'Admin' %}
+
+                                {% trans "Admin" %}
+
+                            {% endif %}
                         </p>
 
                     {% endif %}
@@ -89,7 +109,7 @@ Manage Users - GameStore
                             {% csrf_token %}
 
                             <label>
-                                Role
+                                {% trans "Role" %}
                             </label>
 
                             <select name="role">
@@ -100,7 +120,7 @@ Manage Users - GameStore
                                         selected
                                     {% endif %}
                                 >
-                                    User
+                                    {% trans "User" %}
                                 </option>
 
                                 <option
@@ -109,7 +129,7 @@ Manage Users - GameStore
                                         selected
                                     {% endif %}
                                 >
-                                    Publisher
+                                    {% trans "Publisher" %}
                                 </option>
 
                                 <option
@@ -118,7 +138,7 @@ Manage Users - GameStore
                                         selected
                                     {% endif %}
                                 >
-                                    Moderator
+                                    {% trans "Moderator" %}
                                 </option>
 
                                 <option
@@ -127,13 +147,13 @@ Manage Users - GameStore
                                         selected
                                     {% endif %}
                                 >
-                                    Admin
+                                    {% trans "Admin" %}
                                 </option>
 
                             </select>
 
                             <button type="submit">
-                                Update Role
+                                {% trans "Update Role" %}
                             </button>
 
                         </form>
@@ -149,13 +169,13 @@ Manage Users - GameStore
                             {% if account.is_active %}
 
                                 <button type="submit">
-                                    Deactivate User
+                                    {% trans "Deactivate User" %}
                                 </button>
 
                             {% else %}
 
                                 <button type="submit">
-                                    Activate User
+                                    {% trans "Activate User" %}
                                 </button>
 
                             {% endif %}
@@ -165,7 +185,7 @@ Manage Users - GameStore
                     {% else %}
 
                         <p>
-                            Current administrator
+                            {% trans "Current administrator" %}
                         </p>
 
                     {% endif %}

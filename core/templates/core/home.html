@@ -1,16 +1,26 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Home - GameStore
+{% trans "Home" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
 <main class="hero">
-    <h1>Добре дошъл в GameStore! 🎮</h1>
-    <p>Открий следващата си любима игра.</p>
 
-    <button>Разгледай игрите</button>
+    <h1>
+        {% blocktrans %}Welcome to PlayGuide! 🎮{% endblocktrans %}
+    </h1>
+
+    <p>
+        {% trans "Discover your next favorite game." %}
+    </p>
+
+    <button>
+        {% trans "Browse Games" %}
+    </button>
+
 </main>
 
 {% endblock %}

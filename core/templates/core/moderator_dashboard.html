@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Moderator Dashboard - GameStore
+{% trans "Moderator Dashboard" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,10 +11,12 @@ Moderator Dashboard - GameStore
 
     <section class="moderator-header">
 
-        <h1>Moderator Dashboard</h1>
+        <h1>
+            {% trans "Moderator Dashboard" %}
+        </h1>
 
         <p>
-            Review pending tutorials, reviews and reported content.
+            {% trans "Review pending tutorials, reviews and reported content." %}
         </p>
 
     </section>
@@ -23,7 +26,9 @@ Moderator Dashboard - GameStore
 
     <section class="moderator-section">
 
-        <h2>Pending Tutorials</h2>
+        <h2>
+            {% trans "Pending Tutorials" %}
+        </h2>
 
         {% if pending_tutorials %}
 
@@ -40,14 +45,15 @@ Moderator Dashboard - GameStore
                             </h3>
 
                             <p>
-                                Game:
+                                {% trans "Game:" %}
+
                                 <strong>
                                     {{ tutorial.game.title }}
                                 </strong>
                             </p>
 
                             <p>
-                                Publisher:
+                                {% trans "Publisher:" %}
 
                                 <a href="{% url 'profile' tutorial.publisher.username %}">
                                     {{ tutorial.publisher.username }}
@@ -59,17 +65,22 @@ Moderator Dashboard - GameStore
                             </p>
 
                             <p>
-                                Price:
+                                {% trans "Price:" %}
 
                                 {% if tutorial.price == 0 %}
-                                    Free
+
+                                    {% trans "Free" %}
+
                                 {% else %}
+
                                     {{ tutorial.price }} €
+
                                 {% endif %}
                             </p>
 
                             <small>
-                                Submitted: {{ tutorial.created_at }}
+                                {% trans "Submitted:" %}
+                                {{ tutorial.created_at }}
                             </small>
 
                         </div>
@@ -85,7 +96,7 @@ Moderator Dashboard - GameStore
                                 {% csrf_token %}
 
                                 <button type="submit">
-                                    Approve
+                                    {% trans "Approve" %}
                                 </button>
 
                             </form>
@@ -99,7 +110,7 @@ Moderator Dashboard - GameStore
                                 {% csrf_token %}
 
                                 <button type="submit">
-                                    Reject
+                                    {% trans "Reject" %}
                                 </button>
 
                             </form>
@@ -115,7 +126,7 @@ Moderator Dashboard - GameStore
         {% else %}
 
             <p>
-                There are no tutorials waiting for approval.
+                {% trans "There are no tutorials waiting for approval." %}
             </p>
 
         {% endif %}
@@ -127,7 +138,9 @@ Moderator Dashboard - GameStore
 
     <section class="moderator-section">
 
-        <h2>Pending Reviews</h2>
+        <h2>
+            {% trans "Pending Reviews" %}
+        </h2>
 
         {% if pending_reviews %}
 
@@ -144,7 +157,7 @@ Moderator Dashboard - GameStore
                             </h3>
 
                             <p>
-                                User:
+                                {% trans "User:" %}
 
                                 <a href="{% url 'profile' review.user.username %}">
                                     {{ review.user.username }}
@@ -152,7 +165,7 @@ Moderator Dashboard - GameStore
                             </p>
 
                             <p>
-                                Rating:
+                                {% trans "Rating:" %}
                                 {{ review.rating }}/5 ⭐
                             </p>
 
@@ -161,7 +174,8 @@ Moderator Dashboard - GameStore
                             </p>
 
                             <small>
-                                Submitted: {{ review.created_at }}
+                                {% trans "Submitted:" %}
+                                {{ review.created_at }}
                             </small>
 
                         </div>
@@ -177,7 +191,7 @@ Moderator Dashboard - GameStore
                                 {% csrf_token %}
 
                                 <button type="submit">
-                                    Approve
+                                    {% trans "Approve" %}
                                 </button>
 
                             </form>
@@ -191,7 +205,7 @@ Moderator Dashboard - GameStore
                                 {% csrf_token %}
 
                                 <button type="submit">
-                                    Reject
+                                    {% trans "Reject" %}
                                 </button>
 
                             </form>
@@ -207,7 +221,7 @@ Moderator Dashboard - GameStore
         {% else %}
 
             <p>
-                There are no reviews waiting for approval.
+                {% trans "There are no reviews waiting for approval." %}
             </p>
 
         {% endif %}
@@ -219,7 +233,9 @@ Moderator Dashboard - GameStore
 
     <section class="moderator-section">
 
-        <h2>Reported Tutorials</h2>
+        <h2>
+            {% trans "Reported Tutorials" %}
+        </h2>
 
         {% if pending_reports %}
 
@@ -236,14 +252,15 @@ Moderator Dashboard - GameStore
                             </h3>
 
                             <p>
-                                Game:
+                                {% trans "Game:" %}
+
                                 <strong>
                                     {{ report.tutorial.game.title }}
                                 </strong>
                             </p>
 
                             <p>
-                                Publisher:
+                                {% trans "Publisher:" %}
 
                                 <a href="{% url 'profile' report.tutorial.publisher.username %}">
                                     {{ report.tutorial.publisher.username }}
@@ -251,7 +268,7 @@ Moderator Dashboard - GameStore
                             </p>
 
                             <p>
-                                Reported by:
+                                {% trans "Reported by:" %}
 
                                 <a href="{% url 'profile' report.reporter.username %}">
                                     {{ report.reporter.username }}
@@ -259,7 +276,9 @@ Moderator Dashboard - GameStore
                             </p>
 
                             <p>
-                                <strong>Reason:</strong>
+                                <strong>
+                                    {% trans "Reason:" %}
+                                </strong>
                             </p>
 
                             <p>
@@ -267,7 +286,8 @@ Moderator Dashboard - GameStore
                             </p>
 
                             <small>
-                                Reported: {{ report.created_at }}
+                                {% trans "Reported:" %}
+                                {{ report.created_at }}
                             </small>
 
                         </div>
@@ -275,10 +295,8 @@ Moderator Dashboard - GameStore
 
                         <div class="moderator-actions">
 
-                            <a
-                                href="{% url 'tutorial_detail' report.tutorial.id %}"
-                            >
-                                View Tutorial
+                            <a href="{% url 'tutorial_detail' report.tutorial.id %}">
+                                {% trans "View Tutorial" %}
                             </a>
 
 
@@ -290,7 +308,7 @@ Moderator Dashboard - GameStore
                                 {% csrf_token %}
 
                                 <button type="submit">
-                                    Mark as Resolved
+                                    {% trans "Mark as Resolved" %}
                                 </button>
 
                             </form>
@@ -306,7 +324,7 @@ Moderator Dashboard - GameStore
         {% else %}
 
             <p>
-                There are no reported tutorials waiting for review.
+                {% trans "There are no reported tutorials waiting for review." %}
             </p>
 
         {% endif %}

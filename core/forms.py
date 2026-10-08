@@ -1,4 +1,6 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
+
 from .models import VideoTutorial, Game, GameRequirement
 
 
@@ -14,6 +16,13 @@ class VideoTutorialForm(forms.ModelForm):
             'price',
         ]
 
+        labels = {
+            'game': _('Game'),
+            'title': _('Title'),
+            'description': _('Description'),
+            'video': _('Video'),
+            'price': _('Price'),
+        }
 
 
 class GameForm(forms.ModelForm):
@@ -27,6 +36,12 @@ class GameForm(forms.ModelForm):
             'cover',
         ]
 
+        labels = {
+            'title': _('Title'),
+            'description': _('Description'),
+            'release_date': _('Release date'),
+            'cover': _('Cover'),
+        }
 
 
 class GameRequirementForm(forms.ModelForm):
@@ -47,6 +62,19 @@ class GameRequirementForm(forms.ModelForm):
             'recommended_network',
         ]
 
+        labels = {
+            'minimum_cpu': _('Minimum CPU'),
+            'minimum_gpu': _('Minimum GPU'),
+            'minimum_ram_gb': _('Minimum RAM (GB)'),
+            'minimum_storage': _('Minimum Storage'),
+            'minimum_network': _('Minimum Network'),
+
+            'recommended_cpu': _('Recommended CPU'),
+            'recommended_gpu': _('Recommended GPU'),
+            'recommended_ram_gb': _('Recommended RAM (GB)'),
+            'recommended_storage': _('Recommended Storage'),
+            'recommended_network': _('Recommended Network'),
+        }
 
 
 class AdminTutorialForm(forms.ModelForm):
@@ -61,3 +89,12 @@ class AdminTutorialForm(forms.ModelForm):
             'price',
             'status',
         ]
+
+        labels = {
+            'game': _('Game'),
+            'title': _('Title'),
+            'description': _('Description'),
+            'video': _('Video'),
+            'price': _('Price'),
+            'status': _('Status'),
+        }

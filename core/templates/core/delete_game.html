@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Delete {{ game.title }} - GameStore
+{% blocktrans with game_title=game.title %}Delete {{ game_title }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@ Delete {{ game.title }} - GameStore
     <section class="admin-header">
 
         <h1>
-            Delete Game
+            {% trans "Delete Game" %}
         </h1>
 
     </section>
@@ -20,16 +21,15 @@ Delete {{ game.title }} - GameStore
     <section class="admin-form">
 
         <h2>
-            Are you sure you want to delete "{{ game.title }}"?
+            {% blocktrans with game_title=game.title %}Are you sure you want to delete "{{ game_title }}"?{% endblocktrans %}
         </h2>
 
         <p>
-            This action cannot be undone.
+            {% trans "This action cannot be undone." %}
         </p>
 
         <p>
-            Related tutorials, reviews and system requirements
-            may also be deleted.
+            {% trans "Related tutorials, reviews and system requirements may also be deleted." %}
         </p>
 
 
@@ -38,14 +38,14 @@ Delete {{ game.title }} - GameStore
             {% csrf_token %}
 
             <button type="submit">
-                Yes, Delete Game
+                {% trans "Yes, Delete Game" %}
             </button>
 
         </form>
 
 
         <a href="{% url 'manage_games' %}">
-            Cancel
+            {% trans "Cancel" %}
         </a>
 
     </section>

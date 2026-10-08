@@ -1,14 +1,17 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-My Wishlist - GameStore
+{% trans "My Wishlist" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
 <main class="store-page">
 
-    <h1>My Wishlist ❤️</h1>
+    <h1>
+        {% trans "My Wishlist" %} ❤️
+    </h1>
 
     {% if wishlist_entries %}
 
@@ -19,15 +22,19 @@ My Wishlist - GameStore
                 <div class="game-card">
 
                     {% if entry.game.cover %}
+
                         <img
                             src="{{ entry.game.cover.url }}"
                             alt="{{ entry.game.title }}"
                         >
+
                     {% endif %}
 
                     <div class="game-card-content">
 
-                        <h2>{{ entry.game.title }}</h2>
+                        <h2>
+                            {{ entry.game.title }}
+                        </h2>
 
                         <p>
                             {{ entry.game.description }}
@@ -35,17 +42,13 @@ My Wishlist - GameStore
 
                         <div class="wishlist-card-bottom">
 
-                            <span class="wishlist-price">
-                                {{ entry.game.price }} €
-                            </span>
-
                             <div class="wishlist-actions">
 
                                 <a
                                     href="{% url 'game_detail' entry.game.id %}"
                                     class="wishlist-view-button"
                                 >
-                                    View Game
+                                    {% trans "View Game" %}
                                 </a>
 
                                 <form
@@ -58,8 +61,9 @@ My Wishlist - GameStore
                                         type="submit"
                                         class="remove-wishlist-button"
                                     >
-                                        Remove
+                                        {% trans "Remove" %}
                                     </button>
+
                                 </form>
 
                             </div>
@@ -76,7 +80,9 @@ My Wishlist - GameStore
 
     {% else %}
 
-        <p>Your wishlist is empty.</p>
+        <p>
+            {% trans "Your wishlist is empty." %}
+        </p>
 
     {% endif %}
 

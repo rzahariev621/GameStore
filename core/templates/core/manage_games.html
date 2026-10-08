@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Manage Games - GameStore
+{% trans "Manage Games" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,18 +11,20 @@ Manage Games - GameStore
 
     <section class="admin-header">
 
-        <h1>Manage Games</h1>
+        <h1>
+            {% trans "Manage Games" %}
+        </h1>
 
         <p>
-            Add, edit and remove games from GameStore.
+            {% trans "Add, edit and remove games from PlayGuide." %}
         </p>
 
         <a href="{% url 'admin_dashboard' %}">
-            Back to Admin Dashboard
+            {% trans "Back to Admin Dashboard" %}
         </a>
 
         <a href="{% url 'add_game' %}">
-            Add Game
+            {% trans "Add Game" %}
         </a>
 
     </section>
@@ -52,20 +55,20 @@ Manage Games - GameStore
                         </h3>
 
                         <p>
-                            Release date:
+                            {% trans "Release date:" %}
                             {{ game.release_date }}
                         </p>
 
                         <a href="{% url 'game_detail' game.id %}">
-                            View Game
+                            {% trans "View Game" %}
                         </a>
 
                         <a href="{% url 'edit_game' game.id %}">
-                            Edit Game
+                            {% trans "Edit Game" %}
                         </a>
 
                         <a href="{% url 'delete_game' game.id %}">
-                            Delete Game
+                            {% trans "Delete Game" %}
                         </a>
 
                     </div>
@@ -77,7 +80,7 @@ Manage Games - GameStore
         {% else %}
 
             <p>
-                No games are available.
+                {% trans "No games are available." %}
             </p>
 
         {% endif %}

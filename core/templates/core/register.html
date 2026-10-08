@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Register - GameStore
+{% trans "Register" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,7 +11,9 @@ Register - GameStore
 
     <div class="login-box">
 
-        <h1>Create Account</h1>
+        <h1>
+            {% trans "Create Account" %}
+        </h1>
 
         {% if error %}
             <p class="login-error">
@@ -23,7 +26,7 @@ Register - GameStore
             {% csrf_token %}
 
             <label for="username">
-                Username
+                {% trans "Username" %}
             </label>
 
             <input
@@ -35,7 +38,7 @@ Register - GameStore
 
 
             <label for="email">
-                Email
+                {% trans "Email" %}
             </label>
 
             <input
@@ -47,7 +50,7 @@ Register - GameStore
 
 
             <label for="password">
-                Password
+                {% trans "Password" %}
             </label>
 
             <input
@@ -59,7 +62,7 @@ Register - GameStore
 
 
             <label for="password_confirm">
-                Confirm Password
+                {% trans "Confirm Password" %}
             </label>
 
             <input
@@ -71,7 +74,7 @@ Register - GameStore
 
 
             <button type="submit">
-                Create Account
+                {% trans "Create Account" %}
             </button>
 
         </form>

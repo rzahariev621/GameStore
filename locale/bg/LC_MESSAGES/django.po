@@ -1,0 +1,1159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr "Project-Id-Version: PlayGuide\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-08 23:05+0300\nPO-Revision-Date: 2026-10-08 23:30+0300\nLast-Translator:\nLanguage-Team: Bulgarian\nLanguage: bg\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\core\forms.py:20 .\core\forms.py:94
+#: .\core\templates\core\upload_tutorial.html:32
+msgid "Game"
+msgstr "Игра"
+
+#: .\core\forms.py:21 .\core\forms.py:40 .\core\forms.py:95
+#: .\core\templates\core\upload_tutorial.html:49
+msgid "Title"
+msgstr "Заглавие"
+
+#: .\core\forms.py:22 .\core\forms.py:41 .\core\forms.py:96
+#: .\core\templates\core\upload_tutorial.html:66
+msgid "Description"
+msgstr "Описание"
+
+#: .\core\forms.py:23 .\core\forms.py:97
+#: .\core\templates\core\upload_tutorial.html:83
+msgid "Video"
+msgstr "Видео"
+
+#: .\core\forms.py:24 .\core\forms.py:98
+#: .\core\templates\core\upload_tutorial.html:100
+msgid "Price"
+msgstr "Цена"
+
+#: .\core\forms.py:42
+msgid "Release date"
+msgstr "Дата на излизане"
+
+#: .\core\forms.py:43
+msgid "Cover"
+msgstr "Обложка"
+
+#: .\core\forms.py:66
+msgid "Minimum CPU"
+msgstr "Минимален процесор"
+
+#: .\core\forms.py:67
+msgid "Minimum GPU"
+msgstr "Минимална видеокарта"
+
+#: .\core\forms.py:68
+msgid "Minimum RAM (GB)"
+msgstr "Минимална оперативна памет (GB)"
+
+#: .\core\forms.py:69
+msgid "Minimum Storage"
+msgstr "Минимално дисково пространство"
+
+#: .\core\forms.py:70
+msgid "Minimum Network"
+msgstr "Минимални мрежови изисквания"
+
+#: .\core\forms.py:72
+msgid "Recommended CPU"
+msgstr "Препоръчителен процесор"
+
+#: .\core\forms.py:73
+msgid "Recommended GPU"
+msgstr "Препоръчителна видеокарта"
+
+#: .\core\forms.py:74
+msgid "Recommended RAM (GB)"
+msgstr "Препоръчителна оперативна памет (GB)"
+
+#: .\core\forms.py:75
+msgid "Recommended Storage"
+msgstr "Препоръчително дисково пространство"
+
+#: .\core\forms.py:76
+msgid "Recommended Network"
+msgstr "Препоръчителни мрежови изисквания"
+
+#: .\core\forms.py:99 .\core\templates\core\manage_reviews.html:81
+msgid "Status"
+msgstr "Статус"
+
+#: .\core\models.py:83 .\core\models.py:107 .\core\models.py:187
+#: .\core\models.py:229 .\core\templates\core\manage_reviews.html:59
+#: .\core\templates\core\manage_reviews.html:92
+#: .\core\templates\core\manage_tutorials.html:56
+#: .\core\templates\core\publisher_dashboard.html:281
+msgid "Pending"
+msgstr "В изчакване"
+
+#: .\core\models.py:84
+msgid "Accepted"
+msgstr "Прието"
+
+#: .\core\models.py:108 .\core\models.py:230
+#: .\core\templates\core\manage_reviews.html:61
+#: .\core\templates\core\manage_reviews.html:101
+#: .\core\templates\core\manage_tutorials.html:60
+#: .\core\templates\core\publisher_dashboard.html:285
+msgid "Approved"
+msgstr "Одобрено"
+
+#: .\core\models.py:109 .\core\models.py:231
+#: .\core\templates\core\manage_reviews.html:63
+#: .\core\templates\core\manage_reviews.html:110
+#: .\core\templates\core\manage_tutorials.html:64
+#: .\core\templates\core\publisher_dashboard.html:289
+msgid "Rejected"
+msgstr "Отхвърлено"
+
+#: .\core\models.py:188
+msgid "Resolved"
+msgstr "Разрешено"
+
+#: .\core\models.py:347 .\core\templates\core\publisher_dashboard.html:128
+msgid "Tutorial Sale"
+msgstr "Продажба на урок"
+
+#: .\core\models.py:348 .\core\templates\core\publisher_dashboard.html:124
+msgid "Tutorial Purchase"
+msgstr "Покупка на урок"
+
+#: .\core\templates\core\add_game.html:5 .\core\templates\core\add_game.html:15
+#: .\core\templates\core\add_game.html:103
+#: .\core\templates\core\manage_games.html:27
+msgid "Add Game"
+msgstr "Добавяне на игра"
+
+#: .\core\templates\core\add_game.html:19
+#: .\core\templates\core\edit_game.html:19
+msgid "Back to Manage Games"
+msgstr "Назад към управлението на игри"
+
+#: .\core\templates\core\add_game.html:36
+#: .\core\templates\core\edit_game.html:36
+msgid "Game Information"
+msgstr "Информация за играта"
+
+#: .\core\templates\core\add_game.html:43
+#: .\core\templates\core\edit_game.html:43
+msgid "Minimum System Requirements"
+msgstr "Минимални системни изисквания"
+
+#: .\core\templates\core\add_game.html:73
+#: .\core\templates\core\edit_game.html:73
+msgid "Recommended System Requirements"
+msgstr "Препоръчителни системни изисквания"
+
+#: .\core\templates\core\admin_dashboard.html:5
+#: .\core\templates\core\admin_dashboard.html:15
+#: .\core\templates\core\base.html:178 .\core\templates\core\base.html:195
+msgid "Admin Dashboard"
+msgstr "Администраторски панел"
+
+#: .\core\templates\core\admin_dashboard.html:19
+msgid "Manage users and application content."
+msgstr "Управлявай потребителите и съдържанието на приложението."
+
+#: .\core\templates\core\admin_dashboard.html:34
+msgid "Users"
+msgstr "Потребители"
+
+#: .\core\templates\core\admin_dashboard.html:38
+#: .\core\templates\core\manage_users.html:5
+#: .\core\templates\core\manage_users.html:15
+msgid "Manage Users"
+msgstr "Управление на потребители"
+
+#: .\core\templates\core\admin_dashboard.html:51
+msgid "Games"
+msgstr "Игри"
+
+#: .\core\templates\core\admin_dashboard.html:55
+#: .\core\templates\core\manage_games.html:5
+#: .\core\templates\core\manage_games.html:15
+msgid "Manage Games"
+msgstr "Управление на игри"
+
+#: .\core\templates\core\admin_dashboard.html:68
+#: .\core\templates\core\profile.html:162
+msgid "Tutorials"
+msgstr "Уроци"
+
+#: .\core\templates\core\admin_dashboard.html:72
+#: .\core\templates\core\manage_tutorials.html:5
+#: .\core\templates\core\manage_tutorials.html:15
+msgid "Manage Tutorials"
+msgstr "Управление на уроци"
+
+#: .\core\templates\core\admin_dashboard.html:85
+#: .\core\templates\core\game_detail.html:305
+#: .\core\templates\core\profile.html:175
+#: .\core\templates\core\profile.html:276
+msgid "Reviews"
+msgstr "Рецензии"
+
+#: .\core\templates\core\admin_dashboard.html:89
+#: .\core\templates\core\manage_reviews.html:5
+#: .\core\templates\core\manage_reviews.html:15
+msgid "Manage Reviews"
+msgstr "Управление на рецензии"
+
+#: .\core\templates\core\base.html:82 .\core\templates\core\home.html:5
+msgid "Home"
+msgstr "Начало"
+
+#: .\core\templates\core\base.html:92 .\core\templates\core\store.html:5
+msgid "Store"
+msgstr "Каталог"
+
+#: .\core\templates\core\base.html:102
+msgid "Library"
+msgstr "Библиотека"
+
+#: .\core\templates\core\base.html:112 .\core\templates\core\community.html:5
+#: .\core\templates\core\community.html:15
+msgid "Community"
+msgstr "Общност"
+
+#: .\core\templates\core\base.html:125
+msgid "Wishlist"
+msgstr "Списък с желания"
+
+#: .\core\templates\core\base.html:135
+#: .\core\templates\core\messages_inbox.html:5
+#: .\core\templates\core\messages_inbox.html:15
+msgid "Messages"
+msgstr "Съобщения"
+
+#: .\core\templates\core\base.html:150
+#: .\core\templates\core\publisher_dashboard.html:5
+#: .\core\templates\core\publisher_dashboard.html:17
+msgid "Publisher Dashboard"
+msgstr "Панел за издатели"
+
+#: .\core\templates\core\base.html:164
+#: .\core\templates\core\moderator_dashboard.html:5
+#: .\core\templates\core\moderator_dashboard.html:15
+msgid "Moderator Dashboard"
+msgstr "Панел за модератори"
+
+#: .\core\templates\core\base.html:316
+msgid "Hello"
+msgstr "Здравей"
+
+#: .\core\templates\core\base.html:327 .\core\templates\core\profile.html:5
+msgid "Profile"
+msgstr "Профил"
+
+#: .\core\templates\core\base.html:337
+#: .\core\templates\core\blocked_users.html:5
+#: .\core\templates\core\blocked_users.html:15
+msgid "Blocked Users"
+msgstr "Блокирани потребители"
+
+#: .\core\templates\core\base.html:352
+msgid "Logout"
+msgstr "Изход"
+
+#: .\core\templates\core\base.html:369 .\core\templates\core\login.html:5
+#: .\core\templates\core\login.html:15 .\core\templates\core\login.html:53
+#: .\core\templates\core\password_reset_complete.html:23
+#: .\core\templates\core\tutorial_detail.html:200
+msgid "Login"
+msgstr "Вход"
+
+#: .\core\templates\core\base.html:379 .\core\templates\core\register.html:5
+msgid "Register"
+msgstr "Регистрация"
+
+#: .\core\templates\core\blocked_users.html:19
+msgid "Manage the users you have blocked."
+msgstr "Управлявай блокираните от теб потребители."
+
+#: .\core\templates\core\blocked_users.html:42
+msgid "Blocked on"
+msgstr "Дата на блокиране"
+
+#: .\core\templates\core\blocked_users.html:53
+#: .\core\templates\core\chat.html:24 .\core\templates\core\community.html:52
+msgid "View Profile"
+msgstr "Преглед на профила"
+
+#: .\core\templates\core\blocked_users.html:67
+#: .\core\templates\core\profile.html:58
+msgid "Unblock"
+msgstr "Отблокирай"
+
+#: .\core\templates\core\blocked_users.html:89
+msgid "You have not blocked any users."
+msgstr "Нямаш блокирани потребители."
+
+#: .\core\templates\core\chat.html:5
+#, python-format
+msgid ""
+"\n"
+"Chat with %(username)s\n"
+msgstr "\nЧат с %(username)s\n"
+
+#: .\core\templates\core\chat.html:18
+#, python-format
+msgid ""
+"\n"
+"            Chat with %(username)s\n"
+"            "
+msgstr "\n            Чат с %(username)s\n            "
+
+#: .\core\templates\core\chat.html:57
+msgid "No messages yet."
+msgstr "Все още няма съобщения."
+
+#: .\core\templates\core\chat.html:73
+msgid "Write a message..."
+msgstr "Напиши съобщение..."
+
+#: .\core\templates\core\chat.html:78
+msgid "Send"
+msgstr "Изпрати"
+
+#: .\core\templates\core\community.html:19
+msgid "Discover players, libraries and recent reviews."
+msgstr "Открий играчи, библиотеки и нови рецензии."
+
+#: .\core\templates\core\community.html:28
+msgid "Players"
+msgstr "Играчи"
+
+#: .\core\templates\core\community.html:46
+msgid "Player"
+msgstr "Играч"
+
+#: .\core\templates\core\community.html:64
+msgid "No players found."
+msgstr "Няма намерени играчи."
+
+#: .\core\templates\core\community.html:75
+msgid "Latest Reviews"
+msgstr "Най-нови рецензии"
+
+#: .\core\templates\core\community.html:95
+msgid "reviewed"
+msgstr "написа рецензия за"
+
+#: .\core\templates\core\community.html:127
+#: .\core\templates\core\game_detail.html:410
+msgid "No reviews yet."
+msgstr "Все още няма рецензии."
+
+#: .\core\templates\core\delete_game.html:5
+#, python-format
+msgid "Delete %(game_title)s"
+msgstr "Изтриване на %(game_title)s"
+
+#: .\core\templates\core\delete_game.html:15
+#: .\core\templates\core\manage_games.html:71
+msgid "Delete Game"
+msgstr "Изтриване на игра"
+
+#: .\core\templates\core\delete_game.html:24
+#, python-format
+msgid "Are you sure you want to delete \"%(game_title)s\"?"
+msgstr "Сигурен ли си, че искаш да изтриеш „%(game_title)s“?"
+
+#: .\core\templates\core\delete_game.html:28
+#: .\core\templates\core\delete_review.html:48
+#: .\core\templates\core\delete_tutorial.html:38
+msgid "This action cannot be undone."
+msgstr "Това действие е необратимо."
+
+#: .\core\templates\core\delete_game.html:32
+msgid "Related tutorials, reviews and system requirements may also be deleted."
+msgstr "Свързаните уроци, рецензии и системни изисквания също може да бъдат изтрити."
+
+#: .\core\templates\core\delete_game.html:41
+msgid "Yes, Delete Game"
+msgstr "Да, изтрий играта"
+
+#: .\core\templates\core\delete_game.html:48
+#: .\core\templates\core\delete_review.html:64
+#: .\core\templates\core\delete_tutorial.html:54
+#: .\core\templates\core\upload_tutorial.html:125
+msgid "Cancel"
+msgstr "Отказ"
+
+#: .\core\templates\core\delete_review.html:5
+#: .\core\templates\core\delete_review.html:15
+#: .\core\templates\core\manage_reviews.html:122
+msgid "Delete Review"
+msgstr "Изтриване на рецензия"
+
+#: .\core\templates\core\delete_review.html:24
+msgid "Are you sure you want to delete this review?"
+msgstr "Сигурен ли си, че искаш да изтриеш тази рецензия?"
+
+#: .\core\templates\core\delete_review.html:28
+#: .\core\templates\core\delete_tutorial.html:28
+#: .\core\templates\core\manage_tutorials.html:42
+#: .\core\templates\core\moderator_dashboard.html:48
+#: .\core\templates\core\moderator_dashboard.html:255
+msgid "Game:"
+msgstr "Игра:"
+
+#: .\core\templates\core\delete_review.html:33
+#: .\core\templates\core\manage_reviews.html:42
+#: .\core\templates\core\moderator_dashboard.html:160
+msgid "User:"
+msgstr "Потребител:"
+
+#: .\core\templates\core\delete_review.html:38
+#: .\core\templates\core\manage_reviews.html:47
+#: .\core\templates\core\moderator_dashboard.html:168
+msgid "Rating:"
+msgstr "Оценка:"
+
+#: .\core\templates\core\delete_review.html:43
+msgid "Review:"
+msgstr "Рецензия:"
+
+#: .\core\templates\core\delete_review.html:57
+msgid "Yes, Delete Review"
+msgstr "Да, изтрий рецензията"
+
+#: .\core\templates\core\delete_tutorial.html:5
+#, python-format
+msgid "Delete %(tutorial_title)s"
+msgstr "Изтриване на %(tutorial_title)s"
+
+#: .\core\templates\core\delete_tutorial.html:15
+#: .\core\templates\core\manage_tutorials.html:98
+msgid "Delete Tutorial"
+msgstr "Изтриване на урок"
+
+#: .\core\templates\core\delete_tutorial.html:24
+#, python-format
+msgid "Are you sure you want to delete \"%(tutorial_title)s\"?"
+msgstr "Сигурен ли си, че искаш да изтриеш „%(tutorial_title)s“?"
+
+#: .\core\templates\core\delete_tutorial.html:33
+#: .\core\templates\core\edit_tutorial.html:23
+#: .\core\templates\core\game_detail.html:250
+#: .\core\templates\core\library.html:57
+#: .\core\templates\core\manage_tutorials.html:47
+#: .\core\templates\core\moderator_dashboard.html:56
+#: .\core\templates\core\moderator_dashboard.html:263
+#: .\core\templates\core\tutorial_detail.html:31
+msgid "Publisher:"
+msgstr "Издател:"
+
+#: .\core\templates\core\delete_tutorial.html:47
+msgid "Yes, Delete Tutorial"
+msgstr "Да, изтрий урока"
+
+#: .\core\templates\core\edit_game.html:5
+#: .\core\templates\core\edit_game.html:15
+#, python-format
+msgid "Edit %(game_title)s"
+msgstr "Редактиране на %(game_title)s"
+
+#: .\core\templates\core\edit_game.html:103
+#: .\core\templates\core\edit_tutorial.html:46
+msgid "Save Changes"
+msgstr "Запази промените"
+
+#: .\core\templates\core\edit_tutorial.html:5
+#, python-format
+msgid "Edit %(tutorial_title)s"
+msgstr "Редактиране на %(tutorial_title)s"
+
+#: .\core\templates\core\edit_tutorial.html:15
+#: .\core\templates\core\manage_tutorials.html:94
+msgid "Edit Tutorial"
+msgstr "Редактиране на урок"
+
+#: .\core\templates\core\edit_tutorial.html:28
+msgid "Back to Manage Tutorials"
+msgstr "Назад към управлението на уроци"
+
+#: .\core\templates\core\game_detail.html:48
+#: .\core\templates\core\manage_games.html:58
+msgid "Release date:"
+msgstr "Дата на излизане:"
+
+#: .\core\templates\core\game_detail.html:63
+msgid "Add to Wishlist"
+msgstr "Добави в списъка с желания"
+
+#: .\core\templates\core\game_detail.html:89
+msgid "System Requirements"
+msgstr "Системни изисквания"
+
+#: .\core\templates\core\game_detail.html:100
+msgid "Minimum"
+msgstr "Минимални"
+
+#: .\core\templates\core\game_detail.html:133
+#: .\core\templates\core\game_detail.html:192
+msgid "Storage:"
+msgstr "Дисково пространство:"
+
+#: .\core\templates\core\game_detail.html:143
+#: .\core\templates\core\game_detail.html:202
+msgid "Network:"
+msgstr "Мрежа:"
+
+#: .\core\templates\core\game_detail.html:159
+msgid "Recommended"
+msgstr "Препоръчителни"
+
+#: .\core\templates\core\game_detail.html:227
+msgid "Video Tutorials"
+msgstr "Видеоуроци"
+
+#: .\core\templates\core\game_detail.html:261
+#: .\core\templates\core\manage_tutorials.html:74
+#: .\core\templates\core\moderator_dashboard.html:72
+#: .\core\templates\core\profile.html:230
+#: .\core\templates\core\publisher_dashboard.html:253
+#: .\core\templates\core\tutorial_detail.html:42
+msgid "Free"
+msgstr "Безплатно"
+
+#: .\core\templates\core\game_detail.html:277
+#: .\core\templates\core\manage_tutorials.html:87
+#: .\core\templates\core\moderator_dashboard.html:299
+#: .\core\templates\core\profile.html:249
+msgid "View Tutorial"
+msgstr "Преглед на урока"
+
+#: .\core\templates\core\game_detail.html:291
+msgid "No video tutorials are available for this game yet."
+msgstr "Все още няма видеоуроци за тази игра."
+
+#: .\core\templates\core\game_detail.html:321
+msgid "Rating"
+msgstr "Оценка"
+
+#: .\core\templates\core\game_detail.html:331
+msgid "Choose rating"
+msgstr "Избери оценка"
+
+#: .\core\templates\core\game_detail.html:344
+msgid "Your Review"
+msgstr "Твоята рецензия"
+
+#: .\core\templates\core\game_detail.html:351
+msgid "Write your review..."
+msgstr "Напиши своята рецензия..."
+
+#: .\core\templates\core\game_detail.html:357
+msgid "Submit Review"
+msgstr "Изпрати рецензията"
+
+#: .\core\templates\core\game_detail.html:365
+msgid "You need to log in to write a review."
+msgstr "Трябва да влезеш в профила си, за да напишеш рецензия."
+
+#: .\core\templates\core\home.html:13
+msgid "Welcome to PlayGuide! 🎮"
+msgstr "Добре дошъл в PlayGuide! 🎮"
+
+#: .\core\templates\core\home.html:17
+msgid "Discover your next favorite game."
+msgstr "Открий следващата си любима игра."
+
+#: .\core\templates\core\home.html:21 .\core\templates\core\library.html:113
+msgid "Browse Games"
+msgstr "Разгледай игрите"
+
+#: .\core\templates\core\library.html:5 .\core\templates\core\library.html:14
+msgid "My Library"
+msgstr "Моята библиотека"
+
+#: .\core\templates\core\library.html:18
+msgid "Your purchased video tutorials."
+msgstr "Закупените от теб видеоуроци."
+
+#: .\core\templates\core\library.html:65
+msgid "Purchased for:"
+msgstr "Покупна цена:"
+
+#: .\core\templates\core\library.html:80
+#: .\core\templates\core\tutorial_detail.html:79
+msgid "Your browser does not support video playback."
+msgstr "Браузърът ти не поддържа възпроизвеждане на видео."
+
+#: .\core\templates\core\library.html:89
+#: .\core\templates\core\manage_games.html:63
+#: .\core\templates\core\profile.html:245 .\core\templates\core\store.html:62
+#: .\core\templates\core\wishlist.html:51
+msgid "View Game"
+msgstr "Преглед на играта"
+
+#: .\core\templates\core\library.html:105
+msgid "Your library is empty"
+msgstr "Библиотеката ти е празна"
+
+#: .\core\templates\core\library.html:109
+msgid "Tutorials that you purchase will appear here."
+msgstr "Закупените от теб уроци ще се показват тук."
+
+#: .\core\templates\core\login.html:29 .\core\templates\core\register.html:29
+msgid "Username"
+msgstr "Потребителско име"
+
+#: .\core\templates\core\login.html:41 .\core\templates\core\register.html:53
+msgid "Password"
+msgstr "Парола"
+
+#: .\core\templates\core\login.html:60
+msgid "Forgot Password?"
+msgstr "Забравена парола?"
+
+#: .\core\templates\core\manage_games.html:19
+msgid "Add, edit and remove games from PlayGuide."
+msgstr "Добавяй, редактирай и премахвай игри от PlayGuide."
+
+#: .\core\templates\core\manage_games.html:23
+#: .\core\templates\core\manage_reviews.html:23
+#: .\core\templates\core\manage_tutorials.html:23
+#: .\core\templates\core\manage_users.html:23
+msgid "Back to Admin Dashboard"
+msgstr "Назад към администраторския панел"
+
+#: .\core\templates\core\manage_games.html:67
+msgid "Edit Game"
+msgstr "Редактиране на игра"
+
+#: .\core\templates\core\manage_games.html:83
+msgid "No games are available."
+msgstr "Няма налични игри."
+
+#: .\core\templates\core\manage_reviews.html:19
+msgid "Manage all user reviews in PlayGuide."
+msgstr "Управлявай всички потребителски рецензии в PlayGuide."
+
+#: .\core\templates\core\manage_reviews.html:56
+#: .\core\templates\core\manage_tutorials.html:52
+#: .\core\templates\core\manage_users.html:47
+msgid "Status:"
+msgstr "Статус:"
+
+#: .\core\templates\core\manage_reviews.html:68
+msgid "Created:"
+msgstr "Дата на създаване:"
+
+#: .\core\templates\core\manage_reviews.html:116
+msgid "Update Status"
+msgstr "Обнови статуса"
+
+#: .\core\templates\core\manage_reviews.html:132
+msgid "No reviews are available."
+msgstr "Няма налични рецензии."
+
+#: .\core\templates\core\manage_tutorials.html:19
+msgid "Manage all video tutorials in PlayGuide."
+msgstr "Управлявай всички видеоуроци в PlayGuide."
+
+#: .\core\templates\core\manage_tutorials.html:70
+#: .\core\templates\core\moderator_dashboard.html:68
+msgid "Price:"
+msgstr "Цена:"
+
+#: .\core\templates\core\manage_tutorials.html:108
+msgid "No tutorials are available."
+msgstr "Няма налични уроци."
+
+#: .\core\templates\core\manage_users.html:19
+msgid "Manage user roles and account status in PlayGuide."
+msgstr "Управлявай потребителските роли и статуса на профилите в PlayGuide."
+
+#: .\core\templates\core\manage_users.html:52
+msgid "Active"
+msgstr "Активен"
+
+#: .\core\templates\core\manage_users.html:58
+msgid "Inactive"
+msgstr "Неактивен"
+
+#: .\core\templates\core\manage_users.html:68
+msgid "Superuser"
+msgstr "Суперпотребител"
+
+#: .\core\templates\core\manage_users.html:74
+msgid "Role:"
+msgstr "Роля:"
+
+#: .\core\templates\core\manage_users.html:78
+#: .\core\templates\core\manage_users.html:123
+#: .\core\templates\core\profile.html:33
+msgid "User"
+msgstr "Потребител"
+
+#: .\core\templates\core\manage_users.html:82
+#: .\core\templates\core\manage_users.html:132
+#: .\core\templates\core\profile.html:30
+msgid "Publisher"
+msgstr "Издател"
+
+#: .\core\templates\core\manage_users.html:86
+#: .\core\templates\core\manage_users.html:141
+#: .\core\templates\core\profile.html:27
+msgid "Moderator"
+msgstr "Модератор"
+
+#: .\core\templates\core\manage_users.html:90
+#: .\core\templates\core\manage_users.html:150
+#: .\core\templates\core\profile.html:24
+msgid "Admin"
+msgstr "Администратор"
+
+#: .\core\templates\core\manage_users.html:112
+msgid "Role"
+msgstr "Роля"
+
+#: .\core\templates\core\manage_users.html:156
+msgid "Update Role"
+msgstr "Обнови ролята"
+
+#: .\core\templates\core\manage_users.html:172
+msgid "Deactivate User"
+msgstr "Деактивирай потребителя"
+
+#: .\core\templates\core\manage_users.html:178
+msgid "Activate User"
+msgstr "Активирай потребителя"
+
+#: .\core\templates\core\manage_users.html:188
+msgid "Current administrator"
+msgstr "Текущ администратор"
+
+#: .\core\templates\core\messages_inbox.html:19
+msgid "Your conversations with other PlayGuide users."
+msgstr "Твоите разговори с други потребители на PlayGuide."
+
+#: .\core\templates\core\messages_inbox.html:41
+msgid "You:"
+msgstr "Ти:"
+
+#: .\core\templates\core\messages_inbox.html:60
+msgid "Open Chat"
+msgstr "Отвори чата"
+
+#: .\core\templates\core\messages_inbox.html:70
+msgid "You do not have any conversations yet."
+msgstr "Все още нямаш разговори."
+
+#: .\core\templates\core\moderator_dashboard.html:19
+msgid "Review pending tutorials, reviews and reported content."
+msgstr "Преглеждай чакащите одобрение уроци и рецензии, както и съдържанието с подадени сигнали."
+
+#: .\core\templates\core\moderator_dashboard.html:30
+msgid "Pending Tutorials"
+msgstr "Уроци, чакащи одобрение"
+
+#: .\core\templates\core\moderator_dashboard.html:82
+#: .\core\templates\core\moderator_dashboard.html:177
+msgid "Submitted:"
+msgstr "Дата на изпращане:"
+
+#: .\core\templates\core\moderator_dashboard.html:99
+#: .\core\templates\core\moderator_dashboard.html:194
+msgid "Approve"
+msgstr "Одобри"
+
+#: .\core\templates\core\moderator_dashboard.html:113
+#: .\core\templates\core\moderator_dashboard.html:208
+msgid "Reject"
+msgstr "Отхвърли"
+
+#: .\core\templates\core\moderator_dashboard.html:129
+msgid "There are no tutorials waiting for approval."
+msgstr "Няма уроци, чакащи одобрение."
+
+#: .\core\templates\core\moderator_dashboard.html:142
+msgid "Pending Reviews"
+msgstr "Рецензии, чакащи одобрение"
+
+#: .\core\templates\core\moderator_dashboard.html:224
+msgid "There are no reviews waiting for approval."
+msgstr "Няма рецензии, чакащи одобрение."
+
+#: .\core\templates\core\moderator_dashboard.html:237
+msgid "Reported Tutorials"
+msgstr "Уроци с подадени сигнали"
+
+#: .\core\templates\core\moderator_dashboard.html:271
+msgid "Reported by:"
+msgstr "Сигнал от:"
+
+#: .\core\templates\core\moderator_dashboard.html:280
+msgid "Reason:"
+msgstr "Причина:"
+
+#: .\core\templates\core\moderator_dashboard.html:289
+msgid "Reported:"
+msgstr "Дата на сигнала:"
+
+#: .\core\templates\core\moderator_dashboard.html:311
+msgid "Mark as Resolved"
+msgstr "Отбележи като разрешено"
+
+#: .\core\templates\core\moderator_dashboard.html:327
+msgid "There are no reported tutorials waiting for review."
+msgstr "Няма уроци с подадени сигнали, чакащи преглед."
+
+#: .\core\templates\core\password_reset.html:5
+#: .\core\templates\core\password_reset.html:15
+msgid "Reset Password"
+msgstr "Нулиране на паролата"
+
+#: .\core\templates\core\password_reset.html:19
+msgid "Enter the email address connected to your account."
+msgstr "Въведи имейл адреса, свързан с профила ти."
+
+#: .\core\templates\core\password_reset.html:27
+#: .\core\templates\core\register.html:41
+msgid "Email"
+msgstr "Имейл"
+
+#: .\core\templates\core\password_reset.html:33
+msgid "Send Reset Link"
+msgstr "Изпрати връзка за нулиране"
+
+#: .\core\templates\core\password_reset_complete.html:5
+#: .\core\templates\core\password_reset_complete.html:15
+msgid "Password Changed"
+msgstr "Паролата е променена"
+
+#: .\core\templates\core\password_reset_complete.html:19
+msgid "Your password has been changed successfully."
+msgstr "Паролата ти е променена успешно."
+
+#: .\core\templates\core\password_reset_confirm.html:5
+#: .\core\templates\core\password_reset_confirm.html:15
+msgid "Set New Password"
+msgstr "Задаване на нова парола"
+
+#: .\core\templates\core\password_reset_confirm.html:31
+msgid "Change Password"
+msgstr "Промени паролата"
+
+#: .\core\templates\core\password_reset_confirm.html:39
+msgid "This password reset link is invalid or has already been used."
+msgstr "Тази връзка за нулиране на паролата е невалидна или вече е използвана."
+
+#: .\core\templates\core\password_reset_confirm.html:43
+msgid "Request New Reset Link"
+msgstr "Заяви нова връзка за нулиране"
+
+#: .\core\templates\core\password_reset_done.html:5
+msgid "Reset Email Sent"
+msgstr "Имейлът за нулиране е изпратен"
+
+#: .\core\templates\core\password_reset_done.html:15
+msgid "Check Your Email"
+msgstr "Провери имейла си"
+
+#: .\core\templates\core\password_reset_done.html:19
+msgid ""
+"If an account exists with that email address, a password reset link has been "
+"sent."
+msgstr "Ако съществува профил с този имейл адрес, е изпратена връзка за нулиране на паролата."
+
+#: .\core\templates\core\password_reset_done.html:23
+msgid "Back to Login"
+msgstr "Назад към входа"
+
+#: .\core\templates\core\password_reset_email.html:3
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Здравей, %(username)s,"
+
+#: .\core\templates\core\password_reset_email.html:5
+#, python-format
+msgid "You requested a password reset for your %(brand)s account."
+msgstr "Заяви нулиране на паролата за своя профил в %(brand)s."
+
+#: .\core\templates\core\password_reset_email.html:7
+msgid "Open the link below to set a new password:"
+msgstr "Отвори връзката по-долу, за да зададеш нова парола:"
+
+#: .\core\templates\core\password_reset_email.html:11
+msgid ""
+"If you did not request this password reset, you can ignore this message."
+msgstr "Ако не си заявявал нулиране на паролата, можеш да пренебрегнеш това съобщение."
+
+#: .\core\templates\core\payment_success.html:5
+#: .\core\templates\core\payment_success.html:13
+msgid "Payment Successful"
+msgstr "Успешно плащане"
+
+#: .\core\templates\core\payment_success.html:17
+msgid "Your tutorial purchase has been completed successfully."
+msgstr "Покупката на урока е завършена успешно."
+
+#: .\core\templates\core\payment_success.html:21
+msgid "Go to Library"
+msgstr "Към библиотеката"
+
+#: .\core\templates\core\profile.html:45
+msgid "User Blocked"
+msgstr "Потребителят е блокиран"
+
+#: .\core\templates\core\profile.html:68
+msgid "Interaction unavailable"
+msgstr "Взаимодействието е недостъпно"
+
+#: .\core\templates\core\profile.html:76
+msgid "Friends"
+msgstr "Приятели"
+
+#: .\core\templates\core\profile.html:83
+msgid "Message"
+msgstr "Изпрати съобщение"
+
+#: .\core\templates\core\profile.html:89
+msgid "Request Sent"
+msgstr "Поканата е изпратена"
+
+#: .\core\templates\core\profile.html:104
+msgid "Accept Friend Request"
+msgstr "Приеми поканата за приятелство"
+
+#: .\core\templates\core\profile.html:121
+msgid "Add Friend"
+msgstr "Добави приятел"
+
+#: .\core\templates\core\profile.html:141
+msgid "Block User"
+msgstr "Блокирай потребителя"
+
+#: .\core\templates\core\profile.html:188
+msgid "Published Tutorials"
+msgstr "Публикувани уроци"
+
+#: .\core\templates\core\profile.html:265
+msgid "This user has no published tutorials yet."
+msgstr "Този потребител все още няма публикувани уроци."
+
+#: .\core\templates\core\profile.html:319
+msgid "This user has not written any reviews yet."
+msgstr "Този потребител все още не е написал рецензии."
+
+#: .\core\templates\core\publisher_dashboard.html:21
+msgid ""
+"Manage your video tutorials, Creator Points and track their approval status."
+msgstr "Управлявай своите видеоуроци и Creator Points и следи статуса на одобрение на уроците."
+
+#: .\core\templates\core\publisher_dashboard.html:31
+#: .\core\templates\core\upload_tutorial.html:5
+#: .\core\templates\core\upload_tutorial.html:15
+msgid "Upload Tutorial"
+msgstr "Качване на урок"
+
+#: .\core\templates\core\publisher_dashboard.html:54
+msgid "Your current available balance."
+msgstr "Текущият ти наличен баланс."
+
+#: .\core\templates\core\publisher_dashboard.html:79
+msgid "Transaction History"
+msgstr "История на транзакциите"
+
+#: .\core\templates\core\publisher_dashboard.html:94
+msgid "Type"
+msgstr "Вид"
+
+#: .\core\templates\core\publisher_dashboard.html:98
+msgid "Tutorial"
+msgstr "Урок"
+
+#: .\core\templates\core\publisher_dashboard.html:102
+msgid "Amount"
+msgstr "Сума"
+
+#: .\core\templates\core\publisher_dashboard.html:106
+msgid "Date"
+msgstr "Дата"
+
+#: .\core\templates\core\publisher_dashboard.html:143
+msgid "Tutorial unavailable"
+msgstr "Урокът е недостъпен"
+
+#: .\core\templates\core\publisher_dashboard.html:186
+msgid "No Creator Point transactions yet."
+msgstr "Все още няма транзакции с Creator Points."
+
+#: .\core\templates\core\publisher_dashboard.html:209
+msgid "My Tutorials"
+msgstr "Моите уроци"
+
+#: .\core\templates\core\publisher_dashboard.html:213
+#, python-format
+msgid ""
+"\n"
+"                    %(tutorial_count)s tutorial\n"
+"                "
+msgid_plural ""
+"\n"
+"                    %(tutorial_count)s tutorials\n"
+"                "
+msgstr[0] "\n                    %(tutorial_count)s урок\n                "
+msgstr[1] "\n                    %(tutorial_count)s урока\n                "
+
+#: .\core\templates\core\publisher_dashboard.html:266
+msgid "Uploaded:"
+msgstr "Дата на качване:"
+
+#: .\core\templates\core\publisher_dashboard.html:308
+msgid "No tutorials uploaded yet"
+msgstr "Все още няма качени уроци"
+
+#: .\core\templates\core\publisher_dashboard.html:312
+msgid "Your uploaded tutorials will appear here."
+msgstr "Качените от теб уроци ще се показват тук."
+
+#: .\core\templates\core\register.html:15
+#: .\core\templates\core\register.html:77
+msgid "Create Account"
+msgstr "Създай профил"
+
+#: .\core\templates\core\register.html:65
+msgid "Confirm Password"
+msgstr "Потвърди паролата"
+
+#: .\core\templates\core\store.html:17
+msgid "Game Store"
+msgstr "Каталог с игри"
+
+#: .\core\templates\core\store.html:21
+msgid "Discover games and explore available tutorials."
+msgstr "Открий игри и разгледай наличните уроци."
+
+#: .\core\templates\core\store.html:82
+msgid "No games available."
+msgstr "Няма налични игри."
+
+#: .\core\templates\core\store.html:86
+msgid "Games will appear here when they are added."
+msgstr "Игрите ще се показват тук, след като бъдат добавени."
+
+#: .\core\templates\core\tutorial_detail.html:63
+msgid "Video Tutorial"
+msgstr "Видеоурок"
+
+#: .\core\templates\core\tutorial_detail.html:88
+msgid "Video file is not available."
+msgstr "Видеофайлът не е наличен."
+
+#: .\core\templates\core\tutorial_detail.html:97
+msgid "You are the publisher of this tutorial."
+msgstr "Ти си издателят на този урок."
+
+#: .\core\templates\core\tutorial_detail.html:103
+msgid "You own this tutorial."
+msgstr "Притежаваш този урок."
+
+#: .\core\templates\core\tutorial_detail.html:114
+msgid "Paid Tutorial"
+msgstr "Платен урок"
+
+#: .\core\templates\core\tutorial_detail.html:118
+msgid "Purchase this tutorial to watch the full video."
+msgstr "Купи този урок, за да гледаш цялото видео."
+
+#: .\core\templates\core\tutorial_detail.html:132
+msgid "Your balance:"
+msgstr "Твоят баланс:"
+
+#: .\core\templates\core\tutorial_detail.html:150
+msgid "Buy with Creator Points"
+msgstr "Купи с Creator Points"
+
+#: .\core\templates\core\tutorial_detail.html:158
+msgid "You do not have enough Creator Points to purchase this tutorial."
+msgstr "Нямаш достатъчно Creator Points, за да купиш този урок."
+
+#: .\core\templates\core\tutorial_detail.html:178
+msgid "Buy Tutorial"
+msgstr "Купи урока"
+
+#: .\core\templates\core\tutorial_detail.html:193
+msgid "You need to log in before purchasing this tutorial."
+msgstr "Трябва да влезеш в профила си, преди да купиш този урок."
+
+#: .\core\templates\core\tutorial_detail.html:221
+#: .\core\templates\core\tutorial_detail.html:271
+msgid "Report Tutorial"
+msgstr "Подай сигнал за урока"
+
+#: .\core\templates\core\tutorial_detail.html:228
+msgid "You have already reported this tutorial."
+msgstr "Вече си подал сигнал за този урок."
+
+#: .\core\templates\core\tutorial_detail.html:234
+msgid ""
+"If there is a problem with this tutorial, you can report it to the "
+"moderators."
+msgstr "Ако има проблем с този урок, можеш да подадеш сигнал до модераторите."
+
+#: .\core\templates\core\tutorial_detail.html:252
+msgid "Reason"
+msgstr "Причина"
+
+#: .\core\templates\core\tutorial_detail.html:261
+msgid "Describe the reason for reporting this tutorial..."
+msgstr "Опиши причината за сигнала за този урок..."
+
+#: .\core\templates\core\tutorial_detail.html:290
+#, python-format
+msgid ""
+"\n"
+"                    ← Back to %(game_title)s\n"
+"                "
+msgstr "\n                    ← Назад към %(game_title)s\n                "
+
+#: .\core\templates\core\upload_tutorial.html:19
+msgid ""
+"Upload a video tutorial for a game. It will be reviewed by a moderator "
+"before it becomes public."
+msgstr "Качи видеоурок за игра. Той ще бъде прегледан от модератор, преди да стане публично достъпен."
+
+#: .\core\templates\core\upload_tutorial.html:106
+msgid "Use 0.00 for a free tutorial."
+msgstr "Въведи 0.00 за безплатен урок."
+
+#: .\core\templates\core\upload_tutorial.html:121
+msgid "Submit for Review"
+msgstr "Изпрати за преглед"
+
+#: .\core\templates\core\wishlist.html:5 .\core\templates\core\wishlist.html:13
+msgid "My Wishlist"
+msgstr "Моят списък с желания"
+
+#: .\core\templates\core\wishlist.html:64
+msgid "Remove"
+msgstr "Премахни"
+
+#: .\core\templates\core\wishlist.html:84
+msgid "Your wishlist is empty."
+msgstr "Списъкът ти с желания е празен."
+
+#: .\core\views.py:88
+msgid "Wrong username or password."
+msgstr "Грешно потребителско име или парола."
+
+#: .\core\views.py:109
+msgid "Passwords are not matching."
+msgstr "Паролите не съвпадат."
+
+#: .\core\views.py:118
+msgid "Username already exists."
+msgstr "Потребителското име вече съществува."
+
+#: .\core\views.py:127
+msgid "Email is already in use."
+msgstr "Имейл адресът вече се използва."

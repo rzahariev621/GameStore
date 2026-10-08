@@ -1,1 +1,1 @@
-# GameStore
+# PlayGuide

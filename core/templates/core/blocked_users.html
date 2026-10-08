@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Blocked Users
+{% trans "Blocked Users" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -9,11 +10,17 @@ Blocked Users
 <main class="container py-5">
 
     <div class="mb-4">
-        <h1>Blocked Users</h1>
+
+        <h1>
+            {% trans "Blocked Users" %}
+        </h1>
+
         <p class="text-secondary">
-            Manage the users you have blocked.
+            {% trans "Manage the users you have blocked." %}
         </p>
+
     </div>
+
 
     {% if blocks %}
 
@@ -32,8 +39,10 @@ Blocked Users
                             </h5>
 
                             <p class="text-secondary">
-                                Blocked on {{ block.created_at }}
+                                {% trans "Blocked on" %}
+                                {{ block.created_at }}
                             </p>
+
 
                             <div class="d-flex gap-2 flex-wrap">
 
@@ -41,8 +50,9 @@ Blocked Users
                                     href="{% url 'profile' block.blocked.username %}"
                                     class="btn btn-outline-light"
                                 >
-                                    View Profile
+                                    {% trans "View Profile" %}
                                 </a>
+
 
                                 <form
                                     method="POST"
@@ -54,7 +64,7 @@ Blocked Users
                                         type="submit"
                                         class="btn btn-light"
                                     >
-                                        Unblock
+                                        {% trans "Unblock" %}
                                     </button>
 
                                 </form>
@@ -76,7 +86,7 @@ Blocked Users
         <div class="p-4 bg-dark rounded">
 
             <p class="mb-0">
-                You have not blocked any users.
+                {% trans "You have not blocked any users." %}
             </p>
 
         </div>

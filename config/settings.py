@@ -45,6 +45,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'django.middleware.locale.LocaleMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -109,11 +112,20 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('bg', 'Български'),
+]
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 USE_TZ = True
 
@@ -140,9 +152,7 @@ MAILERS = {
     },
 }
 
-DEFAULT_FROM_EMAIL = os.getenv("GAMESTORE_EMAIL")
-
-DEFAULT_FROM_EMAIL = 'GameStore <noreply@gamestore.local>'
+DEFAULT_FROM_EMAIL = f'PlayGuide <{os.getenv("GAMESTORE_EMAIL")}>'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

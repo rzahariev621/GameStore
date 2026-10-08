@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Add Game - GameStore
+{% trans "Add Game" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,10 +11,12 @@ Add Game - GameStore
 
     <section class="admin-header">
 
-        <h1>Add Game</h1>
+        <h1>
+            {% trans "Add Game" %}
+        </h1>
 
         <a href="{% url 'manage_games' %}">
-            Back to Manage Games
+            {% trans "Back to Manage Games" %}
         </a>
 
     </section>
@@ -29,12 +32,16 @@ Add Game - GameStore
             {% csrf_token %}
 
 
-            <h2>Game Information</h2>
+            <h2>
+                {% trans "Game Information" %}
+            </h2>
 
             {{ game_form.as_p }}
 
 
-            <h2>Minimum System Requirements</h2>
+            <h2>
+                {% trans "Minimum System Requirements" %}
+            </h2>
 
             <p>
                 {{ requirements_form.minimum_cpu.label_tag }}
@@ -62,7 +69,9 @@ Add Game - GameStore
             </p>
 
 
-            <h2>Recommended System Requirements</h2>
+            <h2>
+                {% trans "Recommended System Requirements" %}
+            </h2>
 
             <p>
                 {{ requirements_form.recommended_cpu.label_tag }}
@@ -91,7 +100,7 @@ Add Game - GameStore
 
 
             <button type="submit">
-                Add Game
+                {% trans "Add Game" %}
             </button>
 
         </form>

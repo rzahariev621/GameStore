@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Manage Reviews - GameStore
+{% trans "Manage Reviews" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -10,14 +11,16 @@ Manage Reviews - GameStore
 
     <section class="admin-header">
 
-        <h1>Manage Reviews</h1>
+        <h1>
+            {% trans "Manage Reviews" %}
+        </h1>
 
         <p>
-            Manage all user reviews in GameStore.
+            {% trans "Manage all user reviews in PlayGuide." %}
         </p>
 
         <a href="{% url 'admin_dashboard' %}">
-            Back to Admin Dashboard
+            {% trans "Back to Admin Dashboard" %}
         </a>
 
     </section>
@@ -36,12 +39,12 @@ Manage Reviews - GameStore
                     </h3>
 
                     <p>
-                        User:
+                        {% trans "User:" %}
                         {{ review.user.username }}
                     </p>
 
                     <p>
-                        Rating:
+                        {% trans "Rating:" %}
                         {{ review.rating }}/5
                     </p>
 
@@ -50,12 +53,19 @@ Manage Reviews - GameStore
                     </p>
 
                     <p>
-                        Status:
-                        {{ review.get_status_display }}
+                        {% trans "Status:" %}
+
+                        {% if review.status == 'pending' %}
+                            {% trans "Pending" %}
+                        {% elif review.status == 'approved' %}
+                            {% trans "Approved" %}
+                        {% elif review.status == 'rejected' %}
+                            {% trans "Rejected" %}
+                        {% endif %}
                     </p>
 
                     <p>
-                        Created:
+                        {% trans "Created:" %}
                         {{ review.created_at }}
                     </p>
 
@@ -68,7 +78,7 @@ Manage Reviews - GameStore
                         {% csrf_token %}
 
                         <label>
-                            Status
+                            {% trans "Status" %}
                         </label>
 
                         <select name="status">
@@ -79,7 +89,7 @@ Manage Reviews - GameStore
                                     selected
                                 {% endif %}
                             >
-                                Pending
+                                {% trans "Pending" %}
                             </option>
 
                             <option
@@ -88,7 +98,7 @@ Manage Reviews - GameStore
                                     selected
                                 {% endif %}
                             >
-                                Approved
+                                {% trans "Approved" %}
                             </option>
 
                             <option
@@ -97,19 +107,19 @@ Manage Reviews - GameStore
                                     selected
                                 {% endif %}
                             >
-                                Rejected
+                                {% trans "Rejected" %}
                             </option>
 
                         </select>
 
                         <button type="submit">
-                            Update Status
+                            {% trans "Update Status" %}
                         </button>
 
                     </form>
 
                     <a href="{% url 'delete_review' review.id %}">
-                        Delete Review
+                        {% trans "Delete Review" %}
                     </a>
 
                 </div>
@@ -119,7 +129,7 @@ Manage Reviews - GameStore
         {% else %}
 
             <p>
-                No reviews are available.
+                {% trans "No reviews are available." %}
             </p>
 
         {% endif %}

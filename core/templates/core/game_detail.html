@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-{{ game.title }} - GameStore
+{{ game.title }} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -44,7 +45,7 @@
                     </p>
 
                     <p class="release-date">
-                        <strong>Release date:</strong>
+                        <strong>{% trans "Release date:" %}</strong>
                         {{ game.release_date }}
                     </p>
 
@@ -59,7 +60,7 @@
                             {% csrf_token %}
 
                             <button type="submit">
-                                Add to Wishlist
+                                {% trans "Add to Wishlist" %}
                             </button>
 
                         </form>
@@ -85,7 +86,7 @@
     <div class="container">
 
         <h2>
-            System Requirements
+            {% trans "System Requirements" %}
         </h2>
 
 
@@ -96,7 +97,7 @@
                 <div class="requirements-card h-100">
 
                     <h3>
-                        Minimum
+                        {% trans "Minimum" %}
                     </h3>
 
 
@@ -129,7 +130,7 @@
                     {% if requirements.minimum_storage %}
 
                         <p>
-                            <strong>Storage:</strong>
+                            <strong>{% trans "Storage:" %}</strong>
                             {{ requirements.minimum_storage }}
                         </p>
 
@@ -139,7 +140,7 @@
                     {% if requirements.minimum_network %}
 
                         <p>
-                            <strong>Network:</strong>
+                            <strong>{% trans "Network:" %}</strong>
                             {{ requirements.minimum_network }}
                         </p>
 
@@ -155,7 +156,7 @@
                 <div class="requirements-card h-100">
 
                     <h3>
-                        Recommended
+                        {% trans "Recommended" %}
                     </h3>
 
 
@@ -188,7 +189,7 @@
                     {% if requirements.recommended_storage %}
 
                         <p>
-                            <strong>Storage:</strong>
+                            <strong>{% trans "Storage:" %}</strong>
                             {{ requirements.recommended_storage }}
                         </p>
 
@@ -198,7 +199,7 @@
                     {% if requirements.recommended_network %}
 
                         <p>
-                            <strong>Network:</strong>
+                            <strong>{% trans "Network:" %}</strong>
                             {{ requirements.recommended_network }}
                         </p>
 
@@ -223,7 +224,7 @@
     <div class="container">
 
         <h2>
-            Video Tutorials
+            {% trans "Video Tutorials" %}
         </h2>
 
 
@@ -246,7 +247,7 @@
                             </p>
 
                             <p>
-                                Publisher:
+                                {% trans "Publisher:" %}
 
                                 <a href="{% url 'profile' tutorial.publisher.username %}">
                                     {{ tutorial.publisher.username }}
@@ -257,7 +258,7 @@
                             {% if tutorial.price == 0 %}
 
                                 <p class="tutorial-price">
-                                    Free
+                                    {% trans "Free" %}
                                 </p>
 
                             {% else %}
@@ -273,7 +274,7 @@
                                 href="{% url 'tutorial_detail' tutorial.id %}"
                                 class="tutorial-button"
                             >
-                                View Tutorial
+                                {% trans "View Tutorial" %}
                             </a>
 
                         </div>
@@ -287,7 +288,7 @@
         {% else %}
 
             <p class="section-empty">
-                No video tutorials are available for this game yet.
+                {% trans "No video tutorials are available for this game yet." %}
             </p>
 
         {% endif %}
@@ -301,7 +302,7 @@
 <section class="reviews-section">
 
     <h2>
-        Reviews
+        {% trans "Reviews" %}
     </h2>
 
 
@@ -317,7 +318,7 @@
 
 
             <label for="rating">
-                Rating
+                {% trans "Rating" %}
             </label>
 
             <select
@@ -327,7 +328,7 @@
             >
 
                 <option value="">
-                    Choose rating
+                    {% trans "Choose rating" %}
                 </option>
 
                 <option value="1">1 ⭐</option>
@@ -340,20 +341,20 @@
 
 
             <label for="comment">
-                Your Review
+                {% trans "Your Review" %}
             </label>
 
             <textarea
                 name="comment"
                 id="comment"
                 rows="5"
-                placeholder="Write your review..."
+                placeholder="{% trans 'Write your review...' %}"
                 required
             ></textarea>
 
 
             <button type="submit">
-                Submit Review
+                {% trans "Submit Review" %}
             </button>
 
         </form>
@@ -361,7 +362,7 @@
     {% else %}
 
         <p>
-            You need to log in to write a review.
+            {% trans "You need to log in to write a review." %}
         </p>
 
     {% endif %}
@@ -406,7 +407,7 @@
     {% else %}
 
         <p>
-            No reviews yet.
+            {% trans "No reviews yet." %}
         </p>
 
     {% endif %}

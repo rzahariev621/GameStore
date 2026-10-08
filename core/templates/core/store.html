@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-Store - GameStore
+{% trans "Store" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -13,11 +14,11 @@ Store - GameStore
         <div class="store-header">
 
             <h1>
-                Game Store 🎮
+                {% trans "Game Store" %} 🎮
             </h1>
 
             <p>
-                Discover games and explore available tutorials.
+                {% trans "Discover games and explore available tutorials." %}
             </p>
 
         </div>
@@ -58,7 +59,7 @@ Store - GameStore
                                 <div class="game-card-bottom">
 
                                     <a href="{% url 'game_detail' game.id %}">
-                                        View Game
+                                        {% trans "View Game" %}
                                     </a>
 
                                 </div>
@@ -78,11 +79,11 @@ Store - GameStore
             <div class="store-empty">
 
                 <h2>
-                    No games available.
+                    {% trans "No games available." %}
                 </h2>
 
                 <p>
-                    Games will appear here when they are added.
+                    {% trans "Games will appear here when they are added." %}
                 </p>
 
             </div>

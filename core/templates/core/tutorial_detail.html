@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block title %}
-{{ tutorial.title }} - GameStore
+{{ tutorial.title }} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -27,7 +28,7 @@
                 </p>
 
                 <p>
-                    Publisher:
+                    {% trans "Publisher:" %}
 
                     <a href="{% url 'profile' tutorial.publisher.username %}">
                         {{ tutorial.publisher.username }}
@@ -38,7 +39,7 @@
                 {% if tutorial.price == 0 %}
 
                     <p class="tutorial-price">
-                        Free
+                        {% trans "Free" %}
                     </p>
 
                 {% else %}
@@ -59,7 +60,7 @@
             {% if can_watch %}
 
                 <h2>
-                    Video Tutorial
+                    {% trans "Video Tutorial" %}
                 </h2>
 
 
@@ -75,7 +76,7 @@
 
                             <source src="{{ tutorial.video.url }}">
 
-                            Your browser does not support video playback.
+                            {% trans "Your browser does not support video playback." %}
 
                         </video>
 
@@ -84,7 +85,7 @@
                 {% else %}
 
                     <p>
-                        Video file is not available.
+                        {% trans "Video file is not available." %}
                     </p>
 
                 {% endif %}
@@ -93,13 +94,13 @@
                 {% if is_owner %}
 
                     <p class="tutorial-access-message">
-                        You are the publisher of this tutorial.
+                        {% trans "You are the publisher of this tutorial." %}
                     </p>
 
                 {% elif is_purchased %}
 
                     <p class="tutorial-access-message">
-                        You own this tutorial.
+                        {% trans "You own this tutorial." %}
                     </p>
 
                 {% endif %}
@@ -110,11 +111,11 @@
                 <div class="tutorial-locked">
 
                     <h2>
-                        Paid Tutorial
+                        {% trans "Paid Tutorial" %}
                     </h2>
 
                     <p>
-                        Purchase this tutorial to watch the full video.
+                        {% trans "Purchase this tutorial to watch the full video." %}
                     </p>
 
 
@@ -128,7 +129,8 @@
                             </p>
 
                             <p>
-                                Your balance:
+                                {% trans "Your balance:" %}
+
                                 <strong>
                                     {{ creator_balance }} Creator Points
                                 </strong>
@@ -145,7 +147,7 @@
                                     {% csrf_token %}
 
                                     <button type="submit">
-                                        Buy with Creator Points
+                                        {% trans "Buy with Creator Points" %}
                                     </button>
 
                                 </form>
@@ -153,8 +155,7 @@
                             {% else %}
 
                                 <p class="tutorial-access-message">
-                                    You do not have enough Creator Points
-                                    to purchase this tutorial.
+                                    {% trans "You do not have enough Creator Points to purchase this tutorial." %}
                                 </p>
 
                             {% endif %}
@@ -174,7 +175,7 @@
                                 {% csrf_token %}
 
                                 <button type="submit">
-                                    Buy Tutorial
+                                    {% trans "Buy Tutorial" %}
                                 </button>
 
                             </form>
@@ -189,14 +190,14 @@
                         </p>
 
                         <p>
-                            You need to log in before purchasing this tutorial.
+                            {% trans "You need to log in before purchasing this tutorial." %}
                         </p>
 
                         <a
                             href="{% url 'login' %}"
                             class="tutorial-login-button"
                         >
-                            Login
+                            {% trans "Login" %}
                         </a>
 
                     {% endif %}
@@ -217,21 +218,20 @@
                     <div class="card-body">
 
                         <h3 class="card-title mb-3">
-                            Report Tutorial
+                            {% trans "Report Tutorial" %}
                         </h3>
 
 
                         {% if has_reported %}
 
                             <p class="text-secondary mb-0">
-                                You have already reported this tutorial.
+                                {% trans "You have already reported this tutorial." %}
                             </p>
 
                         {% else %}
 
                             <p class="text-secondary">
-                                If there is a problem with this tutorial,
-                                you can report it to the moderators.
+                                {% trans "If there is a problem with this tutorial, you can report it to the moderators." %}
                             </p>
 
 
@@ -249,7 +249,7 @@
                                         for="reason"
                                         class="form-label"
                                     >
-                                        Reason
+                                        {% trans "Reason" %}
                                     </label>
 
                                     <textarea
@@ -258,7 +258,7 @@
                                         class="form-control"
                                         rows="4"
                                         required
-                                        placeholder="Describe the reason for reporting this tutorial..."
+                                        placeholder="{% trans 'Describe the reason for reporting this tutorial...' %}"
                                     ></textarea>
 
                                 </div>
@@ -268,7 +268,7 @@
                                     type="submit"
                                     class="btn btn-outline-danger"
                                 >
-                                    Report Tutorial
+                                    {% trans "Report Tutorial" %}
                                 </button>
 
                             </form>
@@ -287,7 +287,9 @@
         <section class="tutorial-game-section">
 
             <a href="{% url 'game_detail' tutorial.game.id %}">
-                ← Back to {{ tutorial.game.title }}
+                {% blocktrans with game_title=tutorial.game.title %}
+                    ← Back to {{ game_title }}
+                {% endblocktrans %}
             </a>
 
         </section>
