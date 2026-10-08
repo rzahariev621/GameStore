@@ -72,9 +72,11 @@
                             controls
                             preload="metadata"
                         >
+
                             <source src="{{ tutorial.video.url }}">
 
                             Your browser does not support video playback.
+
                         </video>
 
                     </div>
@@ -115,27 +117,76 @@
                         Purchase this tutorial to watch the full video.
                     </p>
 
-                    <p class="tutorial-price">
-                        {{ tutorial.price }} €
-                    </p>
-
 
                     {% if user.is_authenticated %}
 
-                        <form
-                            method="POST"
-                            action="{% url 'create_checkout_session' tutorial.id %}"
-                        >
 
-                            {% csrf_token %}
+                        {% if is_publisher %}
 
-                            <button type="submit">
-                                Buy Tutorial
-                            </button>
+                            <p class="tutorial-price">
+                                {{ tutorial.price }} Creator Points
+                            </p>
 
-                        </form>
+                            <p>
+                                Your balance:
+                                <strong>
+                                    {{ creator_balance }} Creator Points
+                                </strong>
+                            </p>
+
+
+                            {% if can_afford_with_points %}
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'buy_with_creator_points' tutorial.id %}"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button type="submit">
+                                        Buy with Creator Points
+                                    </button>
+
+                                </form>
+
+                            {% else %}
+
+                                <p class="tutorial-access-message">
+                                    You do not have enough Creator Points
+                                    to purchase this tutorial.
+                                </p>
+
+                            {% endif %}
+
+
+                        {% else %}
+
+                            <p class="tutorial-price">
+                                {{ tutorial.price }} €
+                            </p>
+
+                            <form
+                                method="POST"
+                                action="{% url 'create_checkout_session' tutorial.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Buy Tutorial
+                                </button>
+
+                            </form>
+
+                        {% endif %}
+
 
                     {% else %}
+
+                        <p class="tutorial-price">
+                            {{ tutorial.price }} €
+                        </p>
 
                         <p>
                             You need to log in before purchasing this tutorial.
@@ -155,6 +206,82 @@
             {% endif %}
 
         </section>
+
+
+        {% if user.is_authenticated and not is_owner %}
+
+            <section class="mt-4 mb-5">
+
+                <div class="card bg-dark text-white border-secondary">
+
+                    <div class="card-body">
+
+                        <h3 class="card-title mb-3">
+                            Report Tutorial
+                        </h3>
+
+
+                        {% if has_reported %}
+
+                            <p class="text-secondary mb-0">
+                                You have already reported this tutorial.
+                            </p>
+
+                        {% else %}
+
+                            <p class="text-secondary">
+                                If there is a problem with this tutorial,
+                                you can report it to the moderators.
+                            </p>
+
+
+                            <form
+                                method="POST"
+                                action="{% url 'report_tutorial' tutorial.id %}"
+                            >
+
+                                {% csrf_token %}
+
+
+                                <div class="mb-3">
+
+                                    <label
+                                        for="reason"
+                                        class="form-label"
+                                    >
+                                        Reason
+                                    </label>
+
+                                    <textarea
+                                        id="reason"
+                                        name="reason"
+                                        class="form-control"
+                                        rows="4"
+                                        required
+                                        placeholder="Describe the reason for reporting this tutorial..."
+                                    ></textarea>
+
+                                </div>
+
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-outline-danger"
+                                >
+                                    Report Tutorial
+                                </button>
+
+                            </form>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        {% endif %}
 
 
         <section class="tutorial-game-section">

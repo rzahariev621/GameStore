@@ -13,11 +13,117 @@ Moderator Dashboard - GameStore
         <h1>Moderator Dashboard</h1>
 
         <p>
-            Review pending tutorials before they become public.
+            Review pending tutorials, reviews and reported content.
         </p>
 
     </section>
 
+
+    <!-- PENDING TUTORIALS -->
+
+    <section class="moderator-section">
+
+        <h2>Pending Tutorials</h2>
+
+        {% if pending_tutorials %}
+
+            <div class="moderator-review-list">
+
+                {% for tutorial in pending_tutorials %}
+
+                    <div class="moderator-review-card">
+
+                        <div class="moderator-review-info">
+
+                            <h3>
+                                {{ tutorial.title }}
+                            </h3>
+
+                            <p>
+                                Game:
+                                <strong>
+                                    {{ tutorial.game.title }}
+                                </strong>
+                            </p>
+
+                            <p>
+                                Publisher:
+
+                                <a href="{% url 'profile' tutorial.publisher.username %}">
+                                    {{ tutorial.publisher.username }}
+                                </a>
+                            </p>
+
+                            <p>
+                                {{ tutorial.description }}
+                            </p>
+
+                            <p>
+                                Price:
+
+                                {% if tutorial.price == 0 %}
+                                    Free
+                                {% else %}
+                                    {{ tutorial.price }} €
+                                {% endif %}
+                            </p>
+
+                            <small>
+                                Submitted: {{ tutorial.created_at }}
+                            </small>
+
+                        </div>
+
+
+                        <div class="moderator-actions">
+
+                            <form
+                                method="POST"
+                                action="{% url 'approve_tutorial' tutorial.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Approve
+                                </button>
+
+                            </form>
+
+
+                            <form
+                                method="POST"
+                                action="{% url 'reject_tutorial' tutorial.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Reject
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                There are no tutorials waiting for approval.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- PENDING REVIEWS -->
 
     <section class="moderator-section">
 
@@ -39,6 +145,7 @@ Moderator Dashboard - GameStore
 
                             <p>
                                 User:
+
                                 <a href="{% url 'profile' review.user.username %}">
                                     {{ review.user.username }}
                                 </a>
@@ -101,6 +208,105 @@ Moderator Dashboard - GameStore
 
             <p>
                 There are no reviews waiting for approval.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- REPORTED TUTORIALS -->
+
+    <section class="moderator-section">
+
+        <h2>Reported Tutorials</h2>
+
+        {% if pending_reports %}
+
+            <div class="moderator-review-list">
+
+                {% for report in pending_reports %}
+
+                    <div class="moderator-review-card">
+
+                        <div class="moderator-review-info">
+
+                            <h3>
+                                {{ report.tutorial.title }}
+                            </h3>
+
+                            <p>
+                                Game:
+                                <strong>
+                                    {{ report.tutorial.game.title }}
+                                </strong>
+                            </p>
+
+                            <p>
+                                Publisher:
+
+                                <a href="{% url 'profile' report.tutorial.publisher.username %}">
+                                    {{ report.tutorial.publisher.username }}
+                                </a>
+                            </p>
+
+                            <p>
+                                Reported by:
+
+                                <a href="{% url 'profile' report.reporter.username %}">
+                                    {{ report.reporter.username }}
+                                </a>
+                            </p>
+
+                            <p>
+                                <strong>Reason:</strong>
+                            </p>
+
+                            <p>
+                                {{ report.reason }}
+                            </p>
+
+                            <small>
+                                Reported: {{ report.created_at }}
+                            </small>
+
+                        </div>
+
+
+                        <div class="moderator-actions">
+
+                            <a
+                                href="{% url 'tutorial_detail' report.tutorial.id %}"
+                            >
+                                View Tutorial
+                            </a>
+
+
+                            <form
+                                method="POST"
+                                action="{% url 'resolve_tutorial_report' report.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Mark as Resolved
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                There are no reported tutorials waiting for review.
             </p>
 
         {% endif %}

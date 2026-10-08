@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Blocked Users
+{% endblock %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <div class="mb-4">
+        <h1>Blocked Users</h1>
+        <p class="text-secondary">
+            Manage the users you have blocked.
+        </p>
+    </div>
+
+    {% if blocks %}
+
+        <div class="row g-4">
+
+            {% for block in blocks %}
+
+                <div class="col-12 col-md-6 col-lg-4">
+
+                    <div class="card bg-dark text-white h-100">
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                {{ block.blocked.username }}
+                            </h5>
+
+                            <p class="text-secondary">
+                                Blocked on {{ block.created_at }}
+                            </p>
+
+                            <div class="d-flex gap-2 flex-wrap">
+
+                                <a
+                                    href="{% url 'profile' block.blocked.username %}"
+                                    class="btn btn-outline-light"
+                                >
+                                    View Profile
+                                </a>
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'unblock_user' block.blocked.username %}"
+                                >
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-light"
+                                    >
+                                        Unblock
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="p-4 bg-dark rounded">
+
+            <p class="mb-0">
+                You have not blocked any users.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+{% endblock %}

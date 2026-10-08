@@ -6,8 +6,9 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.db.models import Q
+from django.db import transaction
 
-from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message, UserBlock
+from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message, UserBlock, TutorialReport, CreatorPointTransaction, CreatorPointAccount
 
 from .forms import VideoTutorialForm, GameForm, GameRequirementForm, AdminTutorialForm
 import stripe
@@ -319,7 +320,10 @@ def send_friend_request(request, username):
 
     if request.method == 'POST':
 
-        if receiver != request.user:
+        if (
+            receiver != request.user
+            and not users_are_blocked(request.user, receiver)
+        ):
 
             already_exists = FriendRequest.objects.filter(
                 sender=request.user,
@@ -337,12 +341,21 @@ def send_friend_request(request, username):
                     receiver=receiver
                 )
 
-    return redirect('profile', username=receiver.username)
+    return redirect(
+        'profile',
+        username=receiver.username
+    )
 
 
 @login_required
 def accept_friend_request(request, username):
     sender = get_object_or_404(User, username=username)
+
+    if users_are_blocked(request.user, sender):
+        return redirect(
+            'profile',
+            username=sender.username
+        )
 
     if request.method == 'POST':
 
@@ -356,7 +369,10 @@ def accept_friend_request(request, username):
             friend_request.status = 'accepted'
             friend_request.save()
 
-    return redirect('profile', username=sender.username)
+    return redirect(
+        'profile',
+        username=sender.username
+    )
 
 #PUBLISHER
 @login_required
@@ -372,11 +388,23 @@ def publisher_dashboard(request):
         publisher=request.user
     ).order_by('-created_at')
 
+    creator_account, created = CreatorPointAccount.objects.get_or_create(
+        user=request.user
+    )
+
+    transactions = CreatorPointTransaction.objects.filter(
+        user=request.user
+    ).select_related(
+        'tutorial'
+    ).order_by('-created_at')
+
     return render(
         request,
         'core/publisher_dashboard.html',
         {
-            'tutorials': tutorials
+            'tutorials': tutorials,
+            'creator_account': creator_account,
+            'transactions': transactions,
         }
     )
 
@@ -433,6 +461,10 @@ def tutorial_detail(request, tutorial_id):
 
     is_purchased = False
     is_owner = False
+    is_publisher = False
+    has_reported = False
+    creator_balance = Decimal('0.00')
+    can_afford_with_points = False
 
     if request.user.is_authenticated:
 
@@ -440,11 +472,31 @@ def tutorial_detail(request, tutorial_id):
             request.user == tutorial.publisher
         )
 
+        is_publisher = request.user.groups.filter(
+            name='Publisher'
+        ).exists()
+
         if tutorial.price > 0:
             is_purchased = TutorialPurchase.objects.filter(
                 user=request.user,
                 tutorial=tutorial
             ).exists()
+
+        has_reported = TutorialReport.objects.filter(
+            reporter=request.user,
+            tutorial=tutorial
+        ).exists()
+
+        if is_publisher:
+            creator_account, created = CreatorPointAccount.objects.get_or_create(
+                user=request.user
+            )
+
+            creator_balance = creator_account.balance
+
+            can_afford_with_points = (
+                creator_balance >= tutorial.price
+            )
 
     can_watch = (
         tutorial.price == 0
@@ -459,7 +511,11 @@ def tutorial_detail(request, tutorial_id):
             'tutorial': tutorial,
             'is_purchased': is_purchased,
             'is_owner': is_owner,
+            'is_publisher': is_publisher,
             'can_watch': can_watch,
+            'has_reported': has_reported,
+            'creator_balance': creator_balance,
+            'can_afford_with_points': can_afford_with_points,
         }
     )
 
@@ -488,12 +544,22 @@ def moderator_dashboard(request):
         'user'
     ).order_by('created_at')
 
+    pending_reports = TutorialReport.objects.filter(
+        status='pending'
+    ).select_related(
+        'tutorial',
+        'tutorial__game',
+        'tutorial__publisher',
+        'reporter'
+    ).order_by('created_at')
+
     return render(
         request,
         'core/moderator_dashboard.html',
         {
             'pending_tutorials': pending_tutorials,
             'pending_reviews': pending_reviews,
+            'pending_reports': pending_reports,
         }
     )
 
@@ -587,6 +653,34 @@ def reject_review(request, review_id):
 
     return redirect('moderator_dashboard')
 
+
+
+
+
+
+@login_required
+def resolve_tutorial_report(request, report_id):
+    is_moderator = request.user.groups.filter(
+        name='Moderator'
+    ).exists()
+
+    if not is_moderator:
+        return redirect('home')
+
+    report = get_object_or_404(
+        TutorialReport,
+        id=report_id,
+        status='pending'
+    )
+
+    if request.method == 'POST':
+        report.status = 'resolved'
+        report.save(
+            update_fields=['status']
+        )
+
+    return redirect('moderator_dashboard')
+
 #STRIPE FUNCTIONS
 
 @login_required
@@ -597,18 +691,32 @@ def create_checkout_session(request, tutorial_id):
         status='approved'
     )
 
+    # Free tutorial
     if tutorial.price == 0:
         return redirect(
             'tutorial_detail',
             tutorial_id=tutorial.id
         )
 
+    # Publisher cannot buy their own tutorial
     if tutorial.publisher == request.user:
         return redirect(
             'tutorial_detail',
             tutorial_id=tutorial.id
         )
 
+    # Publishers do not use Stripe
+    is_publisher = request.user.groups.filter(
+        name='Publisher'
+    ).exists()
+
+    if is_publisher:
+        return redirect(
+            'tutorial_detail',
+            tutorial_id=tutorial.id
+        )
+
+    # Already purchased
     already_purchased = TutorialPurchase.objects.filter(
         user=request.user,
         tutorial=tutorial
@@ -632,7 +740,9 @@ def create_checkout_session(request, tutorial_id):
                     'product_data': {
                         'name': tutorial.title,
                     },
-                    'unit_amount': int(tutorial.price * 100),
+                    'unit_amount': int(
+                        tutorial.price * 100
+                    ),
                 },
                 'quantity': 1,
             }
@@ -686,6 +796,7 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
 
+
     if event.type == 'checkout.session.completed':
 
         session = event.data.object
@@ -704,21 +815,47 @@ def stripe_webhook(request):
                 id=user_id
             ).first()
 
+
             if tutorial and user:
 
                 amount_total = session.amount_total or 0
 
                 price_paid = (
-                    Decimal(amount_total) / Decimal('100')
+                    Decimal(amount_total)
+                    / Decimal('100')
                 )
 
-                TutorialPurchase.objects.get_or_create(
+
+                purchase, created = TutorialPurchase.objects.get_or_create(
                     user=user,
                     tutorial=tutorial,
                     defaults={
                         'price_paid': price_paid
                     }
                 )
+
+
+                if created:
+
+                    creator_account, account_created = (
+                        CreatorPointAccount.objects.get_or_create(
+                            user=tutorial.publisher
+                        )
+                    )
+
+                    creator_account.balance += price_paid
+                    creator_account.save(
+                        update_fields=['balance']
+                    )
+
+
+                    CreatorPointTransaction.objects.create(
+                        user=tutorial.publisher,
+                        tutorial=tutorial,
+                        amount=price_paid,
+                        transaction_type='sale'
+                    )
+
 
     return HttpResponse(status=200)
 
@@ -1238,11 +1375,22 @@ def chat_view(request, username):
         username=username
     )
 
-    # Потребителят не може да пише сам на себе си
     if other_user == request.user:
         return redirect(
             'profile',
             username=request.user.username
+        )
+
+    if users_are_blocked(request.user, other_user):
+        return redirect(
+            'profile',
+            username=other_user.username
+        )
+
+    if not users_are_friends(request.user, other_user):
+        return redirect(
+            'profile',
+            username=other_user.username
         )
 
     if request.method == 'POST':
@@ -1264,8 +1412,7 @@ def chat_view(request, username):
         Q(
             sender=request.user,
             receiver=other_user
-        )
-        |
+        ) |
         Q(
             sender=other_user,
             receiver=request.user
@@ -1280,7 +1427,7 @@ def chat_view(request, username):
         'core/chat.html',
         {
             'other_user': other_user,
-            'conversation': conversation,
+            'conversation': conversation
         }
     )
 
@@ -1307,6 +1454,9 @@ def messages_inbox(request):
         else:
             other_user = message.sender
 
+        if users_are_blocked(request.user, other_user):
+            continue
+
         if other_user.id not in seen_users:
 
             conversations.append(
@@ -1327,6 +1477,27 @@ def messages_inbox(request):
     )
 
 #USER BLOCK
+
+def users_are_blocked(user1, user2):
+    return UserBlock.objects.filter(
+        Q(blocker=user1, blocked=user2) |
+        Q(blocker=user2, blocked=user1)
+    ).exists()
+
+
+def users_are_friends(user1, user2):
+    return FriendRequest.objects.filter(
+        Q(
+            sender=user1,
+            receiver=user2,
+            status='accepted'
+        ) |
+        Q(
+            sender=user2,
+            receiver=user1,
+            status='accepted'
+        )
+    ).exists()
 
 @login_required
 def block_user(request, username):
@@ -1360,3 +1531,163 @@ def unblock_user(request, username):
         ).delete()
 
     return redirect('profile', username=username)
+
+
+@login_required
+def blocked_users(request):
+    blocks = UserBlock.objects.filter(
+        blocker=request.user
+    ).select_related(
+        'blocked'
+    ).order_by('-created_at')
+
+    return render(
+        request,
+        'core/blocked_users.html',
+        {
+            'blocks': blocks
+        }
+    )
+
+#REPORTING
+
+@login_required
+def report_tutorial(request, tutorial_id):
+    tutorial = get_object_or_404(
+        VideoTutorial,
+        id=tutorial_id,
+        status='approved'
+    )
+
+    if request.user == tutorial.publisher:
+        return redirect(
+            'tutorial_detail',
+            tutorial_id=tutorial.id
+        )
+
+    if request.method == 'POST':
+        reason = request.POST.get('reason', '').strip()
+
+        if reason:
+            TutorialReport.objects.get_or_create(
+                reporter=request.user,
+                tutorial=tutorial,
+                defaults={
+                    'reason': reason
+                }
+            )
+
+    return redirect(
+        'tutorial_detail',
+        tutorial_id=tutorial.id
+    )
+
+
+#CREATOR POINTS
+
+@login_required
+def buy_with_creator_points(request, tutorial_id):
+    tutorial = get_object_or_404(
+        VideoTutorial,
+        id=tutorial_id,
+        status='approved'
+    )
+
+    is_publisher = request.user.groups.filter(
+        name='Publisher'
+    ).exists()
+
+    if not is_publisher:
+        return redirect(
+            'tutorial_detail',
+            tutorial_id=tutorial.id
+        )
+
+    if tutorial.publisher == request.user:
+        return redirect(
+            'tutorial_detail',
+            tutorial_id=tutorial.id
+        )
+
+    if tutorial.price == 0:
+        return redirect(
+            'tutorial_detail',
+            tutorial_id=tutorial.id
+        )
+
+    if request.method != 'POST':
+        return redirect(
+            'tutorial_detail',
+            tutorial_id=tutorial.id
+        )
+
+    with transaction.atomic():
+
+        CreatorPointAccount.objects.get_or_create(
+            user=request.user
+        )
+
+        CreatorPointAccount.objects.get_or_create(
+            user=tutorial.publisher
+        )
+
+        buyer_account = CreatorPointAccount.objects.select_for_update().get(
+            user=request.user
+        )
+
+        seller_account = CreatorPointAccount.objects.select_for_update().get(
+            user=tutorial.publisher
+        )
+
+        already_purchased = TutorialPurchase.objects.filter(
+            user=request.user,
+            tutorial=tutorial
+        ).exists()
+
+        if already_purchased:
+            return redirect(
+                'tutorial_detail',
+                tutorial_id=tutorial.id
+            )
+
+        if buyer_account.balance < tutorial.price:
+            return redirect(
+                'tutorial_detail',
+                tutorial_id=tutorial.id
+            )
+
+        buyer_account.balance -= tutorial.price
+        seller_account.balance += tutorial.price
+
+        buyer_account.save(
+            update_fields=['balance']
+        )
+
+        seller_account.save(
+            update_fields=['balance']
+        )
+
+        TutorialPurchase.objects.create(
+            user=request.user,
+            tutorial=tutorial,
+            price_paid=tutorial.price
+        )
+
+        CreatorPointTransaction.objects.create(
+            user=request.user,
+            tutorial=tutorial,
+            amount=tutorial.price,
+            transaction_type='purchase'
+        )
+
+        CreatorPointTransaction.objects.create(
+            user=tutorial.publisher,
+            tutorial=tutorial,
+            amount=tutorial.price,
+            transaction_type='sale'
+        )
+
+    return redirect(
+        'tutorial_detail',
+        tutorial_id=tutorial.id
+    )

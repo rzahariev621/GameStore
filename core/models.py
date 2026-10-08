@@ -186,6 +186,48 @@ class TutorialPurchase(models.Model):
 
 
 
+class TutorialReport(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('resolved', 'Resolved'),
+    ]
+
+    reporter = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='tutorial_reports'
+    )
+
+    tutorial = models.ForeignKey(
+        VideoTutorial,
+        on_delete=models.CASCADE,
+        related_name='reports'
+    )
+
+    reason = models.TextField()
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['reporter', 'tutorial'],
+                name='unique_tutorial_report'
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.reporter.username} reported {self.tutorial.title}"
+
+
 
 class Review(models.Model):
 
@@ -285,3 +327,62 @@ class UserBlock(models.Model):
 
     def __str__(self):
         return f"{self.blocker.username} blocked {self.blocked.username}"
+
+
+#CREATOR POINTS
+
+class CreatorPointAccount(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='creator_point_account'
+    )
+
+    balance = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    def __str__(self):
+        return f"{self.user.username} - {self.balance} Creator Points"
+
+
+class CreatorPointTransaction(models.Model):
+    TRANSACTION_CHOICES = [
+        ('sale', 'Tutorial Sale'),
+        ('purchase', 'Tutorial Purchase'),
+    ]
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='creator_point_transactions'
+    )
+
+    tutorial = models.ForeignKey(
+        VideoTutorial,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
+    transaction_type = models.CharField(
+        max_length=20,
+        choices=TRANSACTION_CHOICES
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return (
+            f"{self.user.username} - "
+            f"{self.amount} Creator Points"
+        )

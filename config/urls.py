@@ -65,6 +65,11 @@ from core.views import (
     messages_inbox,
     block_user,
     unblock_user,
+    blocked_users,
+    report_tutorial,
+    resolve_tutorial_report,
+    buy_with_creator_points,
+
 
 )
 
@@ -80,13 +85,19 @@ urlpatterns = [
     path('wishlist/', wishlist, name='wishlist'),
     path('publisher/', publisher_dashboard, name='publisher_dashboard'),
     path('publisher/upload/', upload_tutorial, name='upload_tutorial'),
+
     path('moderator/', moderator_dashboard, name='moderator_dashboard'),
     path('moderator/tutorial/<int:tutorial_id>/approve/', approve_tutorial, name='approve_tutorial'),
     path('moderator/tutorial/<int:tutorial_id>/reject/', reject_tutorial, name='reject_tutorial'),
     path('moderator/review/<int:review_id>/approve/', approve_review, name='approve_review'),
     path('moderator/review/<int:review_id>/reject/', reject_review, name='reject_review'),
+    path('moderator/reports/<int:report_id>/resolve/',resolve_tutorial_report,name='resolve_tutorial_report'),
+
     path('tutorial/<int:tutorial_id>/', tutorial_detail, name='tutorial_detail'),
     path('tutorial/<int:tutorial_id>/checkout/', create_checkout_session, name='create_checkout_session'),
+    path('tutorial/<int:tutorial_id>/report/', report_tutorial, name='report_tutorial'),
+    path('tutorial/<int:tutorial_id>/buy-with-points/', buy_with_creator_points, name='buy_with_creator_points'),
+
     path('stripe/webhook/', stripe_webhook, name='stripe_webhook'),
     path('payment/success/', payment_success, name='payment_success'),
 
@@ -129,7 +140,7 @@ urlpatterns = [
     path('messages/<str:username>/', chat_view, name='chat'),
     path('messages/',messages_inbox,name='messages_inbox'),
 
-
+    path('blocked-users/', blocked_users, name='blocked_users'),
     
 ]
 

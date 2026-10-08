@@ -11,11 +11,16 @@ Publisher Dashboard - GameStore
     <section class="publisher-header">
 
         <div>
+
             <h1>Publisher Dashboard</h1>
+
             <p>
-                Manage your video tutorials and track their approval status.
+                Manage your video tutorials, Creator Points
+                and track their approval status.
             </p>
+
         </div>
+
 
         <a
             href="{% url 'upload_tutorial' %}"
@@ -27,11 +32,170 @@ Publisher Dashboard - GameStore
     </section>
 
 
+    <!-- CREATOR POINTS -->
+
+    <section class="mb-5">
+
+        <div class="row g-4">
+
+            <div class="col-12 col-lg-4">
+
+                <div class="card bg-dark text-white border-secondary h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="h4">
+                            Creator Points
+                        </h2>
+
+                        <p class="text-secondary">
+                            Your current available balance.
+                        </p>
+
+                        <div class="display-5 fw-bold mt-4">
+                            {{ creator_account.balance }}
+                        </div>
+
+                        <p class="text-secondary mb-0">
+                            Creator Points
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12 col-lg-8">
+
+                <div class="card bg-dark text-white border-secondary h-100">
+
+                    <div class="card-body">
+
+                        <h2 class="h4 mb-4">
+                            Transaction History
+                        </h2>
+
+
+                        {% if transactions %}
+
+                            <div class="table-responsive">
+
+                                <table class="table table-dark table-hover align-middle mb-0">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>
+                                                Type
+                                            </th>
+
+                                            <th>
+                                                Tutorial
+                                            </th>
+
+                                            <th>
+                                                Amount
+                                            </th>
+
+                                            <th>
+                                                Date
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+
+                                    <tbody>
+
+                                        {% for transaction in transactions %}
+
+                                            <tr>
+
+                                                <td>
+                                                    {{ transaction.get_transaction_type_display }}
+                                                </td>
+
+
+                                                <td>
+
+                                                    {% if transaction.tutorial %}
+
+                                                        {{ transaction.tutorial.title }}
+
+                                                    {% else %}
+
+                                                        Tutorial unavailable
+
+                                                    {% endif %}
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    {% if transaction.transaction_type == 'purchase' %}
+
+                                                        <span class="text-danger">
+                                                            -{{ transaction.amount }}
+                                                        </span>
+
+                                                    {% else %}
+
+                                                        <span class="text-success">
+                                                            +{{ transaction.amount }}
+                                                        </span>
+
+                                                    {% endif %}
+
+                                                </td>
+
+
+                                                <td>
+                                                    {{ transaction.created_at }}
+                                                </td>
+
+                                            </tr>
+
+                                        {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        {% else %}
+
+                            <p class="text-secondary mb-0">
+                                No Creator Point transactions yet.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MY TUTORIALS -->
+
     <section class="publisher-tutorials">
 
         <div class="publisher-section-header">
 
-            <h2>My Tutorials</h2>
+            <h2>
+                My Tutorials
+            </h2>
 
             <span>
                 {{ tutorials|length }} tutorials
@@ -54,13 +218,16 @@ Publisher Dashboard - GameStore
                                 {{ tutorial.game.title }}
                             </span>
 
+
                             <h3>
                                 {{ tutorial.title }}
                             </h3>
 
+
                             <p>
                                 {{ tutorial.description }}
                             </p>
+
 
                             <div class="publisher-tutorial-meta">
 
@@ -77,6 +244,7 @@ Publisher Dashboard - GameStore
                                     </span>
 
                                 {% endif %}
+
 
                                 <span>
                                     Uploaded: {{ tutorial.created_at }}
@@ -105,7 +273,9 @@ Publisher Dashboard - GameStore
 
             <div class="publisher-empty">
 
-                <h3>No tutorials uploaded yet</h3>
+                <h3>
+                    No tutorials uploaded yet
+                </h3>
 
                 <p>
                     Your uploaded tutorials will appear here.
