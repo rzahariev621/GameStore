@@ -842,7 +842,8 @@ def stripe_webhook(request):
                     user=user,
                     tutorial=tutorial,
                     defaults={
-                        'price_paid': price_paid
+                        'price_paid': price_paid,
+                        'payment_method': 'stripe'
                     }
                 )
 
@@ -1682,7 +1683,8 @@ def buy_with_creator_points(request, tutorial_id):
         TutorialPurchase.objects.create(
             user=request.user,
             tutorial=tutorial,
-            price_paid=tutorial.price
+            price_paid=tutorial.price,
+            payment_method='creator_points'
         )
 
         CreatorPointTransaction.objects.create(

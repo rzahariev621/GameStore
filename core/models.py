@@ -149,6 +149,11 @@ class VideoTutorial(models.Model):
 
 
 class TutorialPurchase(models.Model):
+    PAYMENT_METHOD_CHOICES = [
+        ('stripe', 'Stripe'),
+        ('creator_points', 'Creator Points'),
+    ]
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -164,6 +169,12 @@ class TutorialPurchase(models.Model):
     price_paid = models.DecimalField(
         max_digits=8,
         decimal_places=2
+    )
+
+    payment_method = models.CharField(
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        default='stripe'
     )
 
     purchased_at = models.DateTimeField(
