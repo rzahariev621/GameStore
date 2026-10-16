@@ -4,7 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: PlayGuide\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-08 23:05+0300\nPO-Revision-Date: 2026-10-08 23:30+0300\nLast-Translator:\nLanguage-Team: Bulgarian\nLanguage: bg\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+msgstr ""
+"Project-Id-Version: PlayGuide\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 16:48+0300\n"
+"PO-Revision-Date: 2026-10-08 23:30+0300\n"
+"Last-Translator:\n"
+"Language-Team: Bulgarian\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\core\forms.py:20 .\core\forms.py:94
 #: .\core\templates\core\upload_tutorial.html:32
@@ -83,8 +94,8 @@ msgstr "Препоръчителни мрежови изисквания"
 msgid "Status"
 msgstr "Статус"
 
-#: .\core\models.py:83 .\core\models.py:107 .\core\models.py:187
-#: .\core\models.py:229 .\core\templates\core\manage_reviews.html:59
+#: .\core\models.py:83 .\core\models.py:107 .\core\models.py:198
+#: .\core\models.py:240 .\core\templates\core\manage_reviews.html:59
 #: .\core\templates\core\manage_reviews.html:92
 #: .\core\templates\core\manage_tutorials.html:56
 #: .\core\templates\core\publisher_dashboard.html:281
@@ -95,7 +106,7 @@ msgstr "В изчакване"
 msgid "Accepted"
 msgstr "Прието"
 
-#: .\core\models.py:108 .\core\models.py:230
+#: .\core\models.py:108 .\core\models.py:241
 #: .\core\templates\core\manage_reviews.html:61
 #: .\core\templates\core\manage_reviews.html:101
 #: .\core\templates\core\manage_tutorials.html:60
@@ -103,7 +114,7 @@ msgstr "Прието"
 msgid "Approved"
 msgstr "Одобрено"
 
-#: .\core\models.py:109 .\core\models.py:231
+#: .\core\models.py:109 .\core\models.py:242
 #: .\core\templates\core\manage_reviews.html:63
 #: .\core\templates\core\manage_reviews.html:110
 #: .\core\templates\core\manage_tutorials.html:64
@@ -111,15 +122,15 @@ msgstr "Одобрено"
 msgid "Rejected"
 msgstr "Отхвърлено"
 
-#: .\core\models.py:188
+#: .\core\models.py:199
 msgid "Resolved"
 msgstr "Разрешено"
 
-#: .\core\models.py:347 .\core\templates\core\publisher_dashboard.html:128
+#: .\core\models.py:358 .\core\templates\core\publisher_dashboard.html:128
 msgid "Tutorial Sale"
 msgstr "Продажба на урок"
 
-#: .\core\models.py:348 .\core\templates\core\publisher_dashboard.html:124
+#: .\core\models.py:359 .\core\templates\core\publisher_dashboard.html:124
 msgid "Tutorial Purchase"
 msgstr "Покупка на урок"
 
@@ -293,20 +304,10 @@ msgstr "Отблокирай"
 msgid "You have not blocked any users."
 msgstr "Нямаш блокирани потребители."
 
-#: .\core\templates\core\chat.html:5
+#: .\core\templates\core\chat.html:6 .\core\templates\core\chat.html:19
 #, python-format
-msgid ""
-"\n"
-"Chat with %(username)s\n"
-msgstr "\nЧат с %(username)s\n"
-
-#: .\core\templates\core\chat.html:18
-#, python-format
-msgid ""
-"\n"
-"            Chat with %(username)s\n"
-"            "
-msgstr "\n            Чат с %(username)s\n            "
+msgid "Chat with %(username)s"
+msgstr "Чат с %(username)s"
 
 #: .\core\templates\core\chat.html:57
 msgid "No messages yet."
@@ -372,7 +373,8 @@ msgstr "Това действие е необратимо."
 
 #: .\core\templates\core\delete_game.html:32
 msgid "Related tutorials, reviews and system requirements may also be deleted."
-msgstr "Свързаните уроци, рецензии и системни изисквания също може да бъдат изтрити."
+msgstr ""
+"Свързаните уроци, рецензии и системни изисквания също може да бъдат изтрити."
 
 #: .\core\templates\core\delete_game.html:41
 msgid "Yes, Delete Game"
@@ -558,8 +560,8 @@ msgid "You need to log in to write a review."
 msgstr "Трябва да влезеш в профила си, за да напишеш рецензия."
 
 #: .\core\templates\core\home.html:13
-msgid "Welcome to PlayGuide! 🎮"
-msgstr "Добре дошъл в PlayGuide! 🎮"
+msgid "Welcome to"
+msgstr "Добре дошъл в"
 
 #: .\core\templates\core\home.html:17
 msgid "Discover your next favorite game."
@@ -749,7 +751,9 @@ msgstr "Все още нямаш разговори."
 
 #: .\core\templates\core\moderator_dashboard.html:19
 msgid "Review pending tutorials, reviews and reported content."
-msgstr "Преглеждай чакащите одобрение уроци и рецензии, както и съдържанието с подадени сигнали."
+msgstr ""
+"Преглеждай чакащите одобрение уроци и рецензии, както и съдържанието с "
+"подадени сигнали."
 
 #: .\core\templates\core\moderator_dashboard.html:30
 msgid "Pending Tutorials"
@@ -862,7 +866,9 @@ msgstr "Провери имейла си"
 msgid ""
 "If an account exists with that email address, a password reset link has been "
 "sent."
-msgstr "Ако съществува профил с този имейл адрес, е изпратена връзка за нулиране на паролата."
+msgstr ""
+"Ако съществува профил с този имейл адрес, е изпратена връзка за нулиране на "
+"паролата."
 
 #: .\core\templates\core\password_reset_done.html:23
 msgid "Back to Login"
@@ -885,7 +891,9 @@ msgstr "Отвори връзката по-долу, за да зададеш н
 #: .\core\templates\core\password_reset_email.html:11
 msgid ""
 "If you did not request this password reset, you can ignore this message."
-msgstr "Ако не си заявявал нулиране на паролата, можеш да пренебрегнеш това съобщение."
+msgstr ""
+"Ако не си заявявал нулиране на паролата, можеш да пренебрегнеш това "
+"съобщение."
 
 #: .\core\templates\core\payment_success.html:5
 #: .\core\templates\core\payment_success.html:13
@@ -947,7 +955,9 @@ msgstr "Този потребител все още не е написал ре�
 #: .\core\templates\core\publisher_dashboard.html:21
 msgid ""
 "Manage your video tutorials, Creator Points and track their approval status."
-msgstr "Управлявай своите видеоуроци и Creator Points и следи статуса на одобрение на уроците."
+msgstr ""
+"Управлявай своите видеоуроци и Creator Points и следи статуса на одобрение "
+"на уроците."
 
 #: .\core\templates\core\publisher_dashboard.html:31
 #: .\core\templates\core\upload_tutorial.html:5
@@ -993,16 +1003,10 @@ msgstr "Моите уроци"
 
 #: .\core\templates\core\publisher_dashboard.html:213
 #, python-format
-msgid ""
-"\n"
-"                    %(tutorial_count)s tutorial\n"
-"                "
-msgid_plural ""
-"\n"
-"                    %(tutorial_count)s tutorials\n"
-"                "
-msgstr[0] "\n                    %(tutorial_count)s урок\n                "
-msgstr[1] "\n                    %(tutorial_count)s урока\n                "
+msgid "%(tutorial_count)s tutorial"
+msgid_plural "%(tutorial_count)s tutorials"
+msgstr[0] "%(tutorial_count)s урок"
+msgstr[1] "%(tutorial_count)s урока"
 
 #: .\core\templates\core\publisher_dashboard.html:266
 msgid "Uploaded:"
@@ -1110,17 +1114,16 @@ msgstr "Опиши причината за сигнала за този урок
 
 #: .\core\templates\core\tutorial_detail.html:290
 #, python-format
-msgid ""
-"\n"
-"                    ← Back to %(game_title)s\n"
-"                "
-msgstr "\n                    ← Назад към %(game_title)s\n                "
+msgid "← Back to %(game_title)s"
+msgstr "← Назад към %(game_title)s"
 
 #: .\core\templates\core\upload_tutorial.html:19
 msgid ""
 "Upload a video tutorial for a game. It will be reviewed by a moderator "
 "before it becomes public."
-msgstr "Качи видеоурок за игра. Той ще бъде прегледан от модератор, преди да стане публично достъпен."
+msgstr ""
+"Качи видеоурок за игра. Той ще бъде прегледан от модератор, преди да стане "
+"публично достъпен."
 
 #: .\core\templates\core\upload_tutorial.html:106
 msgid "Use 0.00 for a free tutorial."
@@ -1157,3 +1160,44 @@ msgstr "Потребителското име вече съществува."
 #: .\core\views.py:127
 msgid "Email is already in use."
 msgstr "Имейл адресът вече се използва."
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "            Chat with %(username)s\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "            Чат с %(username)s\n"
+#~ "            "
+
+#~ msgid "Welcome to PlayGuide! 🎮"
+#~ msgstr "Добре дошъл в PlayGuide! 🎮"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                    %(tutorial_count)s tutorial\n"
+#~ "                "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                    %(tutorial_count)s tutorials\n"
+#~ "                "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "                    %(tutorial_count)s урок\n"
+#~ "                "
+#~ msgstr[1] ""
+#~ "\n"
+#~ "                    %(tutorial_count)s урока\n"
+#~ "                "
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                    ← Back to %(game_title)s\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "                    ← Назад към %(game_title)s\n"
+#~ "                "

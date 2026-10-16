@@ -210,10 +210,10 @@
             </h2>
 
             <span>
-                {% blocktrans count tutorial_count=tutorials|length %}
-                    {{ tutorial_count }} tutorial
+                {% blocktrans trimmed count tutorial_count=tutorials|length %}
+                {{ tutorial_count }} tutorial
                 {% plural %}
-                    {{ tutorial_count }} tutorials
+                {{ tutorial_count }} tutorials
                 {% endblocktrans %}
             </span>
 

@@ -2,10 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-{% blocktrans with username=other_user.username %}
-Chat with {{ username }}
-{% endblocktrans %}
-- PlayGuide
+{% blocktrans trimmed with username=other_user.username %}Chat with {{ username }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
@@ -15,9 +12,9 @@ Chat with {{ username }}
     <section class="chat-header">
 
         <h1>
-            {% blocktrans with username=other_user.username %}
-            Chat with {{ username }}
-            {% endblocktrans %}
+            <h1>
+                {% blocktrans trimmed with username=other_user.username %}Chat with {{ username }}{% endblocktrans %}
+            </h1>
         </h1>
 
         <a href="{% url 'profile' other_user.username %}">
