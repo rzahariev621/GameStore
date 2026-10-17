@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from django.db.models import Q
+from django.db.models import Count, IntegerField, OuterRef, Q, Subquery
+from django.db.models.functions import Coalesce
 from django.db import transaction
 from django.utils.translation import gettext as _
 
@@ -17,7 +18,77 @@ import stripe
 from decimal import Decimal 
 
 def home(request):
-    return render(request, 'core/home.html')
+    # Group purchases using the existing forward foreign keys, so no reverse
+    # related_name assumptions or joins that multiply purchase rows are needed.
+    game_purchase_counts = (
+        TutorialPurchase.objects.filter(
+            tutorial__game=OuterRef('pk'),
+            tutorial__status='approved',
+        )
+        .order_by()
+        .values('tutorial__game')
+        .annotate(total=Count('pk'))
+        .values('total')
+    )
+    tutorial_purchase_counts = (
+        TutorialPurchase.objects.filter(tutorial=OuterRef('pk'))
+        .order_by()
+        .values('tutorial')
+        .annotate(total=Count('pk'))
+        .values('total')
+    )
+    publisher_tutorial_counts = (
+        VideoTutorial.objects.filter(
+            publisher=OuterRef('pk'),
+            status='approved',
+        )
+        .order_by()
+        .values('publisher')
+        .annotate(total=Count('pk'))
+        .values('total')
+    )
+
+    popular_games = (
+        Game.objects.annotate(
+            purchase_count=Coalesce(
+                Subquery(game_purchase_counts, output_field=IntegerField()), 0
+            )
+        )
+        .filter(purchase_count__gt=0)
+        .order_by('-purchase_count', 'pk')[:4]
+    )
+    most_purchased_videos = (
+        VideoTutorial.objects.filter(status='approved')
+        .select_related('game', 'publisher')
+        .annotate(
+            purchase_count=Coalesce(
+                Subquery(tutorial_purchase_counts, output_field=IntegerField()), 0
+            )
+        )
+        .filter(purchase_count__gt=0)
+        .order_by('-purchase_count', 'pk')[:4]
+    )
+    top_publishers = (
+        User.objects.filter(groups__name='Publisher')
+        .annotate(
+            approved_tutorial_count=Coalesce(
+                Subquery(publisher_tutorial_counts, output_field=IntegerField()), 0
+            )
+        )
+        .filter(approved_tutorial_count__gt=0)
+        .order_by('-approved_tutorial_count', 'pk')[:4]
+    )
+
+    return render(
+        request,
+        'core/home.html',
+        {
+            'popular_games': popular_games,
+            'most_purchased_videos': most_purchased_videos,
+            'top_publishers': top_publishers,
+        },
+    )
+
 
 def store(request):
     games = Game.objects.all()
