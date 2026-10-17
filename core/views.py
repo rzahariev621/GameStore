@@ -18,8 +18,7 @@ import stripe
 from decimal import Decimal 
 
 def home(request):
-    # Group purchases using the existing forward foreign keys, so no reverse
-    # related_name assumptions or joins that multiply purchase rows are needed.
+    
     game_purchase_counts = (
         TutorialPurchase.objects.filter(
             tutorial__game=OuterRef('pk'),
