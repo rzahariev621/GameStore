@@ -100,7 +100,7 @@ class FriendRequest(models.Model):
         return f"{self.sender.username} -> {self.receiver.username}"
 
 
-# VIDEO TUTORIAL
+# VIDEO
 
 class VideoTutorial(models.Model):
     STATUS_CHOICES = [
@@ -355,8 +355,8 @@ class CreatorPointAccount(models.Model):
 
 class CreatorPointTransaction(models.Model):
     TRANSACTION_CHOICES = [
-        ('sale', _('Tutorial Sale')),
-        ('purchase', _('Tutorial Purchase')),
+        ('sale', _('Video Sale')),
+        ('purchase', _('Video Purchase')),
     ]
 
     user = models.ForeignKey(

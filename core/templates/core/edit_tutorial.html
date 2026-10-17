@@ -2,51 +2,84 @@
 {% load i18n %}
 
 {% block title %}
-{% blocktrans with tutorial_title=tutorial.title %}Edit {{ tutorial_title }}{% endblocktrans %} - PlayGuide
+{% blocktrans trimmed with tutorial_title=tutorial.title %}Edit {{ tutorial_title }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <!-- HEADER -->
 
-        <h1>
-            {% trans "Edit Tutorial" %}
-        </h1>
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5">
 
-        <p>
-            {{ tutorial.title }}
-        </p>
+        <div>
 
-        <p>
-            {% trans "Publisher:" %}
-            {{ tutorial.publisher.username }}
-        </p>
+            <h1 class="display-5 fw-bold mb-2">
+                {% trans "Edit Video" %}
+            </h1>
 
-        <a href="{% url 'manage_tutorials' %}">
-            {% trans "Back to Manage Tutorials" %}
-        </a>
+            <p class="fs-5 mb-1">
+                {{ tutorial.title }}
+            </p>
+
+            <p class="text-secondary mb-0">
+                {% trans "Publisher:" %}
+                {{ tutorial.publisher.username }}
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <a
+                href="{% url 'manage_tutorials' %}"
+                class="btn btn-outline-light fw-semibold"
+            >
+                ← {% trans "Back to Manage Videos" %}
+            </a>
+
+        </div>
 
     </section>
 
 
-    <section class="admin-form">
+    <!-- FORM -->
 
-        <form
-            method="POST"
-            enctype="multipart/form-data"
-        >
+    <section class="card bg-dark text-white border-secondary shadow-sm">
 
-            {% csrf_token %}
+        <div class="card-body p-4 p-md-5">
 
-            {{ form.as_p }}
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
 
-            <button type="submit">
-                {% trans "Save Changes" %}
-            </button>
+                {% csrf_token %}
 
-        </form>
+
+                <div class="admin-form-fields mb-4">
+
+                    {{ form.as_p }}
+
+                </div>
+
+
+                <div class="d-flex justify-content-end">
+
+                    <button
+                        type="submit"
+                        class="btn btn-light fw-semibold px-4 py-2"
+                    >
+                        {% trans "Save Changes" %}
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </section>
 

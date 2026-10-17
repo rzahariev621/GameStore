@@ -2,132 +2,189 @@
 {% load i18n %}
 
 {% block title %}
-{% trans "Upload Tutorial" %} - PlayGuide
+{% trans "Upload Video" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
-<main class="upload-tutorial-page">
+<main class="container py-5">
 
-    <section class="upload-tutorial-box">
+    <!-- HEADER -->
 
-        <h1>
-            {% trans "Upload Tutorial" %}
+    <section class="mb-5">
+
+        <h1 class="display-5 fw-bold mb-3">
+            {% trans "Upload Video" %}
         </h1>
 
-        <p>
-            {% trans "Upload a video tutorial for a game. It will be reviewed by a moderator before it becomes public." %}
+        <p class="text-secondary fs-5 mb-0">
+            {% trans "Upload a video for a game. It will be reviewed by a moderator before it becomes public." %}
         </p>
 
-        <form
-            method="POST"
-            enctype="multipart/form-data"
-        >
+    </section>
 
-            {% csrf_token %}
 
-            <div class="form-group">
+    <!-- FORM -->
 
-                <label for="{{ form.game.id_for_label }}">
-                    {% trans "Game" %}
-                </label>
+    <section class="card bg-dark text-white border-secondary shadow-sm">
 
-                {{ form.game }}
+        <div class="card-body p-4 p-md-5">
 
-                {% if form.game.errors %}
-                    <div class="form-error">
-                        {{ form.game.errors }}
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- GAME -->
+
+                <div class="mb-4">
+
+                    <label
+                        for="{{ form.game.id_for_label }}"
+                        class="form-label fw-semibold"
+                    >
+                        {% trans "Game" %}
+                    </label>
+
+                    {{ form.game }}
+
+                    {% if form.game.errors %}
+
+                        <div class="text-danger mt-2">
+                            {{ form.game.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- TITLE -->
+
+                <div class="mb-4">
+
+                    <label
+                        for="{{ form.title.id_for_label }}"
+                        class="form-label fw-semibold"
+                    >
+                        {% trans "Title" %}
+                    </label>
+
+                    {{ form.title }}
+
+                    {% if form.title.errors %}
+
+                        <div class="text-danger mt-2">
+                            {{ form.title.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="mb-4">
+
+                    <label
+                        for="{{ form.description.id_for_label }}"
+                        class="form-label fw-semibold"
+                    >
+                        {% trans "Description" %}
+                    </label>
+
+                    {{ form.description }}
+
+                    {% if form.description.errors %}
+
+                        <div class="text-danger mt-2">
+                            {{ form.description.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- VIDEO -->
+
+                <div class="mb-4">
+
+                    <label
+                        for="{{ form.video.id_for_label }}"
+                        class="form-label fw-semibold"
+                    >
+                        {% trans "Video" %}
+                    </label>
+
+                    {{ form.video }}
+
+                    {% if form.video.errors %}
+
+                        <div class="text-danger mt-2">
+                            {{ form.video.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="mb-4">
+
+                    <label
+                        for="{{ form.price.id_for_label }}"
+                        class="form-label fw-semibold"
+                    >
+                        {% trans "Price" %}
+                    </label>
+
+                    {{ form.price }}
+
+                    <div class="form-text text-secondary mt-2">
+                        {% trans "Use 0.00 for a free video." %}
                     </div>
-                {% endif %}
 
-            </div>
+                    {% if form.price.errors %}
 
+                        <div class="text-danger mt-2">
+                            {{ form.price.errors }}
+                        </div>
 
-            <div class="form-group">
+                    {% endif %}
 
-                <label for="{{ form.title.id_for_label }}">
-                    {% trans "Title" %}
-                </label>
-
-                {{ form.title }}
-
-                {% if form.title.errors %}
-                    <div class="form-error">
-                        {{ form.title.errors }}
-                    </div>
-                {% endif %}
-
-            </div>
+                </div>
 
 
-            <div class="form-group">
+                <!-- ACTIONS -->
 
-                <label for="{{ form.description.id_for_label }}">
-                    {% trans "Description" %}
-                </label>
+                <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end pt-3">
 
-                {{ form.description }}
+                    <a
+                        href="{% url 'publisher_dashboard' %}"
+                        class="btn btn-outline-light fw-semibold px-4"
+                    >
+                        {% trans "Cancel" %}
+                    </a>
 
-                {% if form.description.errors %}
-                    <div class="form-error">
-                        {{ form.description.errors }}
-                    </div>
-                {% endif %}
+                    <button
+                        type="submit"
+                        class="btn btn-light fw-semibold px-4"
+                    >
+                        {% trans "Submit for Review" %}
+                    </button>
 
-            </div>
+                </div>
 
+            </form>
 
-            <div class="form-group">
-
-                <label for="{{ form.video.id_for_label }}">
-                    {% trans "Video" %}
-                </label>
-
-                {{ form.video }}
-
-                {% if form.video.errors %}
-                    <div class="form-error">
-                        {{ form.video.errors }}
-                    </div>
-                {% endif %}
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="{{ form.price.id_for_label }}">
-                    {% trans "Price" %}
-                </label>
-
-                {{ form.price }}
-
-                <small>
-                    {% trans "Use 0.00 for a free tutorial." %}
-                </small>
-
-                {% if form.price.errors %}
-                    <div class="form-error">
-                        {{ form.price.errors }}
-                    </div>
-                {% endif %}
-
-            </div>
-
-
-            <div class="upload-actions">
-
-                <button type="submit">
-                    {% trans "Submit for Review" %}
-                </button>
-
-                <a href="{% url 'publisher_dashboard' %}">
-                    {% trans "Cancel" %}
-                </a>
-
-            </div>
-
-        </form>
+        </div>
 
     </section>
 

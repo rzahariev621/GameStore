@@ -7,70 +7,92 @@
 
 {% block content %}
 
-<main class="store-page">
+<main class="container py-5">
 
-    <h1>
-        {% trans "My Wishlist" %} ❤️
-    </h1>
+    <!-- HEADER -->
+
+    <section class="mb-5">
+
+        <h1 class="display-5 fw-bold mb-3">
+            {% trans "My Wishlist" %} ❤️
+        </h1>
+
+        <p class="text-secondary fs-5 mb-0">
+            {% trans "Games you want to keep an eye on." %}
+        </p>
+
+    </section>
+
 
     {% if wishlist_entries %}
 
-        <div class="game-grid">
+        <!-- WISHLIST GAMES -->
+
+        <div class="row g-4">
 
             {% for entry in wishlist_entries %}
 
-                <div class="game-card">
+                <div class="col-12 col-md-6 col-xl-4">
 
-                    {% if entry.game.cover %}
+                    <article class="game-card h-100 shadow-sm">
 
-                        <img
-                            src="{{ entry.game.cover.url }}"
-                            alt="{{ entry.game.title }}"
-                        >
+                        {% if entry.game.cover %}
 
-                    {% endif %}
+                            <img
+                                src="{{ entry.game.cover.url }}"
+                                alt="{{ entry.game.title }}"
+                            >
 
-                    <div class="game-card-content">
+                        {% endif %}
 
-                        <h2>
-                            {{ entry.game.title }}
-                        </h2>
 
-                        <p>
-                            {{ entry.game.description }}
-                        </p>
+                        <div class="game-card-content">
 
-                        <div class="wishlist-card-bottom">
+                            <h2>
+                                {{ entry.game.title }}
+                            </h2>
 
-                            <div class="wishlist-actions">
 
-                                <a
-                                    href="{% url 'game_detail' entry.game.id %}"
-                                    class="wishlist-view-button"
-                                >
-                                    {% trans "View Game" %}
-                                </a>
+                            <p>
+                                {{ entry.game.description }}
+                            </p>
 
-                                <form
-                                    method="POST"
-                                    action="{% url 'remove_from_wishlist' entry.game.id %}"
-                                >
-                                    {% csrf_token %}
 
-                                    <button
-                                        type="submit"
-                                        class="remove-wishlist-button"
+                            <div class="mt-auto pt-3">
+
+                                <div class="d-flex gap-2">
+
+                                    <a
+                                        href="{% url 'game_detail' entry.game.id %}"
+                                        class="btn btn-light fw-semibold flex-fill d-flex align-items-center justify-content-center"
                                     >
-                                        {% trans "Remove" %}
-                                    </button>
+                                        {% trans "View Game" %}
+                                    </a>
 
-                                </form>
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'remove_from_wishlist' entry.game.id %}"
+                                        class="flex-fill"
+                                    >
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-danger fw-semibold w-100 h-100"
+                                        >
+                                            {% trans "Remove" %}
+                                        </button>
+
+                                    </form>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
+                    </article>
 
                 </div>
 
@@ -78,11 +100,37 @@
 
         </div>
 
+
     {% else %}
 
-        <p>
-            {% trans "Your wishlist is empty." %}
-        </p>
+        <!-- EMPTY WISHLIST -->
+
+        <section class="card bg-dark text-white border-secondary shadow-sm">
+
+            <div class="card-body text-center py-5 px-4">
+
+                <div class="fs-1 mb-3">
+                    ❤️
+                </div>
+
+                <h2 class="h3 fw-bold mb-3">
+                    {% trans "Your wishlist is empty." %}
+                </h2>
+
+                <p class="text-secondary mb-4">
+                    {% trans "Browse the game catalog and add games you are interested in." %}
+                </p>
+
+                <a
+                    href="{% url 'store' %}"
+                    class="btn btn-light fw-semibold px-4 py-2"
+                >
+                    {% trans "Browse Games" %}
+                </a>
+
+            </div>
+
+        </section>
 
     {% endif %}
 

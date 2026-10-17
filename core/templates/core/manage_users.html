@@ -7,194 +7,286 @@
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <!-- HEADER -->
 
-        <h1>
-            {% trans "Manage Users" %}
-        </h1>
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5">
 
-        <p>
-            {% trans "Manage user roles and account status in PlayGuide." %}
-        </p>
+        <div>
 
-        <a href="{% url 'admin_dashboard' %}">
-            {% trans "Back to Admin Dashboard" %}
-        </a>
+            <h1 class="display-5 fw-bold mb-3">
+                {% trans "Manage Users" %}
+            </h1>
+
+            <p class="text-secondary fs-5 mb-0">
+                {% trans "Manage user roles and account status in PlayGuide." %}
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="btn btn-outline-light fw-semibold"
+            >
+                ← {% trans "Back to Admin Dashboard" %}
+            </a>
+
+        </div>
 
     </section>
 
 
-    <section class="admin-users">
+    <!-- USERS -->
 
-        {% for account in users %}
+    <section>
 
-            <div class="admin-user-card">
+        <div class="row g-4">
 
-                <div>
+            {% for account in users %}
 
-                    <h3>
-                        {{ account.username }}
-                    </h3>
+                <div class="col-12 col-xl-6">
 
-                    <p>
-                        {{ account.email }}
-                    </p>
+                    <article class="card bg-dark text-white border-secondary shadow-sm h-100">
 
+                        <div class="card-body d-flex flex-column p-4">
 
-                    <p>
-                        {% trans "Status:" %}
+                            <!-- USER INFO -->
 
-                        {% if account.is_active %}
+                            <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 mb-4">
 
-                            <strong>
-                                {% trans "Active" %}
-                            </strong>
+                                <div>
 
-                        {% else %}
+                                    <h2 class="h4 fw-bold mb-2">
+                                        {{ account.username }}
+                                    </h2>
 
-                            <strong>
-                                {% trans "Inactive" %}
-                            </strong>
+                                    <p class="text-secondary mb-0">
+                                        {{ account.email }}
+                                    </p>
 
-                        {% endif %}
-                    </p>
+                                </div>
 
 
-                    {% if account.is_superuser %}
+                                <div class="d-flex flex-wrap gap-2 align-items-start">
 
-                        <strong>
-                            {% trans "Superuser" %}
-                        </strong>
+                                    <!-- STATUS -->
 
-                    {% else %}
+                                    {% if account.is_active %}
 
-                        <p>
-                            {% trans "Role:" %}
+                                        <span class="badge text-bg-success px-3 py-2">
+                                            {% trans "Active" %}
+                                        </span>
 
-                            {% if account.current_role == 'User' %}
+                                    {% else %}
 
-                                {% trans "User" %}
+                                        <span class="badge text-bg-danger px-3 py-2">
+                                            {% trans "Inactive" %}
+                                        </span>
 
-                            {% elif account.current_role == 'Publisher' %}
+                                    {% endif %}
 
-                                {% trans "Publisher" %}
 
-                            {% elif account.current_role == 'Moderator' %}
+                                    <!-- ROLE -->
 
-                                {% trans "Moderator" %}
+                                    {% if account.is_superuser %}
 
-                            {% elif account.current_role == 'Admin' %}
+                                        <span class="badge text-bg-warning px-3 py-2">
+                                            {% trans "Superuser" %}
+                                        </span>
 
-                                {% trans "Admin" %}
+                                    {% else %}
+
+                                        {% if account.current_role == 'User' %}
+
+                                            <span class="badge text-bg-secondary px-3 py-2">
+                                                {% trans "User" %}
+                                            </span>
+
+                                        {% elif account.current_role == 'Publisher' %}
+
+                                            <span class="badge text-bg-primary px-3 py-2">
+                                                {% trans "Publisher" %}
+                                            </span>
+
+                                        {% elif account.current_role == 'Moderator' %}
+
+                                            <span class="badge text-bg-info px-3 py-2">
+                                                {% trans "Moderator" %}
+                                            </span>
+
+                                        {% elif account.current_role == 'Admin' %}
+
+                                            <span class="badge text-bg-warning px-3 py-2">
+                                                {% trans "Admin" %}
+                                            </span>
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            {% if not account.is_superuser %}
+
+                                {% if account != user %}
+
+                                    <div class="border-top border-secondary pt-4 mt-auto">
+
+                                        <div class="row g-3">
+
+                                            <!-- ROLE FORM -->
+
+                                            <div class="col-12 col-md">
+
+                                                <form
+                                                    method="POST"
+                                                    action="{% url 'update_user_role' account.id %}"
+                                                >
+                                                    {% csrf_token %}
+
+                                                    <label
+                                                        for="role-{{ account.id }}"
+                                                        class="form-label fw-semibold"
+                                                    >
+                                                        {% trans "Role" %}
+                                                    </label>
+
+
+                                                    <div class="d-flex flex-column flex-sm-row gap-2">
+
+                                                        <select
+                                                            id="role-{{ account.id }}"
+                                                            name="role"
+                                                            class="form-select"
+                                                        >
+
+                                                            <option
+                                                                value="User"
+                                                                {% if account.current_role == 'User' %}
+                                                                    selected
+                                                                {% endif %}
+                                                            >
+                                                                {% trans "User" %}
+                                                            </option>
+
+
+                                                            <option
+                                                                value="Publisher"
+                                                                {% if account.current_role == 'Publisher' %}
+                                                                    selected
+                                                                {% endif %}
+                                                            >
+                                                                {% trans "Publisher" %}
+                                                            </option>
+
+
+                                                            <option
+                                                                value="Moderator"
+                                                                {% if account.current_role == 'Moderator' %}
+                                                                    selected
+                                                                {% endif %}
+                                                            >
+                                                                {% trans "Moderator" %}
+                                                            </option>
+
+
+                                                            <option
+                                                                value="Admin"
+                                                                {% if account.current_role == 'Admin' %}
+                                                                    selected
+                                                                {% endif %}
+                                                            >
+                                                                {% trans "Admin" %}
+                                                            </option>
+
+                                                        </select>
+
+
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-light fw-semibold text-nowrap"
+                                                        >
+                                                            {% trans "Update Role" %}
+                                                        </button>
+
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+
+                                            <!-- ACTIVE STATUS FORM -->
+
+                                            <div class="col-12 col-md-auto d-flex align-items-end">
+
+                                                <form
+                                                    method="POST"
+                                                    action="{% url 'toggle_user_active' account.id %}"
+                                                    class="w-100"
+                                                >
+                                                    {% csrf_token %}
+
+
+                                                    {% if account.is_active %}
+
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-outline-danger fw-semibold w-100"
+                                                        >
+                                                            {% trans "Deactivate User" %}
+                                                        </button>
+
+                                                    {% else %}
+
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-success fw-semibold w-100"
+                                                        >
+                                                            {% trans "Activate User" %}
+                                                        </button>
+
+                                                    {% endif %}
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                {% else %}
+
+                                    <div class="border-top border-secondary pt-4 mt-auto">
+
+                                        <span class="badge text-bg-secondary px-3 py-2">
+                                            {% trans "Current administrator" %}
+                                        </span>
+
+                                    </div>
+
+                                {% endif %}
 
                             {% endif %}
-                        </p>
 
-                    {% endif %}
+                        </div>
+
+                    </article>
 
                 </div>
 
+            {% endfor %}
 
-                {% if not account.is_superuser %}
-
-                    {% if account != user %}
-
-                        <form
-                            method="POST"
-                            action="{% url 'update_user_role' account.id %}"
-                        >
-
-                            {% csrf_token %}
-
-                            <label>
-                                {% trans "Role" %}
-                            </label>
-
-                            <select name="role">
-
-                                <option
-                                    value="User"
-                                    {% if account.current_role == 'User' %}
-                                        selected
-                                    {% endif %}
-                                >
-                                    {% trans "User" %}
-                                </option>
-
-                                <option
-                                    value="Publisher"
-                                    {% if account.current_role == 'Publisher' %}
-                                        selected
-                                    {% endif %}
-                                >
-                                    {% trans "Publisher" %}
-                                </option>
-
-                                <option
-                                    value="Moderator"
-                                    {% if account.current_role == 'Moderator' %}
-                                        selected
-                                    {% endif %}
-                                >
-                                    {% trans "Moderator" %}
-                                </option>
-
-                                <option
-                                    value="Admin"
-                                    {% if account.current_role == 'Admin' %}
-                                        selected
-                                    {% endif %}
-                                >
-                                    {% trans "Admin" %}
-                                </option>
-
-                            </select>
-
-                            <button type="submit">
-                                {% trans "Update Role" %}
-                            </button>
-
-                        </form>
-
-
-                        <form
-                            method="POST"
-                            action="{% url 'toggle_user_active' account.id %}"
-                        >
-
-                            {% csrf_token %}
-
-                            {% if account.is_active %}
-
-                                <button type="submit">
-                                    {% trans "Deactivate User" %}
-                                </button>
-
-                            {% else %}
-
-                                <button type="submit">
-                                    {% trans "Activate User" %}
-                                </button>
-
-                            {% endif %}
-
-                        </form>
-
-                    {% else %}
-
-                        <p>
-                            {% trans "Current administrator" %}
-                        </p>
-
-                    {% endif %}
-
-                {% endif %}
-
-            </div>
-
-        {% endfor %}
+        </div>
 
     </section>
 

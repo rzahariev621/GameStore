@@ -2,110 +2,209 @@
 {% load i18n %}
 
 {% block title %}
-{% blocktrans with game_title=game.title %}Edit {{ game_title }}{% endblocktrans %} - PlayGuide
+{% blocktrans trimmed with game_title=game.title %}Edit {{ game_title }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <!-- HEADER -->
 
-        <h1>
-            {% blocktrans with game_title=game.title %}Edit {{ game_title }}{% endblocktrans %}
-        </h1>
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5">
 
-        <a href="{% url 'manage_games' %}">
-            {% trans "Back to Manage Games" %}
-        </a>
+        <div>
+
+            <h1 class="display-5 fw-bold mb-0">
+                {% blocktrans trimmed with game_title=game.title %}
+                Edit {{ game_title }}
+                {% endblocktrans %}
+            </h1>
+
+        </div>
+
+
+        <div>
+
+            <a
+                href="{% url 'manage_games' %}"
+                class="btn btn-outline-light fw-semibold"
+            >
+                ← {% trans "Back to Manage Games" %}
+            </a>
+
+        </div>
 
     </section>
 
 
-    <section class="admin-form">
+    <!-- FORM -->
 
-        <form
-            method="POST"
-            enctype="multipart/form-data"
-        >
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
 
-            {% csrf_token %}
-
-
-            <h2>
-                {% trans "Game Information" %}
-            </h2>
-
-            {{ game_form.as_p }}
+        {% csrf_token %}
 
 
-            <h2>
-                {% trans "Minimum System Requirements" %}
-            </h2>
+        <!-- GAME INFORMATION -->
 
-            <p>
-                {{ requirements_form.minimum_cpu.label_tag }}
-                {{ requirements_form.minimum_cpu }}
-            </p>
+        <section class="card bg-dark text-white border-secondary shadow-sm mb-4">
 
-            <p>
-                {{ requirements_form.minimum_gpu.label_tag }}
-                {{ requirements_form.minimum_gpu }}
-            </p>
+            <div class="card-body p-4">
 
-            <p>
-                {{ requirements_form.minimum_ram_gb.label_tag }}
-                {{ requirements_form.minimum_ram_gb }}
-            </p>
+                <h2 class="h4 fw-bold mb-4">
+                    {% trans "Game Information" %}
+                </h2>
 
-            <p>
-                {{ requirements_form.minimum_storage.label_tag }}
-                {{ requirements_form.minimum_storage }}
-            </p>
+                <div class="admin-form-fields">
+                    {{ game_form.as_p }}
+                </div>
 
-            <p>
-                {{ requirements_form.minimum_network.label_tag }}
-                {{ requirements_form.minimum_network }}
-            </p>
+            </div>
+
+        </section>
 
 
-            <h2>
-                {% trans "Recommended System Requirements" %}
-            </h2>
+        <!-- SYSTEM REQUIREMENTS -->
 
-            <p>
-                {{ requirements_form.recommended_cpu.label_tag }}
-                {{ requirements_form.recommended_cpu }}
-            </p>
+        <div class="row g-4 mb-4">
 
-            <p>
-                {{ requirements_form.recommended_gpu.label_tag }}
-                {{ requirements_form.recommended_gpu }}
-            </p>
+            <!-- MINIMUM -->
 
-            <p>
-                {{ requirements_form.recommended_ram_gb.label_tag }}
-                {{ requirements_form.recommended_ram_gb }}
-            </p>
+            <div class="col-12 col-lg-6">
 
-            <p>
-                {{ requirements_form.recommended_storage.label_tag }}
-                {{ requirements_form.recommended_storage }}
-            </p>
+                <section class="card bg-dark text-white border-secondary shadow-sm h-100">
 
-            <p>
-                {{ requirements_form.recommended_network.label_tag }}
-                {{ requirements_form.recommended_network }}
-            </p>
+                    <div class="card-body p-4">
+
+                        <h2 class="h4 fw-bold mb-4">
+                            {% trans "Minimum System Requirements" %}
+                        </h2>
 
 
-            <button type="submit">
+                        <div class="mb-3">
+
+                            {{ requirements_form.minimum_cpu.label_tag }}
+                            {{ requirements_form.minimum_cpu }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            {{ requirements_form.minimum_gpu.label_tag }}
+                            {{ requirements_form.minimum_gpu }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            {{ requirements_form.minimum_ram_gb.label_tag }}
+                            {{ requirements_form.minimum_ram_gb }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            {{ requirements_form.minimum_storage.label_tag }}
+                            {{ requirements_form.minimum_storage }}
+
+                        </div>
+
+
+                        <div class="mb-0">
+
+                            {{ requirements_form.minimum_network.label_tag }}
+                            {{ requirements_form.minimum_network }}
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- RECOMMENDED -->
+
+            <div class="col-12 col-lg-6">
+
+                <section class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                    <div class="card-body p-4">
+
+                        <h2 class="h4 fw-bold mb-4">
+                            {% trans "Recommended System Requirements" %}
+                        </h2>
+
+
+                        <div class="mb-3">
+
+                            {{ requirements_form.recommended_cpu.label_tag }}
+                            {{ requirements_form.recommended_cpu }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            {{ requirements_form.recommended_gpu.label_tag }}
+                            {{ requirements_form.recommended_gpu }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            {{ requirements_form.recommended_ram_gb.label_tag }}
+                            {{ requirements_form.recommended_ram_gb }}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            {{ requirements_form.recommended_storage.label_tag }}
+                            {{ requirements_form.recommended_storage }}
+
+                        </div>
+
+
+                        <div class="mb-0">
+
+                            {{ requirements_form.recommended_network.label_tag }}
+                            {{ requirements_form.recommended_network }}
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTION -->
+
+        <div class="d-flex justify-content-end">
+
+            <button
+                type="submit"
+                class="btn btn-light fw-semibold px-4 py-2"
+            >
                 {% trans "Save Changes" %}
             </button>
 
-        </form>
+        </div>
 
-    </section>
+    </form>
 
 </main>
 

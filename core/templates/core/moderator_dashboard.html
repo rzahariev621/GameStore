@@ -7,127 +7,189 @@
 
 {% block content %}
 
-<main class="moderator-page">
+<main class="container py-5">
 
-    <section class="moderator-header">
+    <!-- HEADER -->
 
-        <h1>
+    <section class="mb-5">
+
+        <h1 class="display-5 fw-bold mb-3">
             {% trans "Moderator Dashboard" %}
         </h1>
 
-        <p>
-            {% trans "Review pending tutorials, reviews and reported content." %}
+        <p class="text-secondary fs-5 mb-0">
+            {% trans "Review pending videos, reviews and reported content." %}
         </p>
 
     </section>
 
 
-    <!-- PENDING TUTORIALS -->
+    <!-- PENDING VIDEOS -->
 
-    <section class="moderator-section">
+    <section class="mb-5">
 
-        <h2>
-            {% trans "Pending Tutorials" %}
+        <h2 class="h3 fw-bold border-bottom border-secondary pb-3 mb-4">
+            {% trans "Pending Videos" %}
         </h2>
+
 
         {% if pending_tutorials %}
 
-            <div class="moderator-review-list">
+            <div class="d-flex flex-column gap-3">
 
                 {% for tutorial in pending_tutorials %}
 
-                    <div class="moderator-review-card">
+                    <article class="card bg-dark text-white border-secondary shadow-sm">
 
-                        <div class="moderator-review-info">
+                        <div class="card-body p-4">
 
-                            <h3>
-                                {{ tutorial.title }}
-                            </h3>
+                            <div class="row g-4 align-items-center">
 
-                            <p>
-                                {% trans "Game:" %}
+                                <!-- INFO -->
 
-                                <strong>
-                                    {{ tutorial.game.title }}
-                                </strong>
-                            </p>
+                                <div class="col-12 col-lg">
 
-                            <p>
-                                {% trans "Publisher:" %}
+                                    <h3 class="h4 fw-bold mb-3">
+                                        {{ tutorial.title }}
+                                    </h3>
 
-                                <a href="{% url 'profile' tutorial.publisher.username %}">
-                                    {{ tutorial.publisher.username }}
-                                </a>
-                            </p>
 
-                            <p>
-                                {{ tutorial.description }}
-                            </p>
+                                    <div class="mb-2">
 
-                            <p>
-                                {% trans "Price:" %}
+                                        <span class="text-secondary">
+                                            {% trans "Game:" %}
+                                        </span>
 
-                                {% if tutorial.price == 0 %}
+                                        <strong>
+                                            {{ tutorial.game.title }}
+                                        </strong>
 
-                                    {% trans "Free" %}
+                                    </div>
 
-                                {% else %}
 
-                                    {{ tutorial.price }} €
+                                    <div class="mb-2">
 
-                                {% endif %}
-                            </p>
+                                        <span class="text-secondary">
+                                            {% trans "Publisher:" %}
+                                        </span>
 
-                            <small>
-                                {% trans "Submitted:" %}
-                                {{ tutorial.created_at }}
-                            </small>
+                                        <a
+                                            href="{% url 'profile' tutorial.publisher.username %}"
+                                            class="text-white fw-semibold text-decoration-none"
+                                        >
+                                            {{ tutorial.publisher.username }}
+                                        </a>
+
+                                    </div>
+
+
+                                    <p class="text-secondary mt-3 mb-3">
+                                        {{ tutorial.description }}
+                                    </p>
+
+
+                                    <div class="d-flex flex-wrap gap-3">
+
+                                        <span>
+
+                                            <span class="text-secondary">
+                                                {% trans "Price:" %}
+                                            </span>
+
+                                            <strong>
+
+                                                {% if tutorial.price == 0 %}
+
+                                                    {% trans "Free" %}
+
+                                                {% else %}
+
+                                                    {{ tutorial.price }} €
+
+                                                {% endif %}
+
+                                            </strong>
+
+                                        </span>
+
+
+                                        <span class="text-secondary">
+                                            {% trans "Submitted:" %}
+                                            {{ tutorial.created_at }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="col-12 col-lg-auto">
+
+                                    <div class="d-flex flex-column flex-sm-row flex-lg-column gap-2">
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'approve_tutorial' tutorial.id %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-success fw-semibold w-100"
+                                            >
+                                                {% trans "Approve" %}
+                                            </button>
+
+                                        </form>
+
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'reject_tutorial' tutorial.id %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-danger fw-semibold w-100"
+                                            >
+                                                {% trans "Reject" %}
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
-
-                        <div class="moderator-actions">
-
-                            <form
-                                method="POST"
-                                action="{% url 'approve_tutorial' tutorial.id %}"
-                            >
-
-                                {% csrf_token %}
-
-                                <button type="submit">
-                                    {% trans "Approve" %}
-                                </button>
-
-                            </form>
-
-
-                            <form
-                                method="POST"
-                                action="{% url 'reject_tutorial' tutorial.id %}"
-                            >
-
-                                {% csrf_token %}
-
-                                <button type="submit">
-                                    {% trans "Reject" %}
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </div>
+                    </article>
 
                 {% endfor %}
 
             </div>
 
+
         {% else %}
 
-            <p>
-                {% trans "There are no tutorials waiting for approval." %}
-            </p>
+            <article class="card bg-dark text-white border-secondary shadow-sm">
+
+                <div class="card-body text-center py-5 px-4">
+
+                    <p class="text-secondary mb-0">
+                        {% trans "There are no videos waiting for approval." %}
+                    </p>
+
+                </div>
+
+            </article>
 
         {% endif %}
 
@@ -136,196 +198,303 @@
 
     <!-- PENDING REVIEWS -->
 
-    <section class="moderator-section">
+    <section class="mb-5">
 
-        <h2>
+        <h2 class="h3 fw-bold border-bottom border-secondary pb-3 mb-4">
             {% trans "Pending Reviews" %}
         </h2>
 
+
         {% if pending_reviews %}
 
-            <div class="moderator-review-list">
+            <div class="d-flex flex-column gap-3">
 
                 {% for review in pending_reviews %}
 
-                    <div class="moderator-review-card">
+                    <article class="card bg-dark text-white border-secondary shadow-sm">
 
-                        <div class="moderator-review-info">
+                        <div class="card-body p-4">
 
-                            <h3>
-                                {{ review.game.title }}
-                            </h3>
+                            <div class="row g-4 align-items-center">
 
-                            <p>
-                                {% trans "User:" %}
+                                <!-- INFO -->
 
-                                <a href="{% url 'profile' review.user.username %}">
-                                    {{ review.user.username }}
-                                </a>
-                            </p>
+                                <div class="col-12 col-lg">
 
-                            <p>
-                                {% trans "Rating:" %}
-                                {{ review.rating }}/5 ⭐
-                            </p>
+                                    <h3 class="h4 fw-bold mb-3">
+                                        {{ review.game.title }}
+                                    </h3>
 
-                            <p>
-                                {{ review.comment }}
-                            </p>
 
-                            <small>
-                                {% trans "Submitted:" %}
-                                {{ review.created_at }}
-                            </small>
+                                    <div class="mb-2">
+
+                                        <span class="text-secondary">
+                                            {% trans "User:" %}
+                                        </span>
+
+                                        <a
+                                            href="{% url 'profile' review.user.username %}"
+                                            class="text-white fw-semibold text-decoration-none"
+                                        >
+                                            {{ review.user.username }}
+                                        </a>
+
+                                    </div>
+
+
+                                    <div class="mb-3">
+
+                                        <span class="text-secondary">
+                                            {% trans "Rating:" %}
+                                        </span>
+
+                                        <strong>
+                                            {{ review.rating }}/5 ⭐
+                                        </strong>
+
+                                    </div>
+
+
+                                    <p class="text-secondary mb-3">
+                                        {{ review.comment }}
+                                    </p>
+
+
+                                    <small class="text-secondary">
+                                        {% trans "Submitted:" %}
+                                        {{ review.created_at }}
+                                    </small>
+
+                                </div>
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="col-12 col-lg-auto">
+
+                                    <div class="d-flex flex-column flex-sm-row flex-lg-column gap-2">
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'approve_review' review.id %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-success fw-semibold w-100"
+                                            >
+                                                {% trans "Approve" %}
+                                            </button>
+
+                                        </form>
+
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'reject_review' review.id %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-danger fw-semibold w-100"
+                                            >
+                                                {% trans "Reject" %}
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
-
-                        <div class="moderator-actions">
-
-                            <form
-                                method="POST"
-                                action="{% url 'approve_review' review.id %}"
-                            >
-
-                                {% csrf_token %}
-
-                                <button type="submit">
-                                    {% trans "Approve" %}
-                                </button>
-
-                            </form>
-
-
-                            <form
-                                method="POST"
-                                action="{% url 'reject_review' review.id %}"
-                            >
-
-                                {% csrf_token %}
-
-                                <button type="submit">
-                                    {% trans "Reject" %}
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </div>
+                    </article>
 
                 {% endfor %}
 
             </div>
 
+
         {% else %}
 
-            <p>
-                {% trans "There are no reviews waiting for approval." %}
-            </p>
+            <article class="card bg-dark text-white border-secondary shadow-sm">
+
+                <div class="card-body text-center py-5 px-4">
+
+                    <p class="text-secondary mb-0">
+                        {% trans "There are no reviews waiting for approval." %}
+                    </p>
+
+                </div>
+
+            </article>
 
         {% endif %}
 
     </section>
 
 
-    <!-- REPORTED TUTORIALS -->
+    <!-- REPORTED VIDEOS -->
 
-    <section class="moderator-section">
+    <section>
 
-        <h2>
-            {% trans "Reported Tutorials" %}
+        <h2 class="h3 fw-bold border-bottom border-secondary pb-3 mb-4">
+            {% trans "Reported Videos" %}
         </h2>
+
 
         {% if pending_reports %}
 
-            <div class="moderator-review-list">
+            <div class="d-flex flex-column gap-3">
 
                 {% for report in pending_reports %}
 
-                    <div class="moderator-review-card">
+                    <article class="card bg-dark text-white border-secondary shadow-sm">
 
-                        <div class="moderator-review-info">
+                        <div class="card-body p-4">
 
-                            <h3>
-                                {{ report.tutorial.title }}
-                            </h3>
+                            <div class="row g-4 align-items-center">
 
-                            <p>
-                                {% trans "Game:" %}
+                                <!-- INFO -->
 
-                                <strong>
-                                    {{ report.tutorial.game.title }}
-                                </strong>
-                            </p>
+                                <div class="col-12 col-lg">
 
-                            <p>
-                                {% trans "Publisher:" %}
+                                    <h3 class="h4 fw-bold mb-3">
+                                        {{ report.tutorial.title }}
+                                    </h3>
 
-                                <a href="{% url 'profile' report.tutorial.publisher.username %}">
-                                    {{ report.tutorial.publisher.username }}
-                                </a>
-                            </p>
 
-                            <p>
-                                {% trans "Reported by:" %}
+                                    <div class="mb-2">
 
-                                <a href="{% url 'profile' report.reporter.username %}">
-                                    {{ report.reporter.username }}
-                                </a>
-                            </p>
+                                        <span class="text-secondary">
+                                            {% trans "Game:" %}
+                                        </span>
 
-                            <p>
-                                <strong>
-                                    {% trans "Reason:" %}
-                                </strong>
-                            </p>
+                                        <strong>
+                                            {{ report.tutorial.game.title }}
+                                        </strong>
 
-                            <p>
-                                {{ report.reason }}
-                            </p>
+                                    </div>
 
-                            <small>
-                                {% trans "Reported:" %}
-                                {{ report.created_at }}
-                            </small>
+
+                                    <div class="mb-2">
+
+                                        <span class="text-secondary">
+                                            {% trans "Publisher:" %}
+                                        </span>
+
+                                        <a
+                                            href="{% url 'profile' report.tutorial.publisher.username %}"
+                                            class="text-white fw-semibold text-decoration-none"
+                                        >
+                                            {{ report.tutorial.publisher.username }}
+                                        </a>
+
+                                    </div>
+
+
+                                    <div class="mb-3">
+
+                                        <span class="text-secondary">
+                                            {% trans "Reported by:" %}
+                                        </span>
+
+                                        <a
+                                            href="{% url 'profile' report.reporter.username %}"
+                                            class="text-white fw-semibold text-decoration-none"
+                                        >
+                                            {{ report.reporter.username }}
+                                        </a>
+
+                                    </div>
+
+
+                                    <div class="border border-secondary rounded-3 p-3 mb-3">
+
+                                        <strong class="d-block mb-2">
+                                            {% trans "Reason:" %}
+                                        </strong>
+
+                                        <p class="text-secondary mb-0">
+                                            {{ report.reason }}
+                                        </p>
+
+                                    </div>
+
+
+                                    <small class="text-secondary">
+                                        {% trans "Reported:" %}
+                                        {{ report.created_at }}
+                                    </small>
+
+                                </div>
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="col-12 col-lg-auto">
+
+                                    <div class="d-flex flex-column flex-sm-row flex-lg-column gap-2">
+
+                                        <a
+                                            href="{% url 'tutorial_detail' report.tutorial.id %}"
+                                            class="btn btn-outline-light fw-semibold"
+                                        >
+                                            {% trans "View Video" %}
+                                        </a>
+
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'resolve_tutorial_report' report.id %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-success fw-semibold w-100"
+                                            >
+                                                {% trans "Mark as Resolved" %}
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
-
-                        <div class="moderator-actions">
-
-                            <a href="{% url 'tutorial_detail' report.tutorial.id %}">
-                                {% trans "View Tutorial" %}
-                            </a>
-
-
-                            <form
-                                method="POST"
-                                action="{% url 'resolve_tutorial_report' report.id %}"
-                            >
-
-                                {% csrf_token %}
-
-                                <button type="submit">
-                                    {% trans "Mark as Resolved" %}
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </div>
+                    </article>
 
                 {% endfor %}
 
             </div>
 
+
         {% else %}
 
-            <p>
-                {% trans "There are no reported tutorials waiting for review." %}
-            </p>
+            <article class="card bg-dark text-white border-secondary shadow-sm">
+
+                <div class="card-body text-center py-5 px-4">
+
+                    <p class="text-secondary mb-0">
+                        {% trans "There are no reported videos waiting for review." %}
+                    </p>
+
+                </div>
+
+            </article>
 
         {% endif %}
 

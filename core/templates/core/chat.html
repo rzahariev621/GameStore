@@ -7,75 +7,161 @@
 
 {% block content %}
 
-<main class="chat-page">
+<main class="container py-5">
 
-    <section class="chat-header">
+    <!-- HEADER -->
 
-        <h1>
-            <h1>
-                {% blocktrans trimmed with username=other_user.username %}Chat with {{ username }}{% endblocktrans %}
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
+        <div>
+
+            <h1 class="display-6 fw-bold mb-2">
+                {% blocktrans trimmed with username=other_user.username %}
+                Chat with {{ username }}
+                {% endblocktrans %}
             </h1>
-        </h1>
 
-        <a href="{% url 'profile' other_user.username %}">
+            <p class="text-secondary mb-0">
+                PlayGuide
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'profile' other_user.username %}"
+            class="btn btn-outline-light fw-semibold"
+        >
             {% trans "View Profile" %}
         </a>
 
     </section>
 
 
-    <section class="chat-messages">
+    <!-- CHAT CARD -->
 
-        {% if conversation %}
+    <section class="card bg-dark text-white border-secondary shadow-sm">
 
-            {% for message in conversation %}
+        <div class="card-body p-3 p-md-4">
 
-                <div class="chat-message">
+            <!-- MESSAGES -->
 
-                    <strong>
-                        {{ message.sender.username }}
-                    </strong>
+            <div
+                class="d-flex flex-column gap-3 mb-4"
+                style="max-height: 550px; overflow-y: auto;"
+            >
 
-                    <p>
-                        {{ message.text }}
-                    </p>
+                {% if conversation %}
 
-                    <small>
-                        {{ message.created_at }}
-                    </small>
+                    {% for message in conversation %}
+
+                        {% if message.sender == user %}
+
+                            <!-- CURRENT USER MESSAGE -->
+
+                            <div class="d-flex justify-content-end">
+
+                                <div
+                                    class="bg-primary text-white rounded-4 px-3 py-2"
+                                    style="max-width: 75%;"
+                                >
+
+                                    <div class="fw-semibold mb-1">
+                                        {{ message.sender.username }}
+                                    </div>
+
+                                    <p class="mb-1">
+                                        {{ message.text }}
+                                    </p>
+
+                                    <small class="opacity-75">
+                                        {{ message.created_at }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        {% else %}
+
+                            <!-- OTHER USER MESSAGE -->
+
+                            <div class="d-flex justify-content-start">
+
+                                <div
+                                    class="border border-secondary rounded-4 px-3 py-2"
+                                    style="max-width: 75%;"
+                                >
+
+                                    <div class="fw-semibold mb-1">
+                                        {{ message.sender.username }}
+                                    </div>
+
+                                    <p class="mb-1">
+                                        {{ message.text }}
+                                    </p>
+
+                                    <small class="text-secondary">
+                                        {{ message.created_at }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                {% else %}
+
+                    <div class="text-center py-5">
+
+                        <div class="fs-1 mb-3">
+                            💬
+                        </div>
+
+                        <p class="text-secondary mb-0">
+                            {% trans "No messages yet." %}
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- MESSAGE FORM -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="d-flex flex-column flex-md-row gap-2">
+
+                    <textarea
+                        name="text"
+                        class="form-control"
+                        rows="2"
+                        placeholder="{% trans 'Write a message...' %}"
+                        required
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-light fw-semibold px-4"
+                    >
+                        {% trans "Send" %}
+                    </button>
 
                 </div>
 
-            {% endfor %}
+            </form>
 
-        {% else %}
-
-            <p>
-                {% trans "No messages yet." %}
-            </p>
-
-        {% endif %}
-
-    </section>
-
-
-    <section class="chat-form">
-
-        <form method="POST">
-
-            {% csrf_token %}
-
-            <textarea
-                name="text"
-                placeholder="{% trans 'Write a message...' %}"
-                required
-            ></textarea>
-
-            <button type="submit">
-                {% trans "Send" %}
-            </button>
-
-        </form>
+        </div>
 
     </section>
 

@@ -9,9 +9,11 @@
 
 <main class="community-page">
 
+    <!-- HEADER -->
+
     <section class="community-header">
 
-        <h1>
+        <h1 class="fw-bold">
             {% trans "Community" %}
         </h1>
 
@@ -22,11 +24,18 @@
     </section>
 
 
+    <!-- PLAYERS -->
+
     <section class="community-section">
 
-        <h2>
-            {% trans "Players" %}
-        </h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2 class="mb-0">
+                {% trans "Players" %}
+            </h2>
+
+        </div>
+
 
         {% if users %}
 
@@ -34,40 +43,55 @@
 
                 {% for community_user in users %}
 
-                    <div class="community-user-card">
+                    <article class="community-user-card shadow-sm">
 
                         <div>
 
-                            <h3>
+                            <h3 class="fw-bold">
                                 {{ community_user.username }}
                             </h3>
 
-                            <p>
+                            <p class="mb-0">
                                 PlayGuide {% trans "Player" %}
                             </p>
 
                         </div>
 
-                        <a href="{% url 'profile' community_user.username %}">
+
+                        <a
+                            href="{% url 'profile' community_user.username %}"
+                            class="btn btn-light btn-sm fw-semibold"
+                        >
                             {% trans "View Profile" %}
                         </a>
 
-                    </div>
+                    </article>
 
                 {% endfor %}
 
             </div>
 
+
         {% else %}
 
-            <p>
-                {% trans "No players found." %}
-            </p>
+            <div class="card bg-dark text-white border-secondary shadow-sm">
+
+                <div class="card-body text-center py-5">
+
+                    <h3 class="h5 mb-0">
+                        {% trans "No players found." %}
+                    </h3>
+
+                </div>
+
+            </div>
 
         {% endif %}
 
     </section>
 
+
+    <!-- LATEST REVIEWS -->
 
     <section class="community-section">
 
@@ -75,19 +99,22 @@
             {% trans "Latest Reviews" %}
         </h2>
 
+
         {% if recent_reviews %}
 
             <div class="community-reviews">
 
                 {% for review in recent_reviews %}
 
-                    <div class="community-review-card">
+                    <article class="community-review-card shadow-sm">
 
                         <div class="community-review-top">
 
                             <div>
 
-                                <a href="{% url 'profile' review.user.username %}">
+                                <a
+                                    href="{% url 'profile' review.user.username %}"
+                                >
                                     {{ review.user.username }}
                                 </a>
 
@@ -95,37 +122,51 @@
                                     {% trans "reviewed" %}
                                 </span>
 
-                                <a href="{% url 'game_detail' review.game.id %}">
+                                <a
+                                    href="{% url 'game_detail' review.game.id %}"
+                                >
                                     {{ review.game.title }}
                                 </a>
 
                             </div>
 
-                            <strong>
+
+                            <strong class="text-nowrap">
                                 {{ review.rating }}/5 ⭐
                             </strong>
 
                         </div>
 
+
                         <p>
                             {{ review.comment }}
                         </p>
+
 
                         <small>
                             {{ review.created_at }}
                         </small>
 
-                    </div>
+                    </article>
 
                 {% endfor %}
 
             </div>
 
+
         {% else %}
 
-            <p>
-                {% trans "No reviews yet." %}
-            </p>
+            <div class="card bg-dark text-white border-secondary shadow-sm">
+
+                <div class="card-body text-center py-5">
+
+                    <h3 class="h5 mb-0">
+                        {% trans "No reviews yet." %}
+                    </h3>
+
+                </div>
+
+            </div>
 
         {% endif %}
 

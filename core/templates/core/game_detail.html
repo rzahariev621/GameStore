@@ -224,7 +224,7 @@
     <div class="container">
 
         <h2>
-            {% trans "Video Tutorials" %}
+            {% trans "Videos" %}
         </h2>
 
 
@@ -274,7 +274,7 @@
                                 href="{% url 'tutorial_detail' tutorial.id %}"
                                 class="tutorial-button"
                             >
-                                {% trans "View Tutorial" %}
+                                {% trans "View Video" %}
                             </a>
 
                         </div>
@@ -288,7 +288,7 @@
         {% else %}
 
             <p class="section-empty">
-                {% trans "No video tutorials are available for this game yet." %}
+                {% trans "No videos are available for this game yet." %}
             </p>
 
         {% endif %}

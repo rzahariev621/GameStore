@@ -7,60 +7,126 @@
 
 {% block content %}
 
-<main class="login-page">
+<main class="container py-5">
 
-    <div class="login-box">
+    <section
+        class="mx-auto"
+        style="max-width: 480px;"
+    >
 
-        <h1>
-            {% trans "Login" %}
-        </h1>
+        <div class="card bg-dark text-white border-secondary shadow-sm">
 
-        {% if error %}
-            <p class="login-error">
-                {{ error }}
-            </p>
-        {% endif %}
+            <div class="card-body p-4 p-md-5">
 
-        <form method="POST">
+                <!-- HEADER -->
 
-            {% csrf_token %}
+                <div class="text-center mb-4">
 
-            <label for="username">
-                {% trans "Username" %}
-            </label>
+                    <h1 class="display-6 fw-bold mb-2">
+                        {% trans "Login" %}
+                    </h1>
 
-            <input
-                type="text"
-                id="username"
-                name="username"
-                required
-            >
+                    <p class="text-secondary mb-0">
+                        PlayGuide
+                    </p>
+
+                </div>
 
 
-            <label for="password">
-                {% trans "Password" %}
-            </label>
+                <!-- ERROR -->
 
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
+                {% if error %}
 
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
 
-            <button type="submit">
-                {% trans "Login" %}
-            </button>
-
-        </form>
+                {% endif %}
 
 
-        <a href="{% url 'password_reset' %}">
-            {% trans "Forgot Password?" %}
-        </a>
+                <!-- FORM -->
 
-    </div>
+                <form method="POST">
+
+                    {% csrf_token %}
+
+
+                    <!-- USERNAME -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="username"
+                            class="form-label fw-semibold"
+                        >
+                            {% trans "Username" %}
+                        </label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            class="form-control"
+                            required
+                            autocomplete="username"
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="password"
+                            class="form-label fw-semibold"
+                        >
+                            {% trans "Password" %}
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            required
+                            autocomplete="current-password"
+                        >
+
+                    </div>
+
+
+                    <!-- LOGIN -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-light fw-semibold w-100 py-2 mb-3"
+                    >
+                        {% trans "Login" %}
+                    </button>
+
+                </form>
+
+
+                <!-- PASSWORD RESET -->
+
+                <div class="text-center">
+
+                    <a
+                        href="{% url 'password_reset' %}"
+                        class="text-secondary text-decoration-none"
+                    >
+                        {% trans "Forgot Password?" %}
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </main>
 

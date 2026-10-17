@@ -15,9 +15,12 @@
 
             <div class="tutorial-detail-info">
 
-                <span class="tutorial-game-name">
+                <a
+                    href="{% url 'game_detail' tutorial.game.id %}"
+                    class="tutorial-game-name"
+                >
                     {{ tutorial.game.title }}
-                </span>
+                </a>
 
                 <h1>
                     {{ tutorial.title }}
@@ -60,7 +63,7 @@
             {% if can_watch %}
 
                 <h2>
-                    {% trans "Video Tutorial" %}
+                    {% trans "Video" %}
                 </h2>
 
 
@@ -94,13 +97,13 @@
                 {% if is_owner %}
 
                     <p class="tutorial-access-message">
-                        {% trans "You are the publisher of this tutorial." %}
+                        {% trans "You are the publisher of this video." %}
                     </p>
 
                 {% elif is_purchased %}
 
                     <p class="tutorial-access-message">
-                        {% trans "You own this tutorial." %}
+                        {% trans "You own this video." %}
                     </p>
 
                 {% endif %}
@@ -111,11 +114,11 @@
                 <div class="tutorial-locked">
 
                     <h2>
-                        {% trans "Paid Tutorial" %}
+                        {% trans "Paid Video" %}
                     </h2>
 
                     <p>
-                        {% trans "Purchase this tutorial to watch the full video." %}
+                        {% trans "Purchase this video to watch it." %}
                     </p>
 
 
@@ -155,7 +158,7 @@
                             {% else %}
 
                                 <p class="tutorial-access-message">
-                                    {% trans "You do not have enough Creator Points to purchase this tutorial." %}
+                                    {% trans "You do not have enough Creator Points to purchase this video." %}
                                 </p>
 
                             {% endif %}
@@ -175,7 +178,7 @@
                                 {% csrf_token %}
 
                                 <button type="submit">
-                                    {% trans "Buy Tutorial" %}
+                                    {% trans "Buy Video" %}
                                 </button>
 
                             </form>
@@ -190,7 +193,7 @@
                         </p>
 
                         <p>
-                            {% trans "You need to log in before purchasing this tutorial." %}
+                            {% trans "You need to log in before purchasing this video." %}
                         </p>
 
                         <a
@@ -218,20 +221,20 @@
                     <div class="card-body">
 
                         <h3 class="card-title mb-3">
-                            {% trans "Report Tutorial" %}
+                            {% trans "Report Video" %}
                         </h3>
 
 
                         {% if has_reported %}
 
                             <p class="text-secondary mb-0">
-                                {% trans "You have already reported this tutorial." %}
+                                {% trans "You have already reported this video." %}
                             </p>
 
                         {% else %}
 
                             <p class="text-secondary">
-                                {% trans "If there is a problem with this tutorial, you can report it to the moderators." %}
+                                {% trans "If there is a problem with this video, you can report it to the moderators." %}
                             </p>
 
 
@@ -258,7 +261,7 @@
                                         class="form-control"
                                         rows="4"
                                         required
-                                        placeholder="{% trans 'Describe the reason for reporting this tutorial...' %}"
+                                        placeholder="{% trans 'Describe the reason for reporting this video...' %}"
                                     ></textarea>
 
                                 </div>
@@ -268,7 +271,7 @@
                                     type="submit"
                                     class="btn btn-outline-danger"
                                 >
-                                    {% trans "Report Tutorial" %}
+                                    {% trans "Report Video" %}
                                 </button>
 
                             </form>
@@ -287,7 +290,9 @@
         <section class="tutorial-game-section">
 
             <a href="{% url 'game_detail' tutorial.game.id %}">
-                {% blocktrans trimmed with game_title=tutorial.game.title %}← Back to {{ game_title }}{% endblocktrans %}
+                {% blocktrans trimmed with game_title=tutorial.game.title %}
+                ← Back to {{ game_title }}
+                {% endblocktrans %}
             </a>
 
         </section>

@@ -7,72 +7,123 @@
 
 {% block content %}
 
-<main class="messages-page">
+<main class="container py-5">
 
-    <section class="messages-header">
+    <!-- HEADER -->
 
-        <h1>
+    <section class="mb-5">
+
+        <h1 class="display-5 fw-bold mb-3">
             {% trans "Messages" %}
         </h1>
 
-        <p>
+        <p class="text-secondary fs-5 mb-0">
             {% trans "Your conversations with other PlayGuide users." %}
         </p>
 
     </section>
 
 
-    <section class="conversation-list">
+    <!-- CONVERSATIONS -->
 
-        {% if conversations %}
+    {% if conversations %}
+
+        <section class="d-flex flex-column gap-3">
 
             {% for conversation in conversations %}
 
-                <div class="conversation-card">
+                <article class="card bg-dark text-white border-secondary shadow-sm">
 
-                    <h3>
-                        {{ conversation.user.username }}
-                    </h3>
+                    <div class="card-body p-4">
 
-                    <p>
+                        <div class="row g-3 align-items-center">
 
-                        {% if conversation.last_message.sender == user %}
+                            <!-- CONVERSATION INFO -->
 
-                            {% trans "You:" %}
+                            <div class="col-12 col-md">
 
-                        {% else %}
+                                <h2 class="h5 fw-bold mb-2">
+                                    {{ conversation.user.username }}
+                                </h2>
 
-                            {{ conversation.last_message.sender.username }}:
 
-                        {% endif %}
+                                <p class="text-secondary mb-2">
 
-                        {{ conversation.last_message.text }}
+                                    {% if conversation.last_message.sender == user %}
 
-                    </p>
+                                        <strong class="text-white">
+                                            {% trans "You:" %}
+                                        </strong>
 
-                    <small>
-                        {{ conversation.last_message.created_at }}
-                    </small>
+                                    {% else %}
 
-                    <br>
+                                        <strong class="text-white">
+                                            {{ conversation.last_message.sender.username }}:
+                                        </strong>
 
-                    <a href="{% url 'chat' conversation.user.username %}">
-                        {% trans "Open Chat" %}
-                    </a>
+                                    {% endif %}
 
-                </div>
+                                    {{ conversation.last_message.text }}
+
+                                </p>
+
+
+                                <small class="text-secondary">
+                                    {{ conversation.last_message.created_at }}
+                                </small>
+
+                            </div>
+
+
+                            <!-- ACTION -->
+
+                            <div class="col-12 col-md-auto">
+
+                                <a
+                                    href="{% url 'chat' conversation.user.username %}"
+                                    class="btn btn-light fw-semibold w-100"
+                                >
+                                    {% trans "Open Chat" %}
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
 
             {% endfor %}
 
-        {% else %}
+        </section>
 
-            <p>
-                {% trans "You do not have any conversations yet." %}
-            </p>
 
-        {% endif %}
+    {% else %}
 
-    </section>
+        <!-- EMPTY INBOX -->
+
+        <section class="card bg-dark text-white border-secondary shadow-sm">
+
+            <div class="card-body text-center py-5 px-4">
+
+                <div class="fs-1 mb-3">
+                    💬
+                </div>
+
+                <h2 class="h4 fw-bold mb-3">
+                    {% trans "Messages" %}
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    {% trans "You do not have any conversations yet." %}
+                </p>
+
+            </div>
+
+        </section>
+
+    {% endif %}
 
 </main>
 

@@ -1,124 +1,503 @@
+/* =========================================================
+   PLAYGUIDE
+   Main stylesheet
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body {
-    background-color: #111827;
-    color: white;
-    font-family: Arial, sans-serif;
+
+/* =========================================================
+   THEME VARIABLES
+   ========================================================= */
+
+:root {
+    --pg-radius-sm: 8px;
+    --pg-radius-md: 12px;
+    --pg-radius-lg: 14px;
+
+    --pg-transition: 0.2s ease;
 }
 
-/* NAVBAR */
+
+/* DARK THEME */
+
+[data-bs-theme="dark"] {
+    color-scheme: dark;
+
+    --pg-bg: #111827;
+    --pg-surface: #1f2937;
+    --pg-surface-alt: #111827;
+
+    --pg-text: #ffffff;
+    --pg-text-soft: #d1d5db;
+    --pg-muted: #9ca3af;
+
+    --pg-border: #374151;
+    --pg-border-strong: #6b7280;
+
+    --pg-navbar: #1f2937;
+
+    --pg-input-bg: #111827;
+
+    --pg-button-bg: #ffffff;
+    --pg-button-text: #111827;
+    --pg-button-hover: #d1d5db;
+
+    --pg-danger: #dc2626;
+    --pg-danger-hover: #b91c1c;
+
+    --pg-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+
+/* LIGHT THEME */
+
+[data-bs-theme="light"] {
+    color-scheme: light;
+
+    --pg-bg: #f8fafc;
+    --pg-surface: #ffffff;
+    --pg-surface-alt: #f1f5f9;
+
+    --pg-text: #111827;
+    --pg-text-soft: #374151;
+    --pg-muted: #64748b;
+
+    --pg-border: #d1d5db;
+    --pg-border-strong: #9ca3af;
+
+    --pg-navbar: #ffffff;
+
+    --pg-input-bg: #ffffff;
+
+    --pg-button-bg: #111827;
+    --pg-button-text: #ffffff;
+    --pg-button-hover: #374151;
+
+    --pg-danger: #dc2626;
+    --pg-danger-hover: #b91c1c;
+
+    --pg-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.10);
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html,
+body {
+    min-height: 100%;
+}
+
+
+body {
+    min-height: 100vh;
+
+    background-color: var(--pg-bg);
+    color: var(--pg-text);
+
+    font-family: Arial, sans-serif;
+
+    transition:
+        background-color var(--pg-transition),
+        color var(--pg-transition);
+}
+
+
+a {
+    transition:
+        color var(--pg-transition),
+        background-color var(--pg-transition),
+        border-color var(--pg-transition);
+}
+
+
+hr {
+    border-color: var(--pg-border);
+}
+
+
+::selection {
+    background-color: var(--pg-text);
+    color: var(--pg-bg);
+}
+
+
+/* =========================================================
+   BOOTSTRAP THEME COMPATIBILITY
+   ========================================================= */
+
+/*
+    A large part of the interface uses Bootstrap classes such as:
+    bg-dark
+    text-white
+    text-secondary
+    border-secondary
+    btn-light
+    btn-outline-light
+    table-dark
+
+    These overrides make those components respond to
+    PlayGuide's Light / Dark theme.
+*/
+
+
+.bg-dark {
+    background-color: var(--pg-surface) !important;
+}
+
+
+.bg-dark.text-white {
+    color: var(--pg-text) !important;
+}
+
+
+.text-secondary {
+    color: var(--pg-muted) !important;
+}
+
+
+.border-secondary {
+    border-color: var(--pg-border) !important;
+}
+
+
+.card {
+    --bs-card-bg: var(--pg-surface);
+    --bs-card-color: var(--pg-text);
+    --bs-card-border-color: var(--pg-border);
+
+    transition:
+        background-color var(--pg-transition),
+        color var(--pg-transition),
+        border-color var(--pg-transition);
+}
+
+
+/* LIGHT BUTTON */
+
+.btn-light {
+    --bs-btn-color: var(--pg-button-text);
+    --bs-btn-bg: var(--pg-button-bg);
+    --bs-btn-border-color: var(--pg-button-bg);
+
+    --bs-btn-hover-color: var(--pg-button-text);
+    --bs-btn-hover-bg: var(--pg-button-hover);
+    --bs-btn-hover-border-color: var(--pg-button-hover);
+
+    --bs-btn-active-color: var(--pg-button-text);
+    --bs-btn-active-bg: var(--pg-button-hover);
+    --bs-btn-active-border-color: var(--pg-button-hover);
+}
+
+
+/* OUTLINE LIGHT BUTTON */
+
+.btn-outline-light {
+    --bs-btn-color: var(--pg-text);
+    --bs-btn-border-color: var(--pg-border-strong);
+
+    --bs-btn-hover-color: var(--pg-button-text);
+    --bs-btn-hover-bg: var(--pg-button-bg);
+    --bs-btn-hover-border-color: var(--pg-button-bg);
+
+    --bs-btn-active-color: var(--pg-button-text);
+    --bs-btn-active-bg: var(--pg-button-bg);
+    --bs-btn-active-border-color: var(--pg-button-bg);
+}
+
+
+/* TABLES */
+
+.table-dark {
+    --bs-table-color: var(--pg-text);
+    --bs-table-bg: var(--pg-surface);
+
+    --bs-table-border-color: var(--pg-border);
+
+    --bs-table-striped-color: var(--pg-text);
+    --bs-table-striped-bg: var(--pg-surface-alt);
+
+    --bs-table-hover-color: var(--pg-text);
+    --bs-table-hover-bg: var(--pg-surface-alt);
+}
+
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.form-control,
+.form-select {
+    background-color: var(--pg-input-bg);
+    color: var(--pg-text);
+
+    border-color: var(--pg-border);
+
+    transition:
+        background-color var(--pg-transition),
+        color var(--pg-transition),
+        border-color var(--pg-transition),
+        box-shadow var(--pg-transition);
+}
+
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--pg-input-bg);
+    color: var(--pg-text);
+
+    border-color: var(--pg-border-strong);
+
+    box-shadow:
+        0 0 0 0.2rem rgba(107, 114, 128, 0.18);
+}
+
+
+.form-control::placeholder {
+    color: var(--pg-muted);
+    opacity: 1;
+}
+
+
+.form-select option {
+    background-color: var(--pg-input-bg);
+    color: var(--pg-text);
+}
+
+
+.form-text {
+    color: var(--pg-muted) !important;
+}
+
+
+.form-label {
+    color: var(--pg-text-soft);
+}
+
+
+.form-control:disabled,
+.form-select:disabled {
+    background-color: var(--pg-surface-alt);
+    color: var(--pg-muted);
+}
+
+
+.errorlist {
+    list-style: none;
+
+    padding: 0;
+    margin: 8px 0 0;
+
+    color: #f87171;
+
+    font-size: 14px;
+}
+
+
+.admin-form-fields p {
+    margin-bottom: 22px;
+}
+
+
+.admin-form-fields label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--pg-text-soft);
+
+    font-weight: 600;
+}
+
+
+.admin-form-fields .helptext {
+    display: block;
+
+    margin-top: 6px;
+
+    color: var(--pg-muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
 
 .navbar {
-    background-color: #1f2937 !important;
+    background-color: var(--pg-navbar) !important;
+
     padding: 12px 50px;
+
+    border-bottom: 1px solid var(--pg-border);
+
+    transition:
+        background-color var(--pg-transition),
+        border-color var(--pg-transition);
 }
 
+
 .navbar-brand {
-    color: white !important;
+    color: var(--pg-text) !important;
+
     font-size: 24px;
     font-weight: bold;
+
     letter-spacing: 0.5px;
 }
 
+
 .navbar .nav-link {
-    color: #d1d5db !important;
+    color: var(--pg-text-soft) !important;
+
     font-size: 16px;
-    transition: color 0.2s ease;
+
+    transition: color var(--pg-transition);
 }
 
-.navbar .nav-link:hover {
-    color: white !important;
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--pg-text) !important;
 }
+
 
 .navbar-toggler {
-    border: 1px solid #6b7280;
+    border: 1px solid var(--pg-border-strong);
 }
+
 
 .navbar-toggler:focus {
     box-shadow: none;
 }
 
-/* HERO */
+
+/* THEME BUTTON */
+
+#themeToggle {
+    min-width: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#themeIcon {
+    display: inline-block;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   HOME / HERO
+   ========================================================= */
 
 .hero {
     text-align: center;
+
     padding: 140px 20px 80px;
 }
 
+
 .hero h1 {
     max-width: 1000px;
+
     margin: 0 auto 20px;
 
     font-size: 48px;
     line-height: 1.2;
 }
 
+
 .hero p {
     font-size: 20px;
-    color: #9ca3af;
+
+    color: var(--pg-muted);
 
     margin-bottom: 30px;
 }
 
-.hero button {
-    padding: 14px 28px;
 
-    font-size: 16px;
-
-    border: none;
-    border-radius: 8px;
-
-    cursor: pointer;
+.hero .btn {
+    border-radius: var(--pg-radius-sm);
 }
 
-/* STORE */
+
+/* =========================================================
+   STORE / GAME CATALOG
+   ========================================================= */
 
 .store-page {
     max-width: 1500px;
+
     margin: 0 auto;
+
     padding: 50px;
 }
+
 
 .store-header {
     margin-bottom: 40px;
 }
 
+
 .store-header h1 {
     font-size: 36px;
+
     margin-bottom: 10px;
 }
 
+
 .store-header p {
-    color: #9ca3af;
+    color: var(--pg-muted);
+
     font-size: 17px;
 }
 
 
+/* GAME CARD */
+
 .game-card {
     height: 100%;
 
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
 
-    border-radius: 12px;
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius-md);
+
     overflow: hidden;
 
     display: flex;
     flex-direction: column;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform var(--pg-transition),
+        box-shadow var(--pg-transition),
+        background-color var(--pg-transition),
+        border-color var(--pg-transition);
 }
+
 
 .game-card:hover {
     transform: translateY(-5px);
 
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--pg-shadow);
 }
 
 
@@ -144,12 +523,13 @@ body {
 
 .game-card-content h2 {
     font-size: 22px;
+
     margin-bottom: 10px;
 }
 
 
 .game-card-content p {
-    color: #9ca3af;
+    color: var(--pg-muted);
 
     line-height: 1.5;
 
@@ -176,8 +556,8 @@ body {
 
     padding: 10px 16px;
 
-    background-color: white;
-    color: #111827;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     text-decoration: none;
 
@@ -186,41 +566,55 @@ body {
     font-size: 14px;
     font-weight: bold;
 
-    transition: background-color 0.2s ease;
+    transition:
+        background-color var(--pg-transition),
+        color var(--pg-transition);
 }
 
 
 .game-card-bottom a:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
+    color: var(--pg-button-text);
 }
 
 
+/* EMPTY STORE */
+
 .store-empty {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 40px;
 
-    border-radius: 12px;
+    border-radius: var(--pg-radius-md);
 
     text-align: center;
 }
+
 
 .store-empty h2 {
     margin-bottom: 10px;
 }
 
+
 .store-empty p {
-    color: #9ca3af;
+    color: var(--pg-muted);
 }
 
-/* GAME DETAILS */
+
+/* =========================================================
+   GAME DETAILS
+   ========================================================= */
 
 .game-detail-page {
     padding: 60px 0;
 }
 
+
 .game-detail {
     max-width: 1200px;
+
     margin: 0 auto;
 }
 
@@ -231,7 +625,7 @@ body {
 
     object-fit: cover;
 
-    border-radius: 14px;
+    border-radius: var(--pg-radius-lg);
 
     display: block;
 }
@@ -239,12 +633,13 @@ body {
 
 .game-detail-info h1 {
     font-size: 42px;
+
     margin-bottom: 25px;
 }
 
 
 .game-detail-info p {
-    color: #9ca3af;
+    color: var(--pg-muted);
 
     font-size: 17px;
     line-height: 1.7;
@@ -254,7 +649,7 @@ body {
 
 
 .game-detail-info .release-date {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
 }
 
 
@@ -262,26 +657,28 @@ body {
     padding: 12px 20px;
 
     border: none;
-    border-radius: 8px;
+    border-radius: var(--pg-radius-sm);
 
-    background-color: white;
-    color: #111827;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     font-size: 15px;
     font-weight: bold;
 
     cursor: pointer;
 
-    transition: background-color 0.2s ease;
+    transition: background-color var(--pg-transition);
 }
 
 
 .game-detail-info button:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
 }
 
 
-/* SYSTEM REQUIREMENTS */
+/* =========================================================
+   SYSTEM REQUIREMENTS
+   ========================================================= */
 
 .requirements-section {
     padding: 20px 0 60px;
@@ -301,16 +698,20 @@ body {
     margin-bottom: 25px;
     padding-bottom: 12px;
 
-    border-bottom: 1px solid #374151;
+    border-bottom: 1px solid var(--pg-border);
 }
 
 
 .requirements-card {
-    background-color: #1f2937;
+    height: 100%;
+
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 25px;
 
-    border-radius: 12px;
+    border-radius: var(--pg-radius-md);
 }
 
 
@@ -322,19 +723,22 @@ body {
 
 
 .requirements-card p {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
 
     margin-bottom: 12px;
+
     line-height: 1.5;
 }
 
 
 .requirements-card strong {
-    color: white;
+    color: var(--pg-text);
 }
 
 
-/* VIDEO TUTORIALS */
+/* =========================================================
+   VIDEO TUTORIAL CARDS
+   ========================================================= */
 
 .tutorials-section {
     padding: 20px 0 60px;
@@ -342,11 +746,15 @@ body {
 
 
 .tutorial-card {
-    background-color: #1f2937;
+    height: 100%;
+
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 25px;
 
-    border-radius: 12px;
+    border-radius: var(--pg-radius-md);
 
     display: flex;
     flex-direction: column;
@@ -361,7 +769,7 @@ body {
 
 
 .tutorial-card p {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
 
     line-height: 1.5;
 
@@ -370,12 +778,12 @@ body {
 
 
 .tutorial-card a {
-    color: white;
+    color: var(--pg-text);
 }
 
 
 .tutorial-card .tutorial-price {
-    color: white;
+    color: var(--pg-text);
 
     font-size: 18px;
     font-weight: bold;
@@ -388,10 +796,11 @@ body {
     align-self: flex-start;
 
     margin-top: auto;
+
     padding: 10px 15px;
 
-    background-color: white;
-    color: #111827 !important;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text) !important;
 
     text-decoration: none;
 
@@ -399,24 +808,29 @@ body {
 
     font-size: 14px;
     font-weight: bold;
+
+    transition: background-color var(--pg-transition);
 }
 
 
 .tutorial-button:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
 }
 
 
 .section-empty {
-    color: #9ca3af;
+    color: var(--pg-muted);
 }
 
 
-/* TUTORIAL DETAILS */
+/* =========================================================
+   TUTORIAL DETAILS
+   ========================================================= */
 
 .tutorial-detail-page {
     padding: 60px 0 80px;
 }
+
 
 .tutorial-detail-page .container {
     max-width: 1100px;
@@ -429,23 +843,32 @@ body {
 
 
 .tutorial-detail-info {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 30px;
 
-    border-radius: 14px;
+    border-radius: var(--pg-radius-lg);
 }
 
 
-.tutorial-game-name {
+.tutorial-detail-info .tutorial-game-name {
     display: inline-block;
 
-    color: #9ca3af;
+    color: var(--pg-muted);
 
     font-size: 15px;
     font-weight: bold;
 
+    text-decoration: none;
+
     margin-bottom: 12px;
+}
+
+
+.tutorial-detail-info .tutorial-game-name:hover {
+    color: var(--pg-text);
 }
 
 
@@ -457,7 +880,7 @@ body {
 
 
 .tutorial-detail-info p {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
 
     font-size: 17px;
     line-height: 1.6;
@@ -466,13 +889,13 @@ body {
 }
 
 
-.tutorial-detail-info a {
-    color: white;
+.tutorial-detail-info a:not(.tutorial-game-name) {
+    color: var(--pg-text);
 }
 
 
 .tutorial-detail-info .tutorial-price {
-    color: white;
+    color: var(--pg-text);
 
     font-size: 22px;
     font-weight: bold;
@@ -494,7 +917,7 @@ body {
     margin-bottom: 25px;
     padding-bottom: 12px;
 
-    border-bottom: 1px solid #374151;
+    border-bottom: 1px solid var(--pg-border);
 }
 
 
@@ -503,7 +926,7 @@ body {
 
     background-color: black;
 
-    border-radius: 12px;
+    border-radius: var(--pg-radius-md);
 
     overflow: hidden;
 }
@@ -520,18 +943,20 @@ body {
 .tutorial-access-message {
     margin-top: 18px;
 
-    color: #9ca3af;
+    color: var(--pg-muted);
 }
 
 
 /* LOCKED TUTORIAL */
 
 .tutorial-locked {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 35px;
 
-    border-radius: 14px;
+    border-radius: var(--pg-radius-lg);
 }
 
 
@@ -543,14 +968,14 @@ body {
 
 
 .tutorial-locked p {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
 
     margin-bottom: 18px;
 }
 
 
 .tutorial-locked .tutorial-price {
-    color: white;
+    color: var(--pg-text);
 
     font-size: 24px;
     font-weight: bold;
@@ -564,10 +989,10 @@ body {
     padding: 11px 18px;
 
     border: none;
-    border-radius: 8px;
+    border-radius: var(--pg-radius-sm);
 
-    background-color: white;
-    color: #111827;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     text-decoration: none;
 
@@ -575,12 +1000,15 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+
+    transition: background-color var(--pg-transition);
 }
 
 
 .tutorial-locked button:hover,
 .tutorial-login-button:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
+    color: var(--pg-button-text);
 }
 
 
@@ -592,7 +1020,7 @@ body {
 
 
 .tutorial-game-section a {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
 
     text-decoration: none;
 
@@ -601,203 +1029,210 @@ body {
 
 
 .tutorial-game-section a:hover {
-    color: white;
+    color: var(--pg-text);
 }
 
 
-
-/* LOGIN */
-
-.login-page {
-    min-height: calc(100vh - 70px);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.login-box {
-    width: 400px;
-
-    background-color: #1f2937;
-
-    padding: 40px;
-
-    border-radius: 12px;
-}
-
-.login-box h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.login-box form {
-    display: flex;
-    flex-direction: column;
-}
-
-.login-box label {
-    margin-bottom: 8px;
-    color: #d1d5db;
-}
-
-.login-box input {
-    padding: 12px;
-
-    margin-bottom: 20px;
-
-    border: none;
-    border-radius: 6px;
-
-    font-size: 16px;
-}
-
-.login-box button {
-    padding: 12px;
-
-    margin-top: 10px;
-
-    border: none;
-    border-radius: 6px;
-
-    font-size: 16px;
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-.login-box button:hover {
-    background-color: #d1d5db;
-}
-
-.login-error {
-    color: #f87171 !important;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* REVIEWS */
+/* =========================================================
+   REVIEWS
+   ========================================================= */
 
 .reviews-section {
     max-width: 1200px;
+
     margin: 40px auto 80px auto;
+
     padding: 0 30px;
 }
 
+
 .reviews-section h2 {
     font-size: 30px;
+
     margin-bottom: 25px;
 }
 
+
 .review-form {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
+
     padding: 25px;
-    border-radius: 12px;
+
+    border-radius: var(--pg-radius-md);
+
     margin-bottom: 35px;
 
     display: flex;
     flex-direction: column;
+
     gap: 12px;
 }
 
+
 .review-form label {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
+
     font-weight: bold;
 }
+
 
 .review-form select,
 .review-form textarea {
     width: 100%;
+
     padding: 12px;
 
-    border: none;
-    border-radius: 8px;
+    background-color: var(--pg-input-bg);
+    color: var(--pg-text);
+
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius-sm);
 
     font-size: 15px;
     font-family: Arial, sans-serif;
 }
 
+
+.review-form select:focus,
+.review-form textarea:focus {
+    outline: none;
+
+    border-color: var(--pg-border-strong);
+}
+
+
 .review-form textarea {
     resize: vertical;
 }
 
+
 .review-form button {
     width: 170px;
+
     padding: 11px 16px;
 
     margin-top: 5px;
 
     border: none;
-    border-radius: 8px;
+    border-radius: var(--pg-radius-sm);
+
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     font-size: 15px;
     font-weight: bold;
 
     cursor: pointer;
+
+    transition: background-color var(--pg-transition);
 }
+
 
 .review-form button:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
 }
+
 
 .review-card {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 20px 25px;
+
     margin-bottom: 18px;
 
-    border-radius: 12px;
+    border-radius: var(--pg-radius-md);
 }
+
 
 .review-header {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
+    gap: 15px;
+
     margin-bottom: 12px;
 }
+
+
+.review-header a {
+    color: var(--pg-text);
+
+    text-decoration: none;
+}
+
+
+.review-header a:hover {
+    text-decoration: underline;
+}
+
 
 .review-header strong {
     font-size: 17px;
 }
 
+
 .review-header span {
     font-weight: bold;
 }
 
+
 .review-card p {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
+
     line-height: 1.6;
+
     margin-bottom: 12px;
 }
 
+
 .review-card small {
-    color: #9ca3af;
+    color: var(--pg-muted);
 }
 
-/* WISHLIST */
+
+/* =========================================================
+   WISHLIST LEGACY HELPERS
+   ========================================================= */
+
+/*
+    The current Wishlist mainly uses Bootstrap and game-card,
+    but these helpers remain safe if reused later.
+*/
 
 .wishlist-card-bottom {
     margin-top: 20px;
 }
 
+
 .wishlist-price {
     display: block;
+
     margin-bottom: 12px;
 
     font-size: 18px;
     font-weight: bold;
 }
 
+
 .wishlist-actions {
     display: flex;
+
     gap: 10px;
 }
 
+
 .wishlist-actions form {
     flex: 1;
+
     margin: 0;
 }
+
 
 .wishlist-view-button,
 .remove-wishlist-button {
@@ -811,7 +1246,7 @@ body {
     padding: 10px 12px;
 
     border: none;
-    border-radius: 8px;
+    border-radius: var(--pg-radius-sm);
 
     font-size: 14px;
     font-weight: bold;
@@ -819,71 +1254,100 @@ body {
     cursor: pointer;
 }
 
+
 .wishlist-view-button {
     flex: 1;
 
-    background-color: white;
-    color: #111827;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     text-decoration: none;
 }
 
+
 .wishlist-view-button:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
+    color: var(--pg-button-text);
 }
 
+
 .remove-wishlist-button {
-    background-color: #dc2626;
+    background-color: var(--pg-danger);
     color: white;
 }
 
+
 .remove-wishlist-button:hover {
-    background-color: #b91c1c;
+    background-color: var(--pg-danger-hover);
 }
 
-/* PROFILE */
+
+/* =========================================================
+   PROFILE LEGACY HELPERS
+   ========================================================= */
+
+/*
+    Most of the current Profile page uses Bootstrap.
+    These styles remain compatible with both themes in case
+    individual profile elements still use these classes.
+*/
 
 .profile-page {
     max-width: 1200px;
+
     margin: 50px auto 80px auto;
+
     padding: 0 30px;
 }
 
 
-/* PROFILE HEADER */
-
 .profile-header {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 30px 35px;
+
     margin-bottom: 50px;
 
-    border-radius: 14px;
+    border-radius: var(--pg-radius-lg);
 
     display: flex;
+
     justify-content: space-between;
     align-items: center;
+
+    gap: 25px;
 }
+
 
 .profile-name h1 {
     font-size: 36px;
+
     margin-bottom: 8px;
 }
 
+
 .profile-name p {
-    color: #9ca3af;
+    color: var(--pg-muted);
+
     font-size: 15px;
 }
 
+
 .profile-stats {
     display: flex;
+
     gap: 15px;
 }
+
 
 .profile-stat {
     min-width: 100px;
 
-    background-color: #111827;
+    background-color: var(--pg-surface-alt);
+
+    border: 1px solid var(--pg-border);
 
     padding: 15px 20px;
 
@@ -892,33 +1356,38 @@ body {
     text-align: center;
 }
 
+
 .profile-stat strong {
     display: block;
 
     font-size: 24px;
+
     margin-bottom: 4px;
 }
 
+
 .profile-stat span {
-    color: #9ca3af;
+    color: var(--pg-muted);
+
     font-size: 14px;
 }
 
-
-/* PROFILE LIBRARY */
 
 .profile-library {
     margin-bottom: 60px;
 }
 
-.profile-library > h2 {
+
+.profile-library > h2,
+.profile-reviews > h2 {
     font-size: 26px;
 
     margin-bottom: 25px;
     padding-bottom: 12px;
 
-    border-bottom: 1px solid #374151;
+    border-bottom: 1px solid var(--pg-border);
 }
+
 
 .profile-library .game-card-content a {
     display: inline-block;
@@ -927,71 +1396,69 @@ body {
 
     padding: 9px 14px;
 
-    background-color: white;
-    color: #111827;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     border-radius: 7px;
 
     text-decoration: none;
+
     font-size: 14px;
     font-weight: bold;
 }
 
+
 .profile-library .game-card-content a:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
 }
 
-
-/* PROFILE REVIEWS */
 
 .profile-reviews {
     margin-top: 20px;
 }
 
-.profile-reviews > h2 {
-    font-size: 26px;
-
-    margin-bottom: 25px;
-    padding-bottom: 12px;
-
-    border-bottom: 1px solid #374151;
-}
 
 .profile-reviews .review-card {
-    border-left: 4px solid #6b7280;
+    border-left: 4px solid var(--pg-border-strong);
 }
 
-/* COMMUNITY */
+
+/* =========================================================
+   COMMUNITY
+   ========================================================= */
 
 .community-page {
     max-width: 1200px;
+
     margin: 50px auto 80px auto;
+
     padding: 0 30px;
 }
 
-
-/* COMMUNITY HEADER */
 
 .community-header {
     margin-bottom: 50px;
 }
 
+
 .community-header h1 {
     font-size: 38px;
+
     margin-bottom: 10px;
 }
 
+
 .community-header p {
-    color: #9ca3af;
+    color: var(--pg-muted);
+
     font-size: 17px;
 }
 
 
-/* COMMUNITY SECTIONS */
-
 .community-section {
     margin-bottom: 60px;
 }
+
 
 .community-section > h2 {
     font-size: 26px;
@@ -999,11 +1466,11 @@ body {
     margin-bottom: 25px;
     padding-bottom: 12px;
 
-    border-bottom: 1px solid #374151;
+    border-bottom: 1px solid var(--pg-border);
 }
 
 
-/* PLAYERS */
+/* COMMUNITY USERS */
 
 .community-users {
     display: grid;
@@ -1014,33 +1481,44 @@ body {
     gap: 18px;
 }
 
+
 .community-user-card {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 22px;
 
-    border-radius: 12px;
+    border-radius: var(--pg-radius-md);
 
     display: flex;
+
     justify-content: space-between;
     align-items: center;
+
+    gap: 15px;
 }
+
 
 .community-user-card h3 {
     font-size: 19px;
+
     margin-bottom: 5px;
 }
 
+
 .community-user-card p {
-    color: #9ca3af;
+    color: var(--pg-muted);
+
     font-size: 14px;
 }
+
 
 .community-user-card a {
     padding: 9px 13px;
 
-    background-color: white;
-    color: #111827;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     border-radius: 7px;
 
@@ -1050,8 +1528,10 @@ body {
     font-weight: bold;
 }
 
+
 .community-user-card a:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
+    color: var(--pg-button-text);
 }
 
 
@@ -1059,21 +1539,27 @@ body {
 
 .community-reviews {
     display: flex;
+
     flex-direction: column;
 
     gap: 18px;
 }
 
+
 .community-review-card {
-    background-color: #1f2937;
+    background-color: var(--pg-surface);
+
+    border: 1px solid var(--pg-border);
 
     padding: 22px 25px;
 
-    border-radius: 12px;
+    border-radius: var(--pg-radius-md);
 }
+
 
 .community-review-top {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
@@ -1082,44 +1568,52 @@ body {
     margin-bottom: 15px;
 }
 
+
 .community-review-top a {
-    color: white;
+    color: var(--pg-text);
 
     text-decoration: none;
+
     font-weight: bold;
 }
+
 
 .community-review-top a:hover {
     text-decoration: underline;
 }
 
+
 .community-review-top span {
-    color: #9ca3af;
+    color: var(--pg-muted);
 
     margin: 0 5px;
 }
 
+
 .community-review-card p {
-    color: #d1d5db;
+    color: var(--pg-text-soft);
 
     line-height: 1.6;
 
     margin-bottom: 12px;
 }
 
+
 .community-review-card small {
-    color: #9ca3af;
+    color: var(--pg-muted);
 }
+
 
 .add-friend-button {
     margin-top: 15px;
+
     padding: 10px 16px;
 
     border: none;
-    border-radius: 8px;
+    border-radius: var(--pg-radius-sm);
 
-    background-color: white;
-    color: #111827;
+    background-color: var(--pg-button-bg);
+    color: var(--pg-button-text);
 
     font-size: 14px;
     font-weight: bold;
@@ -1127,28 +1621,72 @@ body {
     cursor: pointer;
 }
 
+
 .add-friend-button:hover {
-    background-color: #d1d5db;
+    background-color: var(--pg-button-hover);
 }
+
 
 .friend-status {
     display: inline-block;
 
     margin-top: 15px;
+
     padding: 10px 16px;
 
-    background-color: #111827;
-    color: #d1d5db;
+    background-color: var(--pg-surface-alt);
+    color: var(--pg-text-soft);
 
-    border-radius: 8px;
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius-sm);
 
     font-size: 14px;
     font-weight: bold;
 }
 
 
+/* =========================================================
+   GENERAL QUALITY OF LIFE
+   ========================================================= */
 
-/* RESPONSIVE */
+.card,
+.game-card,
+.requirements-card,
+.tutorial-card,
+.review-card,
+.community-user-card,
+.community-review-card,
+.profile-header,
+.profile-stat,
+.store-empty,
+.tutorial-detail-info,
+.tutorial-locked {
+    transition:
+        background-color var(--pg-transition),
+        color var(--pg-transition),
+        border-color var(--pg-transition);
+}
+
+
+button,
+.btn,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+button:focus-visible,
+a:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+    outline: 2px solid var(--pg-border-strong);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 991px) {
 
@@ -1156,21 +1694,38 @@ body {
         padding: 12px 30px;
     }
 
+
     .navbar-collapse {
         padding-top: 15px;
         padding-bottom: 10px;
     }
 
+
     .navbar .nav-link {
         padding: 10px 0;
     }
+
 
     .hero {
         padding: 100px 20px 70px;
     }
 
+
     .hero h1 {
         font-size: 40px;
+    }
+
+
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .profile-stats {
+        width: 100%;
+
+        flex-wrap: wrap;
     }
 
 }
@@ -1178,61 +1733,84 @@ body {
 
 @media (max-width: 576px) {
 
+    /* NAVBAR */
+
     .navbar {
         padding: 12px 20px;
     }
+
 
     .navbar-brand {
         font-size: 21px;
     }
 
+
+    /* HERO */
+
     .hero {
         padding: 80px 15px 60px;
     }
 
+
     .hero h1 {
         font-size: 34px;
+
         line-height: 1.2;
     }
+
 
     .hero p {
         font-size: 17px;
     }
 
-    .hero button {
-        padding: 12px 22px;
-        font-size: 15px;
+
+    .hero .btn {
+        width: 100%;
     }
 
+
+    /* STORE */
+
     .store-page {
-    padding: 30px 15px;
+        padding: 30px 15px;
     }
+
 
     .store-header h1 {
         font-size: 30px;
     }
 
+
     .game-card img {
         height: 300px;
     }
 
-    
+
+    /* GAME DETAIL */
+
     .game-detail-page {
-    padding: 35px 5px;
+        padding: 35px 5px;
     }
+
 
     .game-detail-info h1 {
         font-size: 32px;
     }
 
+
     .game-detail-info p {
         font-size: 16px;
     }
 
+
     .game-detail-cover img {
         max-height: 420px;
+
         object-fit: contain;
     }
+
+
+    /* REQUIREMENTS / TUTORIALS */
 
     .requirements-section,
     .tutorials-section {
@@ -1240,16 +1818,21 @@ body {
         padding-right: 5px;
     }
 
+
     .requirements-section h2,
     .tutorials-section h2,
     .reviews-section h2 {
         font-size: 26px;
     }
 
+
     .requirements-card,
     .tutorial-card {
         padding: 20px;
     }
+
+
+    /* REVIEWS */
 
     .reviews-section {
         padding-left: 15px;
@@ -1257,32 +1840,113 @@ body {
     }
 
 
-    .tutorial-detail-page {
-    padding: 35px 5px 60px;
+    .review-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 6px;
     }
+
+
+    .review-form button {
+        width: 100%;
+    }
+
+
+    /* TUTORIAL DETAIL */
+
+    .tutorial-detail-page {
+        padding: 35px 5px 60px;
+    }
+
 
     .tutorial-detail-info {
         padding: 22px;
     }
 
+
     .tutorial-detail-info h1 {
         font-size: 30px;
     }
+
 
     .tutorial-detail-info p {
         font-size: 16px;
     }
 
+
     .tutorial-video-section > h2 {
         font-size: 26px;
     }
+
 
     .tutorial-video {
         max-height: 420px;
     }
 
+
     .tutorial-locked {
         padding: 22px;
+    }
+
+
+    /* PROFILE */
+
+    .profile-page {
+        padding: 0 15px;
+    }
+
+
+    .profile-header {
+        padding: 22px;
+    }
+
+
+    .profile-name h1 {
+        font-size: 30px;
+    }
+
+
+    .profile-stat {
+        flex: 1;
+
+        min-width: 120px;
+    }
+
+
+    /* COMMUNITY */
+
+    .community-page {
+        padding: 0 15px;
+
+        margin-top: 35px;
+    }
+
+
+    .community-header h1 {
+        font-size: 32px;
+    }
+
+
+    .community-users {
+        grid-template-columns: 1fr;
+    }
+
+
+    .community-user-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .community-review-top {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 8px;
     }
 
 }

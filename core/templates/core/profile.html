@@ -7,173 +7,223 @@
 
 {% block content %}
 
-<main class="profile-page">
+<main class="container py-5">
 
-    <section class="profile-header">
+    <!-- PROFILE HEADER -->
 
-        <div class="profile-name">
+    <section class="card bg-dark text-white border-secondary shadow-sm mb-5">
 
-            <h1>
-                {{ profile_user.username }}
-            </h1>
+        <div class="card-body p-4 p-lg-5">
+
+            <div class="row g-4 align-items-center">
+
+                <!-- USER INFORMATION -->
+
+                <div class="col-12 col-lg">
+
+                    <div class="d-flex flex-column gap-3">
+
+                        <div>
+
+                            <h1 class="display-6 fw-bold mb-2">
+                                {{ profile_user.username }}
+                            </h1>
+
+                            <span class="badge text-bg-secondary fs-6">
+
+                                {% if role == 'Admin' %}
+
+                                    {% trans "Admin" %}
+
+                                {% elif role == 'Moderator' %}
+
+                                    {% trans "Moderator" %}
+
+                                {% elif role == 'Publisher' %}
+
+                                    {% trans "Publisher" %}
+
+                                {% else %}
+
+                                    {% trans "User" %}
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
 
 
-            <p>
+                        <!-- USER INTERACTIONS -->
 
-                {% if role == 'Admin' %}
-                    {% trans "Admin" %}
+                        {% if user.is_authenticated and user != profile_user %}
 
-                {% elif role == 'Moderator' %}
-                    {% trans "Moderator" %}
+                            <div class="d-flex flex-wrap gap-2 align-items-center">
 
-                {% elif role == 'Publisher' %}
-                    {% trans "Publisher" %}
+                                {% if is_blocked_by_me %}
 
-                {% else %}
-                    {% trans "User" %}
-
-                {% endif %}
-
-            </p>
+                                    <span class="badge text-bg-danger px-3 py-2">
+                                        {% trans "User Blocked" %}
+                                    </span>
 
 
-            {% if user.is_authenticated and user != profile_user %}
+                                    <form
+                                        method="POST"
+                                        action="{% url 'unblock_user' profile_user.username %}"
+                                        class="m-0"
+                                    >
 
-                {% if is_blocked_by_me %}
+                                        {% csrf_token %}
 
-                    <p class="friend-status">
-                        {% trans "User Blocked" %}
-                    </p>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-light btn-sm fw-semibold"
+                                        >
+                                            {% trans "Unblock" %}
+                                        </button>
 
-                    <form
-                        method="POST"
-                        action="{% url 'unblock_user' profile_user.username %}"
-                    >
-                        {% csrf_token %}
+                                    </form>
 
-                        <button
-                            type="submit"
-                            class="add-friend-button"
-                        >
-                            {% trans "Unblock" %}
-                        </button>
 
-                    </form>
+                                {% else %}
 
-                {% else %}
+                                    {% if has_blocked_me %}
 
-                    {% if has_blocked_me %}
+                                        <span class="badge text-bg-secondary px-3 py-2">
+                                            {% trans "Interaction unavailable" %}
+                                        </span>
 
-                        <p class="friend-status">
-                            {% trans "Interaction unavailable" %}
-                        </p>
 
-                    {% else %}
+                                    {% else %}
 
-                        {% if is_friend %}
+                                        {% if is_friend %}
 
-                            <p class="friend-status">
-                                ✓ {% trans "Friends" %}
-                            </p>
+                                            <span class="badge text-bg-success px-3 py-2">
+                                                ✓ {% trans "Friends" %}
+                                            </span>
 
-                            <a
-                                href="{% url 'chat' profile_user.username %}"
-                                class="message-button"
-                            >
-                                {% trans "Message" %}
-                            </a>
 
-                        {% elif request_sent %}
+                                            <a
+                                                href="{% url 'chat' profile_user.username %}"
+                                                class="btn btn-light btn-sm fw-semibold"
+                                            >
+                                                {% trans "Message" %}
+                                            </a>
 
-                            <p class="friend-status">
-                                {% trans "Request Sent" %}
-                            </p>
 
-                        {% elif incoming_request %}
+                                        {% elif request_sent %}
 
-                            <form
-                                method="POST"
-                                action="{% url 'accept_friend_request' profile_user.username %}"
-                            >
-                                {% csrf_token %}
+                                            <span class="badge text-bg-secondary px-3 py-2">
+                                                {% trans "Request Sent" %}
+                                            </span>
 
-                                <button
-                                    type="submit"
-                                    class="add-friend-button"
-                                >
-                                    {% trans "Accept Friend Request" %}
-                                </button>
 
-                            </form>
+                                        {% elif incoming_request %}
 
-                        {% else %}
+                                            <form
+                                                method="POST"
+                                                action="{% url 'accept_friend_request' profile_user.username %}"
+                                                class="m-0"
+                                            >
 
-                            <form
-                                method="POST"
-                                action="{% url 'send_friend_request' profile_user.username %}"
-                            >
-                                {% csrf_token %}
+                                                {% csrf_token %}
 
-                                <button
-                                    type="submit"
-                                    class="add-friend-button"
-                                >
-                                    {% trans "Add Friend" %}
-                                </button>
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-success btn-sm fw-semibold"
+                                                >
+                                                    {% trans "Accept Friend Request" %}
+                                                </button>
 
-                            </form>
+                                            </form>
+
+
+                                        {% else %}
+
+                                            <form
+                                                method="POST"
+                                                action="{% url 'send_friend_request' profile_user.username %}"
+                                                class="m-0"
+                                            >
+
+                                                {% csrf_token %}
+
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-light btn-sm fw-semibold"
+                                                >
+                                                    {% trans "Add Friend" %}
+                                                </button>
+
+                                            </form>
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'block_user' profile_user.username %}"
+                                        class="m-0"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-danger btn-sm fw-semibold"
+                                        >
+                                            {% trans "Block User" %}
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
+                            </div>
 
                         {% endif %}
 
-                    {% endif %}
+                    </div>
+
+                </div>
 
 
-                    <form
-                        method="POST"
-                        action="{% url 'block_user' profile_user.username %}"
-                    >
-                        {% csrf_token %}
+                <!-- PROFILE STATS -->
 
-                        <button
-                            type="submit"
-                            class="add-friend-button"
-                        >
-                            {% trans "Block User" %}
-                        </button>
+                <div class="col-12 col-lg-auto">
 
-                    </form>
+                    <div class="d-flex flex-wrap gap-3">
 
-                {% endif %}
+                        <div class="border border-secondary rounded-3 px-4 py-3 text-center">
 
-            {% endif %}
+                            <strong class="d-block fs-3">
+                                {{ published_tutorials|length }}
+                            </strong>
 
-        </div>
+                            <span class="text-secondary">
+                                {% trans "Videos" %}
+                            </span>
+
+                        </div>
 
 
-        <div class="profile-stats">
+                        <div class="border border-secondary rounded-3 px-4 py-3 text-center">
 
-            <div class="profile-stat">
+                            <strong class="d-block fs-3">
+                                {{ reviews|length }}
+                            </strong>
 
-                <strong>
-                    {{ published_tutorials|length }}
-                </strong>
+                            <span class="text-secondary">
+                                {% trans "Reviews" %}
+                            </span>
 
-                <span>
-                    {% trans "Tutorials" %}
-                </span>
+                        </div>
 
-            </div>
+                    </div>
 
-
-            <div class="profile-stat">
-
-                <strong>
-                    {{ reviews|length }}
-                </strong>
-
-                <span>
-                    {% trans "Reviews" %}
-                </span>
+                </div>
 
             </div>
 
@@ -182,76 +232,91 @@
     </section>
 
 
-    <section class="profile-tutorials">
+    <!-- PUBLISHED VIDEOS -->
 
-        <h2>
-            {% trans "Published Tutorials" %}
+    <section class="mb-5">
+
+        <h2 class="h3 fw-bold border-bottom border-secondary pb-3 mb-4">
+            {% trans "Published Videos" %}
         </h2>
 
 
         {% if published_tutorials %}
 
-            <div class="tutorials-grid">
+            <div class="row g-4">
 
                 {% for tutorial in published_tutorials %}
 
-                    <div class="tutorial-card">
+                    <div class="col-12 col-md-6 col-xl-4">
 
-                        {% if tutorial.game.cover %}
+                        <article class="card bg-dark text-white border-secondary shadow-sm h-100 overflow-hidden">
 
-                            <img
-                                src="{{ tutorial.game.cover.url }}"
-                                alt="{{ tutorial.game.title }}"
-                            >
+                            {% if tutorial.game.cover %}
 
-                        {% endif %}
-
-
-                        <div class="tutorial-card-content">
-
-                            <span class="tutorial-game-name">
-                                {{ tutorial.game.title }}
-                            </span>
-
-
-                            <h3>
-                                {{ tutorial.title }}
-                            </h3>
-
-
-                            <p>
-                                {{ tutorial.description }}
-                            </p>
-
-
-                            {% if tutorial.price == 0 %}
-
-                                <span class="tutorial-price">
-                                    {% trans "Free" %}
-                                </span>
-
-                            {% else %}
-
-                                <span class="tutorial-price">
-                                    {{ tutorial.price }} €
-                                </span>
+                                <img
+                                    src="{{ tutorial.game.cover.url }}"
+                                    alt="{{ tutorial.game.title }}"
+                                    class="card-img-top object-fit-cover"
+                                    style="height: 220px;"
+                                >
 
                             {% endif %}
 
 
-                            <div class="tutorial-actions">
+                            <div class="card-body d-flex flex-column p-4">
 
-                                <a href="{% url 'game_detail' tutorial.game.id %}">
-                                    {% trans "View Game" %}
-                                </a>
+                                <span class="text-secondary fw-semibold mb-2">
+                                    {{ tutorial.game.title }}
+                                </span>
 
-                                <a href="{% url 'tutorial_detail' tutorial.id %}">
-                                    {% trans "View Tutorial" %}
-                                </a>
+
+                                <h3 class="h5 fw-bold mb-3">
+                                    {{ tutorial.title }}
+                                </h3>
+
+
+                                <p class="text-secondary mb-4">
+                                    {{ tutorial.description }}
+                                </p>
+
+
+                                {% if tutorial.price == 0 %}
+
+                                    <span class="fw-bold mb-4">
+                                        {% trans "Free" %}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="fw-bold mb-4">
+                                        {{ tutorial.price }} €
+                                    </span>
+
+                                {% endif %}
+
+
+                                <div class="d-flex flex-wrap gap-2 mt-auto">
+
+                                    <a
+                                        href="{% url 'game_detail' tutorial.game.id %}"
+                                        class="btn btn-outline-light btn-sm fw-semibold"
+                                    >
+                                        {% trans "View Game" %}
+                                    </a>
+
+
+                                    <a
+                                        href="{% url 'tutorial_detail' tutorial.id %}"
+                                        class="btn btn-light btn-sm fw-semibold"
+                                    >
+                                        {% trans "View Video" %}
+                                    </a>
+
+                                </div>
 
                             </div>
 
-                        </div>
+                        </article>
 
                     </div>
 
@@ -259,65 +324,93 @@
 
             </div>
 
+
         {% else %}
 
-            <p>
-                {% trans "This user has no published tutorials yet." %}
-            </p>
+            <div class="card bg-dark text-white border-secondary shadow-sm">
+
+                <div class="card-body text-center py-5 px-4">
+
+                    <p class="text-secondary mb-0">
+                        {% trans "This user has no published videos yet." %}
+                    </p>
+
+                </div>
+
+            </div>
 
         {% endif %}
 
     </section>
 
 
-    <section class="profile-reviews">
+    <!-- REVIEWS -->
 
-        <h2>
+    <section>
+
+        <h2 class="h3 fw-bold border-bottom border-secondary pb-3 mb-4">
             {% trans "Reviews" %}
         </h2>
 
 
         {% if reviews %}
 
-            {% for review in reviews %}
+            <div class="d-flex flex-column gap-3">
 
-                <div class="review-card">
+                {% for review in reviews %}
 
-                    <div class="review-header">
+                    <article class="card bg-dark text-white border-secondary shadow-sm">
 
-                        <a href="{% url 'game_detail' review.game.id %}">
+                        <div class="card-body p-4">
 
-                            <strong>
-                                {{ review.game.title }}
-                            </strong>
+                            <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mb-3">
 
-                        </a>
-
-                        <span>
-                            {{ review.rating }}/5 ⭐
-                        </span>
-
-                    </div>
+                                <a
+                                    href="{% url 'game_detail' review.game.id %}"
+                                    class="text-white text-decoration-none fw-bold fs-5"
+                                >
+                                    {{ review.game.title }}
+                                </a>
 
 
-                    <p>
-                        {{ review.comment }}
-                    </p>
+                                <strong class="text-nowrap">
+                                    {{ review.rating }}/5 ⭐
+                                </strong>
+
+                            </div>
 
 
-                    <small>
-                        {{ review.created_at }}
-                    </small>
+                            <p class="text-secondary mb-3">
+                                {{ review.comment }}
+                            </p>
 
-                </div>
 
-            {% endfor %}
+                            <small class="text-secondary">
+                                {{ review.created_at }}
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
 
         {% else %}
 
-            <p>
-                {% trans "This user has not written any reviews yet." %}
-            </p>
+            <div class="card bg-dark text-white border-secondary shadow-sm">
+
+                <div class="card-body text-center py-5 px-4">
+
+                    <p class="text-secondary mb-0">
+                        {% trans "This user has not written any reviews yet." %}
+                    </p>
+
+                </div>
+
+            </div>
 
         {% endif %}
 

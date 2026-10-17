@@ -7,87 +7,147 @@
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <!-- HEADER -->
 
-        <h1>
+    <section class="mb-5">
+
+        <h1 class="display-5 fw-bold mb-3">
             {% trans "Admin Dashboard" %}
         </h1>
 
-        <p>
+        <p class="text-secondary fs-5 mb-0">
             {% trans "Manage users and application content." %}
         </p>
 
     </section>
 
 
-    <section class="admin-stats">
+    <!-- MANAGEMENT CARDS -->
 
-        <div class="admin-stat-card">
+    <section>
 
-            <h2>
-                {{ users_count }}
-            </h2>
+        <div class="row g-4">
 
-            <p>
-                {% trans "Users" %}
-            </p>
+            <!-- USERS -->
 
-            <a href="{% url 'manage_users' %}">
-                {% trans "Manage Users" %}
-            </a>
+            <div class="col-12 col-md-6 col-xl-3">
 
-        </div>
+                <article class="card bg-dark text-white border-secondary shadow-sm h-100">
 
+                    <div class="card-body d-flex flex-column p-4">
 
-        <div class="admin-stat-card">
+                        <span class="text-secondary fw-semibold mb-3">
+                            {% trans "Users" %}
+                        </span>
 
-            <h2>
-                {{ games_count }}
-            </h2>
+                        <div class="display-4 fw-bold mb-4">
+                            {{ users_count }}
+                        </div>
 
-            <p>
-                {% trans "Games" %}
-            </p>
+                        <a
+                            href="{% url 'manage_users' %}"
+                            class="btn btn-light fw-semibold mt-auto"
+                        >
+                            {% trans "Manage Users" %}
+                        </a>
 
-            <a href="{% url 'manage_games' %}">
-                {% trans "Manage Games" %}
-            </a>
+                    </div>
 
-        </div>
+                </article>
 
-
-        <div class="admin-stat-card">
-
-            <h2>
-                {{ tutorials_count }}
-            </h2>
-
-            <p>
-                {% trans "Tutorials" %}
-            </p>
-
-            <a href="{% url 'manage_tutorials' %}">
-                {% trans "Manage Tutorials" %}
-            </a>
-
-        </div>
+            </div>
 
 
-        <div class="admin-stat-card">
+            <!-- GAMES -->
 
-            <h2>
-                {{ reviews_count }}
-            </h2>
+            <div class="col-12 col-md-6 col-xl-3">
 
-            <p>
-                {% trans "Reviews" %}
-            </p>
+                <article class="card bg-dark text-white border-secondary shadow-sm h-100">
 
-            <a href="{% url 'manage_reviews' %}">
-                {% trans "Manage Reviews" %}
-            </a>
+                    <div class="card-body d-flex flex-column p-4">
+
+                        <span class="text-secondary fw-semibold mb-3">
+                            {% trans "Games" %}
+                        </span>
+
+                        <div class="display-4 fw-bold mb-4">
+                            {{ games_count }}
+                        </div>
+
+                        <a
+                            href="{% url 'manage_games' %}"
+                            class="btn btn-light fw-semibold mt-auto"
+                        >
+                            {% trans "Manage Games" %}
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- VIDEOS -->
+
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <article class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                    <div class="card-body d-flex flex-column p-4">
+
+                        <span class="text-secondary fw-semibold mb-3">
+                            {% trans "Videos" %}
+                        </span>
+
+                        <div class="display-4 fw-bold mb-4">
+                            {{ tutorials_count }}
+                        </div>
+
+                        <a
+                            href="{% url 'manage_tutorials' %}"
+                            class="btn btn-light fw-semibold mt-auto"
+                        >
+                            {% trans "Manage Videos" %}
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- REVIEWS -->
+
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <article class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                    <div class="card-body d-flex flex-column p-4">
+
+                        <span class="text-secondary fw-semibold mb-3">
+                            {% trans "Reviews" %}
+                        </span>
+
+                        <div class="display-4 fw-bold mb-4">
+                            {{ reviews_count }}
+                        </div>
+
+                        <a
+                            href="{% url 'manage_reviews' %}"
+                            class="btn btn-light fw-semibold mt-auto"
+                        >
+                            {% trans "Manage Reviews" %}
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
 
         </div>
 

@@ -2,115 +2,220 @@
 {% load i18n %}
 
 {% block title %}
-{% trans "Manage Tutorials" %} - PlayGuide
+{% trans "Manage Videos" %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <!-- HEADER -->
 
-        <h1>
-            {% trans "Manage Tutorials" %}
-        </h1>
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5">
 
-        <p>
-            {% trans "Manage all video tutorials in PlayGuide." %}
-        </p>
+        <div>
 
-        <a href="{% url 'admin_dashboard' %}">
-            {% trans "Back to Admin Dashboard" %}
-        </a>
+            <h1 class="display-5 fw-bold mb-3">
+                {% trans "Manage Videos" %}
+            </h1>
 
-    </section>
-
-
-    <section class="admin-tutorials">
-
-        {% if tutorials %}
-
-            {% for tutorial in tutorials %}
-
-                <div class="admin-tutorial-card">
-
-                    <h3>
-                        {{ tutorial.title }}
-                    </h3>
-
-                    <p>
-                        {% trans "Game:" %}
-                        {{ tutorial.game.title }}
-                    </p>
-
-                    <p>
-                        {% trans "Publisher:" %}
-                        {{ tutorial.publisher.username }}
-                    </p>
-
-                    <p>
-                        {% trans "Status:" %}
-
-                        {% if tutorial.status == 'pending' %}
-
-                            {% trans "Pending" %}
-
-                        {% elif tutorial.status == 'approved' %}
-
-                            {% trans "Approved" %}
-
-                        {% elif tutorial.status == 'rejected' %}
-
-                            {% trans "Rejected" %}
-
-                        {% endif %}
-                    </p>
-
-                    <p>
-                        {% trans "Price:" %}
-
-                        {% if tutorial.price == 0 %}
-
-                            {% trans "Free" %}
-
-                        {% else %}
-
-                            {{ tutorial.price }} €
-
-                        {% endif %}
-                    </p>
-
-
-                    {% if tutorial.status == 'approved' %}
-
-                        <a href="{% url 'tutorial_detail' tutorial.id %}">
-                            {% trans "View Tutorial" %}
-                        </a>
-
-                    {% endif %}
-
-
-                    <a href="{% url 'edit_tutorial' tutorial.id %}">
-                        {% trans "Edit Tutorial" %}
-                    </a>
-
-                    <a href="{% url 'delete_tutorial' tutorial.id %}">
-                        {% trans "Delete Tutorial" %}
-                    </a>
-
-                </div>
-
-            {% endfor %}
-
-        {% else %}
-
-            <p>
-                {% trans "No tutorials are available." %}
+            <p class="text-secondary fs-5 mb-0">
+                {% trans "Manage all videos in PlayGuide." %}
             </p>
 
-        {% endif %}
+        </div>
+
+
+        <div>
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="btn btn-outline-light fw-semibold"
+            >
+                ← {% trans "Back to Admin Dashboard" %}
+            </a>
+
+        </div>
 
     </section>
+
+
+    <!-- VIDEOS -->
+
+    {% if tutorials %}
+
+        <section>
+
+            <div class="row g-4">
+
+                {% for tutorial in tutorials %}
+
+                    <div class="col-12 col-lg-6">
+
+                        <article class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                            <div class="card-body d-flex flex-column p-4">
+
+                                <!-- TITLE -->
+
+                                <h2 class="h4 fw-bold mb-3">
+                                    {{ tutorial.title }}
+                                </h2>
+
+
+                                <!-- GAME -->
+
+                                <p class="mb-2">
+
+                                    <span class="text-secondary">
+                                        {% trans "Game:" %}
+                                    </span>
+
+                                    <strong>
+                                        {{ tutorial.game.title }}
+                                    </strong>
+
+                                </p>
+
+
+                                <!-- PUBLISHER -->
+
+                                <p class="mb-2">
+
+                                    <span class="text-secondary">
+                                        {% trans "Publisher:" %}
+                                    </span>
+
+                                    <a
+                                        href="{% url 'profile' tutorial.publisher.username %}"
+                                        class="text-white fw-semibold text-decoration-none"
+                                    >
+                                        {{ tutorial.publisher.username }}
+                                    </a>
+
+                                </p>
+
+
+                                <!-- STATUS -->
+
+                                <div class="mb-3">
+
+                                    <span class="text-secondary me-2">
+                                        {% trans "Status:" %}
+                                    </span>
+
+
+                                    {% if tutorial.status == 'pending' %}
+
+                                        <span class="badge text-bg-warning">
+                                            {% trans "Pending" %}
+                                        </span>
+
+                                    {% elif tutorial.status == 'approved' %}
+
+                                        <span class="badge text-bg-success">
+                                            {% trans "Approved" %}
+                                        </span>
+
+                                    {% elif tutorial.status == 'rejected' %}
+
+                                        <span class="badge text-bg-danger">
+                                            {% trans "Rejected" %}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- PRICE -->
+
+                                <p class="mb-4">
+
+                                    <span class="text-secondary">
+                                        {% trans "Price:" %}
+                                    </span>
+
+                                    <strong>
+
+                                        {% if tutorial.price == 0 %}
+
+                                            {% trans "Free" %}
+
+                                        {% else %}
+
+                                            {{ tutorial.price }} €
+
+                                        {% endif %}
+
+                                    </strong>
+
+                                </p>
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="d-flex flex-wrap gap-2 mt-auto">
+
+                                    {% if tutorial.status == 'approved' %}
+
+                                        <a
+                                            href="{% url 'tutorial_detail' tutorial.id %}"
+                                            class="btn btn-outline-light btn-sm fw-semibold"
+                                        >
+                                            {% trans "View Video" %}
+                                        </a>
+
+                                    {% endif %}
+
+
+                                    <a
+                                        href="{% url 'edit_tutorial' tutorial.id %}"
+                                        class="btn btn-light btn-sm fw-semibold"
+                                    >
+                                        {% trans "Edit Video" %}
+                                    </a>
+
+
+                                    <a
+                                        href="{% url 'delete_tutorial' tutorial.id %}"
+                                        class="btn btn-danger btn-sm fw-semibold"
+                                    >
+                                        {% trans "Delete Video" %}
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+    {% else %}
+
+        <!-- EMPTY STATE -->
+
+        <section class="card bg-dark text-white border-secondary shadow-sm">
+
+            <div class="card-body text-center py-5 px-4">
+
+                <h2 class="h4 fw-bold mb-0">
+                    {% trans "No videos are available." %}
+                </h2>
+
+            </div>
+
+        </section>
+
+    {% endif %}
 
 </main>
 

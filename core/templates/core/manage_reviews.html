@@ -7,134 +7,260 @@
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <!-- HEADER -->
 
-        <h1>
-            {% trans "Manage Reviews" %}
-        </h1>
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5">
 
-        <p>
-            {% trans "Manage all user reviews in PlayGuide." %}
-        </p>
+        <div>
 
-        <a href="{% url 'admin_dashboard' %}">
-            {% trans "Back to Admin Dashboard" %}
-        </a>
+            <h1 class="display-5 fw-bold mb-3">
+                {% trans "Manage Reviews" %}
+            </h1>
 
-    </section>
-
-
-    <section class="admin-reviews">
-
-        {% if reviews %}
-
-            {% for review in reviews %}
-
-                <div class="admin-review-card">
-
-                    <h3>
-                        {{ review.game.title }}
-                    </h3>
-
-                    <p>
-                        {% trans "User:" %}
-                        {{ review.user.username }}
-                    </p>
-
-                    <p>
-                        {% trans "Rating:" %}
-                        {{ review.rating }}/5
-                    </p>
-
-                    <p>
-                        {{ review.comment }}
-                    </p>
-
-                    <p>
-                        {% trans "Status:" %}
-
-                        {% if review.status == 'pending' %}
-                            {% trans "Pending" %}
-                        {% elif review.status == 'approved' %}
-                            {% trans "Approved" %}
-                        {% elif review.status == 'rejected' %}
-                            {% trans "Rejected" %}
-                        {% endif %}
-                    </p>
-
-                    <p>
-                        {% trans "Created:" %}
-                        {{ review.created_at }}
-                    </p>
-
-
-                    <form
-                        method="POST"
-                        action="{% url 'update_review_status' review.id %}"
-                    >
-
-                        {% csrf_token %}
-
-                        <label>
-                            {% trans "Status" %}
-                        </label>
-
-                        <select name="status">
-
-                            <option
-                                value="pending"
-                                {% if review.status == 'pending' %}
-                                    selected
-                                {% endif %}
-                            >
-                                {% trans "Pending" %}
-                            </option>
-
-                            <option
-                                value="approved"
-                                {% if review.status == 'approved' %}
-                                    selected
-                                {% endif %}
-                            >
-                                {% trans "Approved" %}
-                            </option>
-
-                            <option
-                                value="rejected"
-                                {% if review.status == 'rejected' %}
-                                    selected
-                                {% endif %}
-                            >
-                                {% trans "Rejected" %}
-                            </option>
-
-                        </select>
-
-                        <button type="submit">
-                            {% trans "Update Status" %}
-                        </button>
-
-                    </form>
-
-                    <a href="{% url 'delete_review' review.id %}">
-                        {% trans "Delete Review" %}
-                    </a>
-
-                </div>
-
-            {% endfor %}
-
-        {% else %}
-
-            <p>
-                {% trans "No reviews are available." %}
+            <p class="text-secondary fs-5 mb-0">
+                {% trans "Manage all user reviews in PlayGuide." %}
             </p>
 
-        {% endif %}
+        </div>
+
+
+        <div>
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="btn btn-outline-light fw-semibold"
+            >
+                ← {% trans "Back to Admin Dashboard" %}
+            </a>
+
+        </div>
 
     </section>
+
+
+    <!-- REVIEWS -->
+
+    {% if reviews %}
+
+        <section>
+
+            <div class="row g-4">
+
+                {% for review in reviews %}
+
+                    <div class="col-12 col-xl-6">
+
+                        <article class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                            <div class="card-body d-flex flex-column p-4">
+
+                                <!-- GAME -->
+
+                                <h2 class="h4 fw-bold mb-3">
+
+                                    <a
+                                        href="{% url 'game_detail' review.game.id %}"
+                                        class="text-white text-decoration-none"
+                                    >
+                                        {{ review.game.title }}
+                                    </a>
+
+                                </h2>
+
+
+                                <!-- USER -->
+
+                                <p class="mb-2">
+
+                                    <span class="text-secondary">
+                                        {% trans "User:" %}
+                                    </span>
+
+                                    <a
+                                        href="{% url 'profile' review.user.username %}"
+                                        class="text-white fw-semibold text-decoration-none"
+                                    >
+                                        {{ review.user.username }}
+                                    </a>
+
+                                </p>
+
+
+                                <!-- RATING -->
+
+                                <p class="mb-3">
+
+                                    <span class="text-secondary">
+                                        {% trans "Rating:" %}
+                                    </span>
+
+                                    <strong>
+                                        {{ review.rating }}/5 ⭐
+                                    </strong>
+
+                                </p>
+
+
+                                <!-- REVIEW -->
+
+                                <p class="text-secondary mb-4">
+                                    {{ review.comment }}
+                                </p>
+
+
+                                <!-- STATUS -->
+
+                                <div class="mb-3">
+
+                                    <span class="text-secondary me-2">
+                                        {% trans "Status:" %}
+                                    </span>
+
+
+                                    {% if review.status == 'pending' %}
+
+                                        <span class="badge text-bg-warning">
+                                            {% trans "Pending" %}
+                                        </span>
+
+                                    {% elif review.status == 'approved' %}
+
+                                        <span class="badge text-bg-success">
+                                            {% trans "Approved" %}
+                                        </span>
+
+                                    {% elif review.status == 'rejected' %}
+
+                                        <span class="badge text-bg-danger">
+                                            {% trans "Rejected" %}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- CREATED -->
+
+                                <small class="text-secondary mb-4">
+                                    {% trans "Created:" %}
+                                    {{ review.created_at }}
+                                </small>
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="border-top border-secondary pt-4 mt-auto">
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'update_review_status' review.id %}"
+                                        class="mb-3"
+                                    >
+                                        {% csrf_token %}
+
+
+                                        <label
+                                            for="status-{{ review.id }}"
+                                            class="form-label fw-semibold"
+                                        >
+                                            {% trans "Status" %}
+                                        </label>
+
+
+                                        <div class="d-flex flex-column flex-sm-row gap-2">
+
+                                            <select
+                                                id="status-{{ review.id }}"
+                                                name="status"
+                                                class="form-select"
+                                            >
+
+                                                <option
+                                                    value="pending"
+                                                    {% if review.status == 'pending' %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    {% trans "Pending" %}
+                                                </option>
+
+
+                                                <option
+                                                    value="approved"
+                                                    {% if review.status == 'approved' %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    {% trans "Approved" %}
+                                                </option>
+
+
+                                                <option
+                                                    value="rejected"
+                                                    {% if review.status == 'rejected' %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    {% trans "Rejected" %}
+                                                </option>
+
+                                            </select>
+
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-light fw-semibold text-nowrap"
+                                            >
+                                                {% trans "Update Status" %}
+                                            </button>
+
+                                        </div>
+
+                                    </form>
+
+
+                                    <a
+                                        href="{% url 'delete_review' review.id %}"
+                                        class="btn btn-danger btn-sm fw-semibold"
+                                    >
+                                        {% trans "Delete Review" %}
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+    {% else %}
+
+        <!-- EMPTY STATE -->
+
+        <section class="card bg-dark text-white border-secondary shadow-sm">
+
+            <div class="card-body text-center py-5 px-4">
+
+                <h2 class="h4 fw-bold mb-0">
+                    {% trans "No reviews are available." %}
+                </h2>
+
+            </div>
+
+        </section>
+
+    {% endif %}
 
 </main>
 

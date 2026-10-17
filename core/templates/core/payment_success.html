@@ -7,19 +7,41 @@
 
 {% block content %}
 
-<main>
+<main class="container py-5">
 
-    <h1>
-        {% trans "Payment Successful" %}
-    </h1>
+    <section
+        class="mx-auto"
+        style="max-width: 560px;"
+    >
 
-    <p>
-        {% trans "Your tutorial purchase has been completed successfully." %}
-    </p>
+        <div class="card bg-dark text-white border-success shadow-sm">
 
-    <a href="{% url 'library' %}">
-        {% trans "Go to Library" %}
-    </a>
+            <div class="card-body p-4 p-md-5 text-center">
+
+                <div class="fs-1 mb-3">
+                    ✅
+                </div>
+
+                <h1 class="display-6 fw-bold mb-3">
+                    {% trans "Payment Successful" %}
+                </h1>
+
+                <p class="text-secondary mb-4">
+                    {% trans "Your video purchase has been completed successfully." %}
+                </p>
+
+                <a
+                    href="{% url 'library' %}"
+                    class="btn btn-light fw-semibold px-4"
+                >
+                    {% trans "Go to Library" %}
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </main>
 

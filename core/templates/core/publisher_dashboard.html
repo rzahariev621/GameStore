@@ -7,29 +7,35 @@
 
 {% block content %}
 
-<main class="publisher-page">
+<main class="container py-5">
 
-    <section class="publisher-header">
+    <!-- HEADER -->
+
+    <section class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-5">
 
         <div>
 
-            <h1>
+            <h1 class="display-5 fw-bold mb-3">
                 {% trans "Publisher Dashboard" %}
             </h1>
 
-            <p>
-                {% trans "Manage your video tutorials, Creator Points and track their approval status." %}
+            <p class="text-secondary fs-5 mb-0">
+                {% trans "Manage your videos, Creator Points and track their approval status." %}
             </p>
 
         </div>
 
 
-        <a
-            href="{% url 'upload_tutorial' %}"
-            class="publisher-upload-button"
-        >
-            {% trans "Upload Tutorial" %}
-        </a>
+        <div>
+
+            <a
+                href="{% url 'upload_tutorial' %}"
+                class="btn btn-light fw-semibold px-4 py-2"
+            >
+                {% trans "Upload Video" %}
+            </a>
+
+        </div>
 
     </section>
 
@@ -40,21 +46,24 @@
 
         <div class="row g-4">
 
+            <!-- BALANCE -->
+
             <div class="col-12 col-lg-4">
 
-                <div class="card bg-dark text-white border-secondary h-100">
+                <article class="card bg-dark text-white border-secondary shadow-sm h-100">
 
-                    <div class="card-body">
+                    <div class="card-body p-4">
 
-                        <h2 class="h4">
+                        <h2 class="h4 fw-bold mb-3">
                             Creator Points
                         </h2>
 
-                        <p class="text-secondary">
+                        <p class="text-secondary mb-4">
                             {% trans "Your current available balance." %}
                         </p>
 
-                        <div class="display-5 fw-bold mt-4">
+
+                        <div class="display-4 fw-bold">
                             {{ creator_account.balance }}
                         </div>
 
@@ -64,18 +73,20 @@
 
                     </div>
 
-                </div>
+                </article>
 
             </div>
 
 
+            <!-- TRANSACTION HISTORY -->
+
             <div class="col-12 col-lg-8">
 
-                <div class="card bg-dark text-white border-secondary h-100">
+                <article class="card bg-dark text-white border-secondary shadow-sm h-100">
 
-                    <div class="card-body">
+                    <div class="card-body p-4">
 
-                        <h2 class="h4 mb-4">
+                        <h2 class="h4 fw-bold mb-4">
                             {% trans "Transaction History" %}
                         </h2>
 
@@ -90,19 +101,19 @@
 
                                         <tr>
 
-                                            <th>
+                                            <th scope="col">
                                                 {% trans "Type" %}
                                             </th>
 
-                                            <th>
-                                                {% trans "Tutorial" %}
+                                            <th scope="col">
+                                                {% trans "Video" %}
                                             </th>
 
-                                            <th>
+                                            <th scope="col">
                                                 {% trans "Amount" %}
                                             </th>
 
-                                            <th>
+                                            <th scope="col">
                                                 {% trans "Date" %}
                                             </th>
 
@@ -117,20 +128,28 @@
 
                                             <tr>
 
+                                                <!-- TYPE -->
+
                                                 <td>
 
                                                     {% if transaction.transaction_type == 'purchase' %}
 
-                                                        {% trans "Tutorial Purchase" %}
+                                                        <span class="badge text-bg-danger">
+                                                            {% trans "Video Purchase" %}
+                                                        </span>
 
                                                     {% elif transaction.transaction_type == 'sale' %}
 
-                                                        {% trans "Tutorial Sale" %}
+                                                        <span class="badge text-bg-success">
+                                                            {% trans "Video Sale" %}
+                                                        </span>
 
                                                     {% endif %}
 
                                                 </td>
 
+
+                                                <!-- VIDEO -->
 
                                                 <td>
 
@@ -140,33 +159,39 @@
 
                                                     {% else %}
 
-                                                        {% trans "Tutorial unavailable" %}
+                                                        <span class="text-secondary">
+                                                            {% trans "Video unavailable" %}
+                                                        </span>
 
                                                     {% endif %}
 
                                                 </td>
 
+
+                                                <!-- AMOUNT -->
 
                                                 <td>
 
                                                     {% if transaction.transaction_type == 'purchase' %}
 
-                                                        <span class="text-danger">
+                                                        <strong class="text-danger">
                                                             -{{ transaction.amount }}
-                                                        </span>
+                                                        </strong>
 
                                                     {% else %}
 
-                                                        <span class="text-success">
+                                                        <strong class="text-success">
                                                             +{{ transaction.amount }}
-                                                        </span>
+                                                        </strong>
 
                                                     {% endif %}
 
                                                 </td>
 
 
-                                                <td>
+                                                <!-- DATE -->
+
+                                                <td class="text-secondary text-nowrap">
                                                     {{ transaction.created_at }}
                                                 </td>
 
@@ -180,17 +205,22 @@
 
                             </div>
 
+
                         {% else %}
 
-                            <p class="text-secondary mb-0">
-                                {% trans "No Creator Point transactions yet." %}
-                            </p>
+                            <div class="text-center py-4">
+
+                                <p class="text-secondary mb-0">
+                                    {% trans "No Creator Point transactions yet." %}
+                                </p>
+
+                            </div>
 
                         {% endif %}
 
                     </div>
 
-                </div>
+                </article>
 
             </div>
 
@@ -199,22 +229,25 @@
     </section>
 
 
-    <!-- MY TUTORIALS -->
+    <!-- MY VIDEOS -->
 
-    <section class="publisher-tutorials">
+    <section>
 
-        <div class="publisher-section-header">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 border-bottom border-secondary pb-3 mb-4">
 
-            <h2>
-                {% trans "My Tutorials" %}
+            <h2 class="h3 fw-bold mb-0">
+                {% trans "My Videos" %}
             </h2>
 
-            <span>
+
+            <span class="text-secondary">
+
                 {% blocktrans trimmed count tutorial_count=tutorials|length %}
-                {{ tutorial_count }} tutorial
+                {{ tutorial_count }} video
                 {% plural %}
-                {{ tutorial_count }} tutorials
+                {{ tutorial_count }} videos
                 {% endblocktrans %}
+
             </span>
 
         </div>
@@ -222,77 +255,95 @@
 
         {% if tutorials %}
 
-            <div class="publisher-tutorial-list">
+            <div class="row g-4">
 
                 {% for tutorial in tutorials %}
 
-                    <div class="publisher-tutorial-card">
+                    <div class="col-12 col-lg-6">
 
-                        <div class="publisher-tutorial-info">
+                        <article class="card bg-dark text-white border-secondary shadow-sm h-100">
 
-                            <span class="publisher-game-name">
-                                {{ tutorial.game.title }}
-                            </span>
+                            <div class="card-body d-flex flex-column p-4">
 
+                                <!-- GAME -->
 
-                            <h3>
-                                {{ tutorial.title }}
-                            </h3>
-
-
-                            <p>
-                                {{ tutorial.description }}
-                            </p>
-
-
-                            <div class="publisher-tutorial-meta">
-
-                                {% if tutorial.price == 0 %}
-
-                                    <span>
-                                        {% trans "Free" %}
-                                    </span>
-
-                                {% else %}
-
-                                    <span>
-                                        {{ tutorial.price }} €
-                                    </span>
-
-                                {% endif %}
-
-
-                                <span>
-                                    {% trans "Uploaded:" %}
-                                    {{ tutorial.created_at }}
+                                <span class="text-secondary fw-semibold mb-2">
+                                    {{ tutorial.game.title }}
                                 </span>
+
+
+                                <!-- TITLE -->
+
+                                <h3 class="h4 fw-bold mb-3">
+                                    {{ tutorial.title }}
+                                </h3>
+
+
+                                <!-- DESCRIPTION -->
+
+                                <p class="text-secondary mb-4">
+                                    {{ tutorial.description }}
+                                </p>
+
+
+                                <!-- META -->
+
+                                <div class="d-flex flex-wrap gap-3 mb-4">
+
+                                    {% if tutorial.price == 0 %}
+
+                                        <span class="fw-semibold">
+                                            {% trans "Free" %}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="fw-semibold">
+                                            {{ tutorial.price }} €
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    <span class="text-secondary">
+
+                                        {% trans "Uploaded:" %}
+                                        {{ tutorial.created_at }}
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- STATUS -->
+
+                                <div class="mt-auto">
+
+                                    {% if tutorial.status == 'pending' %}
+
+                                        <span class="badge text-bg-warning px-3 py-2">
+                                            {% trans "Pending" %}
+                                        </span>
+
+                                    {% elif tutorial.status == 'approved' %}
+
+                                        <span class="badge text-bg-success px-3 py-2">
+                                            {% trans "Approved" %}
+                                        </span>
+
+                                    {% elif tutorial.status == 'rejected' %}
+
+                                        <span class="badge text-bg-danger px-3 py-2">
+                                            {% trans "Rejected" %}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
 
                             </div>
 
-                        </div>
-
-
-                        <div class="publisher-tutorial-status">
-
-                            <span class="tutorial-status status-{{ tutorial.status }}">
-
-                                {% if tutorial.status == 'pending' %}
-
-                                    {% trans "Pending" %}
-
-                                {% elif tutorial.status == 'approved' %}
-
-                                    {% trans "Approved" %}
-
-                                {% elif tutorial.status == 'rejected' %}
-
-                                    {% trans "Rejected" %}
-
-                                {% endif %}
-
-                            </span>
-
-                        </div>
+                        </article>
 
                     </div>
 
@@ -300,19 +351,33 @@
 
             </div>
 
+
         {% else %}
 
-            <div class="publisher-empty">
+            <!-- EMPTY STATE -->
 
-                <h3>
-                    {% trans "No tutorials uploaded yet" %}
-                </h3>
+            <article class="card bg-dark text-white border-secondary shadow-sm">
 
-                <p>
-                    {% trans "Your uploaded tutorials will appear here." %}
-                </p>
+                <div class="card-body text-center py-5 px-4">
 
-            </div>
+                    <h3 class="h4 fw-bold mb-3">
+                        {% trans "No videos uploaded yet" %}
+                    </h3>
+
+                    <p class="text-secondary mb-4">
+                        {% trans "Your uploaded videos will appear here." %}
+                    </p>
+
+                    <a
+                        href="{% url 'upload_tutorial' %}"
+                        class="btn btn-light fw-semibold px-4"
+                    >
+                        {% trans "Upload Video" %}
+                    </a>
+
+                </div>
+
+            </article>
 
         {% endif %}
 

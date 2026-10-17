@@ -24,6 +24,41 @@ class VideoTutorialForm(forms.ModelForm):
             'price': _('Price'),
         }
 
+        widgets = {
+            'game': forms.Select(
+                attrs={
+                    'class': 'form-select',
+                }
+            ),
+
+            'title': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': 5,
+                }
+            ),
+
+            'video': forms.ClearableFileInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'price': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'step': '0.01',
+                    'min': '0',
+                }
+            ),
+        }
+
 
 class GameForm(forms.ModelForm):
     class Meta:
@@ -41,6 +76,35 @@ class GameForm(forms.ModelForm):
             'description': _('Description'),
             'release_date': _('Release date'),
             'cover': _('Cover'),
+        }
+
+        widgets = {
+            'title': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': 5,
+                }
+            ),
+
+            'release_date': forms.DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'date',
+                },
+                format='%Y-%m-%d',
+            ),
+
+            'cover': forms.ClearableFileInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
         }
 
 
@@ -76,6 +140,70 @@ class GameRequirementForm(forms.ModelForm):
             'recommended_network': _('Recommended Network'),
         }
 
+        widgets = {
+            'minimum_cpu': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'minimum_gpu': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'minimum_ram_gb': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'min': '0',
+                }
+            ),
+
+            'minimum_storage': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'minimum_network': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'recommended_cpu': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'recommended_gpu': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'recommended_ram_gb': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'min': '0',
+                }
+            ),
+
+            'recommended_storage': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'recommended_network': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+        }
+
 
 class AdminTutorialForm(forms.ModelForm):
     class Meta:
@@ -97,4 +225,45 @@ class AdminTutorialForm(forms.ModelForm):
             'video': _('Video'),
             'price': _('Price'),
             'status': _('Status'),
+        }
+
+        widgets = {
+            'game': forms.Select(
+                attrs={
+                    'class': 'form-select',
+                }
+            ),
+
+            'title': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': 5,
+                }
+            ),
+
+            'video': forms.ClearableFileInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+
+            'price': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'step': '0.01',
+                    'min': '0',
+                }
+            ),
+
+            'status': forms.Select(
+                attrs={
+                    'class': 'form-select',
+                }
+            ),
         }

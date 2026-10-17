@@ -7,20 +7,159 @@
 
 {% block content %}
 
+<!-- HERO -->
+
 <main class="hero">
 
-    <h1>
-        {% trans "Welcome to" %} PlayGuide! 🎮
-    </h1>
+    <div class="container">
 
-    <p>
-        {% trans "Discover your next favorite game." %}
-    </p>
+        <h1 class="fw-bold">
+            {% trans "Welcome to" %} PlayGuide! 🎮
+        </h1>
 
-    <button>
-        {% trans "Browse Games" %}
-    </button>
+        <p class="mx-auto" style="max-width: 750px;">
+            {% trans "Discover games, explore videos and connect with other players." %}
+        </p>
+
+
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+
+            <a
+                href="{% url 'store' %}"
+                class="btn btn-light btn-lg fw-semibold px-4"
+            >
+                {% trans "Browse Games" %}
+            </a>
+
+            <a
+                href="{% url 'community' %}"
+                class="btn btn-outline-light btn-lg fw-semibold px-4"
+            >
+                {% trans "Community" %}
+            </a>
+
+        </div>
+
+    </div>
 
 </main>
+
+
+<!-- FEATURES -->
+
+<section class="container pb-5">
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold mb-3">
+            {% trans "Explore PlayGuide" %}
+        </h2>
+
+        <p class="text-secondary fs-5 mb-0">
+            {% trans "Everything you need to discover games and learn more about them." %}
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- GAMES -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="fs-1 mb-3">
+                        🎮
+                    </div>
+
+                    <h3 class="h4 fw-bold mb-3">
+                        {% trans "Games" %}
+                    </h3>
+
+                    <p class="text-secondary mb-4">
+                        {% trans "Browse the game catalog, view system requirements and discover new games." %}
+                    </p>
+
+                    <a
+                        href="{% url 'store' %}"
+                        class="btn btn-outline-light fw-semibold"
+                    >
+                        {% trans "Browse Games" %}
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VIDEOS -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="fs-1 mb-3">
+                        🎥
+                    </div>
+
+                    <h3 class="h4 fw-bold mb-3">
+                        {% trans "Videos" %}
+                    </h3>
+
+                    <p class="text-secondary mb-0">
+                        {% trans "Learn from videos created by publishers for the games you enjoy." %}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- COMMUNITY -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card bg-dark text-white border-secondary shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="fs-1 mb-3">
+                        👥
+                    </div>
+
+                    <h3 class="h4 fw-bold mb-3">
+                        {% trans "Community" %}
+                    </h3>
+
+                    <p class="text-secondary mb-4">
+                        {% trans "Find other players, make friends, share reviews and stay connected." %}
+                    </p>
+
+                    <a
+                        href="{% url 'community' %}"
+                        class="btn btn-outline-light fw-semibold"
+                    >
+                        {% trans "Community" %}
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}

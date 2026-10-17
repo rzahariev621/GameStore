@@ -2,51 +2,81 @@
 {% load i18n %}
 
 {% block title %}
-{% blocktrans with game_title=game.title %}Delete {{ game_title }}{% endblocktrans %} - PlayGuide
+{% blocktrans trimmed with game_title=game.title %}Delete {{ game_title }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <section class="mx-auto" style="max-width: 700px;">
 
-        <h1>
-            {% trans "Delete Game" %}
-        </h1>
+        <div class="card bg-dark text-white border-danger shadow-sm">
 
-    </section>
+            <div class="card-body p-4 p-md-5">
 
+                <!-- HEADER -->
 
-    <section class="admin-form">
+                <div class="mb-4">
 
-        <h2>
-            {% blocktrans with game_title=game.title %}Are you sure you want to delete "{{ game_title }}"?{% endblocktrans %}
-        </h2>
+                    <h1 class="display-6 fw-bold text-danger mb-3">
+                        {% trans "Delete Game" %}
+                    </h1>
 
-        <p>
-            {% trans "This action cannot be undone." %}
-        </p>
+                    <h2 class="h4 fw-semibold">
+                        {% blocktrans trimmed with game_title=game.title %}
+                        Are you sure you want to delete "{{ game_title }}"?
+                        {% endblocktrans %}
+                    </h2>
 
-        <p>
-            {% trans "Related tutorials, reviews and system requirements may also be deleted." %}
-        </p>
-
-
-        <form method="POST">
-
-            {% csrf_token %}
-
-            <button type="submit">
-                {% trans "Yes, Delete Game" %}
-            </button>
-
-        </form>
+                </div>
 
 
-        <a href="{% url 'manage_games' %}">
-            {% trans "Cancel" %}
-        </a>
+                <!-- WARNING -->
+
+                <div class="alert alert-danger mb-4">
+
+                    <p class="fw-semibold mb-2">
+                        {% trans "This action cannot be undone." %}
+                    </p>
+
+                    <p class="mb-0">
+                        {% trans "Related videos, reviews and system requirements may also be deleted." %}
+                    </p>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="d-flex flex-column flex-sm-row gap-2">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger fw-semibold px-4"
+                        >
+                            {% trans "Yes, Delete Game" %}
+                        </button>
+
+                    </form>
+
+
+                    <a
+                        href="{% url 'manage_games' %}"
+                        class="btn btn-outline-light fw-semibold px-4"
+                    >
+                        {% trans "Cancel" %}
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </section>
 

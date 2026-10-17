@@ -2,57 +2,109 @@
 {% load i18n %}
 
 {% block title %}
-{% blocktrans with tutorial_title=tutorial.title %}Delete {{ tutorial_title }}{% endblocktrans %} - PlayGuide
+{% blocktrans trimmed with tutorial_title=tutorial.title %}Delete {{ tutorial_title }}{% endblocktrans %} - PlayGuide
 {% endblock %}
 
 {% block content %}
 
-<main class="admin-page">
+<main class="container py-5">
 
-    <section class="admin-header">
+    <section class="mx-auto" style="max-width: 700px;">
 
-        <h1>
-            {% trans "Delete Tutorial" %}
-        </h1>
+        <div class="card bg-dark text-white border-danger shadow-sm">
 
-    </section>
+            <div class="card-body p-4 p-md-5">
 
+                <!-- HEADER -->
 
-    <section class="admin-form">
+                <div class="mb-4">
 
-        <h2>
-            {% blocktrans with tutorial_title=tutorial.title %}Are you sure you want to delete "{{ tutorial_title }}"?{% endblocktrans %}
-        </h2>
+                    <h1 class="display-6 fw-bold text-danger mb-3">
+                        {% trans "Delete Video" %}
+                    </h1>
 
-        <p>
-            {% trans "Game:" %}
-            {{ tutorial.game.title }}
-        </p>
+                    <h2 class="h4 fw-semibold">
+                        {% blocktrans trimmed with tutorial_title=tutorial.title %}
+                        Are you sure you want to delete "{{ tutorial_title }}"?
+                        {% endblocktrans %}
+                    </h2>
 
-        <p>
-            {% trans "Publisher:" %}
-            {{ tutorial.publisher.username }}
-        </p>
-
-        <p>
-            {% trans "This action cannot be undone." %}
-        </p>
+                </div>
 
 
-        <form method="POST">
+                <!-- VIDEO INFO -->
 
-            {% csrf_token %}
+                <div class="border border-secondary rounded-3 p-3 mb-4">
 
-            <button type="submit">
-                {% trans "Yes, Delete Tutorial" %}
-            </button>
+                    <p class="mb-2">
 
-        </form>
+                        <span class="text-secondary">
+                            {% trans "Game:" %}
+                        </span>
+
+                        <strong>
+                            {{ tutorial.game.title }}
+                        </strong>
+
+                    </p>
 
 
-        <a href="{% url 'manage_tutorials' %}">
-            {% trans "Cancel" %}
-        </a>
+                    <p class="mb-0">
+
+                        <span class="text-secondary">
+                            {% trans "Publisher:" %}
+                        </span>
+
+                        <strong>
+                            {{ tutorial.publisher.username }}
+                        </strong>
+
+                    </p>
+
+                </div>
+
+
+                <!-- WARNING -->
+
+                <div class="alert alert-danger mb-4">
+
+                    <p class="fw-semibold mb-0">
+                        {% trans "This action cannot be undone." %}
+                    </p>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="d-flex flex-column flex-sm-row gap-2">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger fw-semibold px-4"
+                        >
+                            {% trans "Yes, Delete Video" %}
+                        </button>
+
+                    </form>
+
+
+                    <a
+                        href="{% url 'manage_tutorials' %}"
+                        class="btn btn-outline-light fw-semibold px-4"
+                    >
+                        {% trans "Cancel" %}
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </section>
 

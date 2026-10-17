@@ -7,79 +7,158 @@
 
 {% block content %}
 
-<main class="login-page">
+<main class="container py-5">
 
-    <div class="login-box">
+    <section
+        class="mx-auto"
+        style="max-width: 520px;"
+    >
 
-        <h1>
-            {% trans "Create Account" %}
-        </h1>
+        <div class="card bg-dark text-white border-secondary shadow-sm">
 
-        {% if error %}
-            <p class="login-error">
-                {{ error }}
-            </p>
-        {% endif %}
+            <div class="card-body p-4 p-md-5">
 
-        <form method="POST">
+                <!-- HEADER -->
 
-            {% csrf_token %}
+                <div class="text-center mb-4">
 
-            <label for="username">
-                {% trans "Username" %}
-            </label>
+                    <h1 class="display-6 fw-bold mb-2">
+                        {% trans "Create Account" %}
+                    </h1>
 
-            <input
-                type="text"
-                id="username"
-                name="username"
-                required
-            >
+                    <p class="text-secondary mb-0">
+                        PlayGuide
+                    </p>
+
+                </div>
 
 
-            <label for="email">
-                {% trans "Email" %}
-            </label>
+                <!-- ERROR -->
 
-            <input
-                type="email"
-                id="email"
-                name="email"
-                required
-            >
+                {% if error %}
 
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
 
-            <label for="password">
-                {% trans "Password" %}
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
+                {% endif %}
 
 
-            <label for="password_confirm">
-                {% trans "Confirm Password" %}
-            </label>
+                <!-- FORM -->
 
-            <input
-                type="password"
-                id="password_confirm"
-                name="password_confirm"
-                required
-            >
+                <form method="POST">
+
+                    {% csrf_token %}
 
 
-            <button type="submit">
-                {% trans "Create Account" %}
-            </button>
+                    <!-- USERNAME -->
 
-        </form>
+                    <div class="mb-3">
 
-    </div>
+                        <label
+                            for="username"
+                            class="form-label fw-semibold"
+                        >
+                            {% trans "Username" %}
+                        </label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            class="form-control"
+                            required
+                            autocomplete="username"
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="email"
+                            class="form-label fw-semibold"
+                        >
+                            {% trans "Email" %}
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            required
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="password"
+                            class="form-label fw-semibold"
+                        >
+                            {% trans "Password" %}
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            required
+                            autocomplete="new-password"
+                        >
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="password_confirm"
+                            class="form-label fw-semibold"
+                        >
+                            {% trans "Confirm Password" %}
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password_confirm"
+                            name="password_confirm"
+                            class="form-control"
+                            required
+                            autocomplete="new-password"
+                        >
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-light fw-semibold w-100 py-2"
+                    >
+                        {% trans "Create Account" %}
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </main>
 
