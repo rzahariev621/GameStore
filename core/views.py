@@ -151,15 +151,13 @@ def login(request):
             return redirect('home')
 
         else:
-            return render(
-                request,
-                'core/login.html',
-                {
-                    'error': _('Wrong username or password.')
-                }
-            )
+            return render(request, 'core/login.html',{'error': _('Wrong username or password.')})
 
     return render(request, 'core/login.html')
+
+def logout_user(request):
+    auth_logout(request)
+    return redirect('home')
 
 
 def register(request):
@@ -172,31 +170,13 @@ def register(request):
         password_confirm = request.POST['password_confirm']
 
         if password != password_confirm:
-            return render(
-                request,
-                'core/register.html',
-                {
-                    'error': _('Passwords are not matching.')
-                }
-            )
+            return render(request, 'core/register.html',{'error': _('Passwords are not matching.')})
 
         if User.objects.filter(username=username).exists():
-            return render(
-                request,
-                'core/register.html',
-                {
-                    'error': _('Username already exists.')
-                }
-            )
+            return render(request, 'core/register.html',{'error': _('Username already exists.')})
 
         if User.objects.filter(email=email).exists():
-            return render(
-                request,
-                'core/register.html',
-                {
-                    'error': _('Email is already in use.')
-                }
-            )
+            return render(request,'core/register.html',{'error': _('Email is already in use.')})
 
         user = User.objects.create_user(
             username=username,
@@ -208,14 +188,7 @@ def register(request):
 
         return redirect('home')
 
-    return render(
-        request,
-        'core/register.html'
-    )
-
-def logout_user(request):
-    auth_logout(request)
-    return redirect('home')
+    return render(request,'core/register.html')
 
 #GAME DETAILS
 
@@ -275,10 +248,7 @@ def add_review(request, game_id):
                 }
             )
 
-    return redirect(
-        'game_detail',
-        game_id=game.id
-    )
+    return redirect('game_detail',game_id=game.id)
 
 #WISHLIST
 
@@ -423,10 +393,7 @@ def send_friend_request(request, username):
                     receiver=receiver
                 )
 
-    return redirect(
-        'profile',
-        username=receiver.username
-    )
+    return redirect('profile', username=receiver.username)
 
 
 @login_required
@@ -434,10 +401,7 @@ def accept_friend_request(request, username):
     sender = get_object_or_404(User, username=username)
 
     if users_are_blocked(request.user, sender):
-        return redirect(
-            'profile',
-            username=sender.username
-        )
+        return redirect('profile',username=sender.username)
 
     if request.method == 'POST':
 
@@ -451,10 +415,7 @@ def accept_friend_request(request, username):
             friend_request.status = 'accepted'
             friend_request.save()
 
-    return redirect(
-        'profile',
-        username=sender.username
-    )
+    return redirect('profile', username=sender.username)
 
 #PUBLISHER
 @login_required
@@ -470,9 +431,7 @@ def publisher_dashboard(request):
         publisher=request.user
     ).order_by('-created_at')
 
-    creator_account, created = CreatorPointAccount.objects.get_or_create(
-        user=request.user
-    )
+    creator_account, created = CreatorPointAccount.objects.get_or_create(user=request.user)
 
     transactions = CreatorPointTransaction.objects.filter(
         user=request.user
@@ -480,9 +439,7 @@ def publisher_dashboard(request):
         'tutorial'
     ).order_by('-created_at')
 
-    return render(
-        request,
-        'core/publisher_dashboard.html',
+    return render(request,'core/publisher_dashboard.html',
         {
             'tutorials': tutorials,
             'creator_account': creator_account,
@@ -521,13 +478,7 @@ def upload_tutorial(request):
     else:
         form = VideoTutorialForm()
 
-    return render(
-        request,
-        'core/upload_tutorial.html',
-        {
-            'form': form
-        }
-    )
+    return render(request, 'core/upload_tutorial.html',{'form': form})
 
 #TUTORAL DETAILS
 
@@ -586,9 +537,7 @@ def tutorial_detail(request, tutorial_id):
         or is_owner
     )
 
-    return render(
-        request,
-        'core/tutorial_detail.html',
+    return render(request, 'core/tutorial_detail.html',
         {
             'tutorial': tutorial,
             'is_purchased': is_purchased,
@@ -635,9 +584,7 @@ def moderator_dashboard(request):
         'reporter'
     ).order_by('created_at')
 
-    return render(
-        request,
-        'core/moderator_dashboard.html',
+    return render(request,'core/moderator_dashboard.html',
         {
             'pending_tutorials': pending_tutorials,
             'pending_reviews': pending_reviews,
@@ -736,10 +683,6 @@ def reject_review(request, review_id):
     return redirect('moderator_dashboard')
 
 
-
-
-
-
 @login_required
 def resolve_tutorial_report(request, report_id):
     is_moderator = request.user.groups.filter(
@@ -773,42 +716,26 @@ def create_checkout_session(request, tutorial_id):
         status='approved'
     )
 
-    # Free tutorial
     if tutorial.price == 0:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail', tutorial_id=tutorial.id)
 
-    # Publisher cannot buy their own tutorial
     if tutorial.publisher == request.user:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail', tutorial_id=tutorial.id)
 
-    # Publishers do not use Stripe
     is_publisher = request.user.groups.filter(
         name='Publisher'
     ).exists()
 
     if is_publisher:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail', tutorial_id=tutorial.id)
 
-    # Already purchased
     already_purchased = TutorialPurchase.objects.filter(
         user=request.user,
         tutorial=tutorial
     ).exists()
 
     if already_purchased:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail',tutorial_id=tutorial.id)
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -830,9 +757,7 @@ def create_checkout_session(request, tutorial_id):
             }
         ],
 
-        success_url=request.build_absolute_uri(
-            '/payment/success/'
-        ),
+        success_url=request.build_absolute_uri('/payment/success/'),
 
         cancel_url=request.build_absolute_uri(
             f'/tutorial/{tutorial.id}/'
@@ -844,18 +769,12 @@ def create_checkout_session(request, tutorial_id):
         }
     )
 
-    return redirect(
-        checkout_session.url,
-        code=303
-    )
+    return redirect(checkout_session.url, code=303)
 
 
 @login_required
 def payment_success(request):
-    return render(
-        request,
-        'core/payment_success.html'
-    )
+    return render(request, 'core/payment_success.html')
 
 
 #WEBHOOK
@@ -1459,22 +1378,13 @@ def chat_view(request, username):
     )
 
     if other_user == request.user:
-        return redirect(
-            'profile',
-            username=request.user.username
-        )
+        return redirect('profile', username=request.user.username)
 
     if users_are_blocked(request.user, other_user):
-        return redirect(
-            'profile',
-            username=other_user.username
-        )
+        return redirect('profile', username=other_user.username)
 
     if not users_are_friends(request.user, other_user):
-        return redirect(
-            'profile',
-            username=other_user.username
-        )
+        return redirect('profile', username=other_user.username)
 
     if request.method == 'POST':
         text = request.POST.get('text', '').strip()
@@ -1486,10 +1396,7 @@ def chat_view(request, username):
                 text=text
             )
 
-        return redirect(
-            'chat',
-            username=other_user.username
-        )
+        return redirect('chat', username=other_user.username)
 
     conversation = Message.objects.filter(
         Q(
@@ -1505,9 +1412,7 @@ def chat_view(request, username):
         'receiver'
     ).order_by('created_at')
 
-    return render(
-        request,
-        'core/chat.html',
+    return render(request,'core/chat.html',
         {
             'other_user': other_user,
             'conversation': conversation
@@ -1643,10 +1548,7 @@ def report_tutorial(request, tutorial_id):
     )
 
     if request.user == tutorial.publisher:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail', tutorial_id=tutorial.id)
 
     if request.method == 'POST':
         reason = request.POST.get('reason', '').strip()
@@ -1660,10 +1562,7 @@ def report_tutorial(request, tutorial_id):
                 }
             )
 
-    return redirect(
-        'tutorial_detail',
-        tutorial_id=tutorial.id
-    )
+    return redirect('tutorial_detail', tutorial_id=tutorial.id)
 
 
 #CREATOR POINTS
@@ -1681,28 +1580,16 @@ def buy_with_creator_points(request, tutorial_id):
     ).exists()
 
     if not is_publisher:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail',tutorial_id=tutorial.id)
 
     if tutorial.publisher == request.user:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail',tutorial_id=tutorial.id)
 
     if tutorial.price == 0:
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail',tutorial_id=tutorial.id)
 
     if request.method != 'POST':
-        return redirect(
-            'tutorial_detail',
-            tutorial_id=tutorial.id
-        )
+        return redirect('tutorial_detail',tutorial_id=tutorial.id)
 
     with transaction.atomic():
 
@@ -1714,13 +1601,9 @@ def buy_with_creator_points(request, tutorial_id):
             user=tutorial.publisher
         )
 
-        buyer_account = CreatorPointAccount.objects.select_for_update().get(
-            user=request.user
-        )
+        buyer_account = CreatorPointAccount.objects.select_for_update().get(user=request.user)
 
-        seller_account = CreatorPointAccount.objects.select_for_update().get(
-            user=tutorial.publisher
-        )
+        seller_account = CreatorPointAccount.objects.select_for_update().get(user=tutorial.publisher)
 
         already_purchased = TutorialPurchase.objects.filter(
             user=request.user,
@@ -1728,16 +1611,10 @@ def buy_with_creator_points(request, tutorial_id):
         ).exists()
 
         if already_purchased:
-            return redirect(
-                'tutorial_detail',
-                tutorial_id=tutorial.id
-            )
+            return redirect('tutorial_detail',tutorial_id=tutorial.id)
 
         if buyer_account.balance < tutorial.price:
-            return redirect(
-                'tutorial_detail',
-                tutorial_id=tutorial.id
-            )
+            return redirect('tutorial_detail',tutorial_id=tutorial.id)
 
         buyer_account.balance -= tutorial.price
         seller_account.balance += tutorial.price
@@ -1771,7 +1648,4 @@ def buy_with_creator_points(request, tutorial_id):
             transaction_type='sale'
         )
 
-    return redirect(
-        'tutorial_detail',
-        tutorial_id=tutorial.id
-    )
+    return redirect('tutorial_detail',tutorial_id=tutorial.id)
