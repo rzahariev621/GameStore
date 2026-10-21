@@ -25,6 +25,16 @@
 
                         <div>
 
+                            <div class="mb-3">
+                                {% include 'core/_profile_picture.html' with avatar_user=profile_user only %}
+                            </div>
+                            {% if profile_form %}
+                                <form method="post" enctype="multipart/form-data" action="{% url 'profile' profile_user.username %}" class="mb-3">
+                                    {% csrf_token %}
+                                    {{ profile_form.as_p }}
+                                    <button type="submit" class="btn btn-outline-light">{% trans "Save profile picture" %}</button>
+                                </form>
+                            {% endif %}
                             <h1 class="display-6 fw-bold mb-2">
                                 {{ profile_user.username }}
                             </h1>

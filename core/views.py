@@ -4,15 +4,15 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.db.models import Count, IntegerField, OuterRef, Q, Subquery
 from django.db.models.functions import Coalesce
 from django.db import transaction
 from django.utils.translation import gettext as _
 
-from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message, UserBlock, TutorialReport, CreatorPointTransaction, CreatorPointAccount
+from .models import Game, Review, WishlistEntry, FriendRequest, VideoTutorial, TutorialPurchase, GameRequirement, Message, UserBlock, TutorialReport, CreatorPointTransaction, CreatorPointAccount, UserProfile
 
-from .forms import VideoTutorialForm, GameForm, GameRequirementForm, AdminTutorialForm
+from .forms import VideoTutorialForm, GameForm, GameRequirementForm, AdminTutorialForm, UserProfileForm
 import stripe
 
 from decimal import Decimal 
@@ -68,7 +68,7 @@ def home(request):
         .order_by('-purchase_count', 'pk')[:4]
     )
     top_publishers = (
-        User.objects.filter(groups__name='Publisher')
+        User.objects.filter(groups__name='Publisher').select_related('profile')
         .annotate(
             approved_tutorial_count=Coalesce(
                 Subquery(publisher_tutorial_counts, output_field=IntegerField()), 0
@@ -114,7 +114,7 @@ def community(request):
     users = User.objects.filter(
         is_active=True,
         is_staff=False
-    ).order_by('username')
+    ).select_related('profile').order_by('username')
 
     recent_reviews = Review.objects.filter(
         status='approved'
@@ -287,6 +287,26 @@ def profile(request, username):
         username=username
     )
 
+    profile_form = None
+    if request.method == 'POST' and (
+        not request.user.is_authenticated or request.user.pk != profile_user.pk
+    ):
+        return HttpResponseForbidden()
+
+    if request.user.is_authenticated and request.user.pk == profile_user.pk:
+        user_profile = UserProfile.objects.filter(user=profile_user).first()
+        profile_form = UserProfileForm(
+            request.POST if request.method == 'POST' else None,
+            request.FILES if request.method == 'POST' else None,
+            instance=user_profile,
+        )
+        if request.method == 'POST' and profile_form.is_valid():
+            if profile_form.cleaned_data.get('profile_picture'):
+                user_profile, _created = UserProfile.objects.get_or_create(user=request.user)
+                user_profile.profile_picture = profile_form.cleaned_data['profile_picture']
+                user_profile.save(update_fields=['profile_picture'])
+            return redirect('profile', username=request.user.username)
+
     reviews = Review.objects.filter(
         user=profile_user,
         status='approved'
@@ -354,6 +374,7 @@ def profile(request, username):
         'core/profile.html',
         {
             'profile_user': profile_user,
+            'profile_form': profile_form,
             'reviews': reviews,
             'published_tutorials': published_tutorials,
             'role': role,
@@ -551,6 +572,18 @@ def tutorial_detail(request, tutorial_id):
     )
 
 #MODERATOR FUNCTIONS
+
+@login_required
+def moderator_tutorial_preview(request, tutorial_id):
+    if not request.user.groups.filter(name='Moderator').exists():
+        return HttpResponseForbidden()
+    tutorial = get_object_or_404(
+        VideoTutorial.objects.select_related('game', 'publisher'),
+        pk=tutorial_id,
+        status='pending',
+    )
+    return render(request, 'core/moderator_tutorial_preview.html', {'tutorial': tutorial})
+
 
 @login_required
 def moderator_dashboard(request):

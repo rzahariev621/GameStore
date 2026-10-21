@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import VideoTutorial, Game, GameRequirement
+from .models import VideoTutorial, Game, GameRequirement, UserProfile
 
 
 class VideoTutorialForm(forms.ModelForm):
@@ -266,4 +266,15 @@ class AdminTutorialForm(forms.ModelForm):
                     'class': 'form-select',
                 }
             ),
+        }
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture']
+        labels = {'profile_picture': _('Profile picture')}
+        widgets = {
+            'profile_picture': forms.FileInput(
+                attrs={'class': 'form-control', 'accept': 'image/*'}
+            )
         }

@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{{ tutorial.title }} - {% trans "Moderator Dashboard" %}{% endblock %}
+{% block content %}
+<main class="container py-5">
+    <a href="{% url 'moderator_dashboard' %}" class="btn btn-outline-light mb-4">{% trans "Back to dashboard" %}</a>
+    <h1>{{ tutorial.title }}</h1>
+    <p>{% trans "Game:" %} {{ tutorial.game.title }}</p>
+    <p>{% trans "Publisher:" %} {{ tutorial.publisher.username }}</p>
+    <p>{{ tutorial.description }}</p>
+    <p>{% trans "Price:" %} {{ tutorial.price }} €</p>
+    {% if tutorial.video %}
+        <video class="w-100 rounded" controls preload="metadata">
+            <source src="{{ tutorial.video.url }}">
+            {% trans "Your browser does not support video playback." %}
+        </video>
+    {% else %}
+        <p>{% trans "Video file is not available." %}</p>
+    {% endif %}
+</main>
+{% endblock %}

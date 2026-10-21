@@ -262,11 +262,8 @@
 
                 <div class="card-body text-center p-4 d-flex flex-column">
 
-                    <div
-                        class="rounded-circle border border-secondary d-flex align-items-center justify-content-center mx-auto mb-3 fw-bold fs-2"
-                        style="width: 80px; height: 80px;"
-                    >
-                        {{ publisher.username|first|upper }}
+                    <div class="mx-auto mb-3">
+                        {% include 'core/_profile_picture.html' with avatar_user=publisher only %}
                     </div>
 
                     <h3 class="h5 fw-bold mb-2">

@@ -32,6 +32,7 @@ from core.views import (
     publisher_dashboard,
     upload_tutorial,
     moderator_dashboard,
+    moderator_tutorial_preview,
     approve_tutorial,
     reject_tutorial,
     approve_review,
@@ -87,6 +88,7 @@ urlpatterns = [
     path('publisher/upload/', upload_tutorial, name='upload_tutorial'),
 
     path('moderator/', moderator_dashboard, name='moderator_dashboard'),
+    path('moderator/tutorial/<int:tutorial_id>/preview/', moderator_tutorial_preview, name='moderator_tutorial_preview'),
     path('moderator/tutorial/<int:tutorial_id>/approve/', approve_tutorial, name='approve_tutorial'),
     path('moderator/tutorial/<int:tutorial_id>/reject/', reject_tutorial, name='reject_tutorial'),
     path('moderator/review/<int:review_id>/approve/', approve_review, name='approve_review'),
