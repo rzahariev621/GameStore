@@ -980,12 +980,11 @@ def update_user_role(request, user_id):
 
         role = request.POST.get('role')
 
-        # Не позволяваме промяна на superuser
+        #не позволяваме промяна на superuser
         if user_to_update.is_superuser:
             return redirect('manage_users')
 
-        # Не позволяваме администраторът да си смени
-        # собствената роля и да загуби достъп
+        #не позволяваме администраторът да си смени собствената роля и да загуби достъп
         if user_to_update == request.user:
             return redirect('manage_users')
 
